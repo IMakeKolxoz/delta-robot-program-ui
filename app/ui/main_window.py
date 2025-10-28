@@ -1,0 +1,565 @@
+"""
+Главное окно приложения
+"""
+from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
+                              QDockWidget, QToolBar, QStatusBar, QFileDialog,
+                              QMessageBox, QSplitter)
+from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtGui import QAction, QIcon
+
+from app.models.app_state import AppState, ConnectionStatus, RunStatus
+from app.controllers.connection_controller import ConnectionController
+from app.controllers.gcode_controller import GCodeController
+from app.controllers.run_controller import RunController
+from app.widgets.gcode_view import GCodeView
+from app.widgets.trajectory_view import TrajectoryView
+from app.widgets.console_view import ConsoleView
+from app.widgets.port_panel import PortPanel
+from app.widgets.jog_panel import JogPanel
+from app.utils.settings import AppSettings
+from app.utils.logger import get_logger
+
+logger = get_logger()
+
+
+class MainWindow(QMainWindow):
+    """Главное окно приложения"""
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Инициализация
+        self.settings = AppSettings()
+        self.app_state = AppState()
+        
+        # Контроллеры
+        self.connection_controller = ConnectionController(self.app_state, self)
+        self.gcode_controller = GCodeController(self.app_state, self)
+        self.run_controller = RunController(
+            self.app_state, 
+            self.connection_controller.get_manager(), 
+            self
+        )
+        
+        # Виджеты
+        self.gcode_view = None
+        self.trajectory_view = None
+        self.console_view = None
+        self.port_panel = None
+        self.jog_panel = None
+        
+        self._init_ui()
+        self._connect_signals()
+        self._load_settings()
+        
+        # Обновляем порты при старте
+        self._on_refresh_ports()
+    
+    def _init_ui(self):
+        """Инициализация UI"""
+        self.setWindowTitle("Delta Robot - G-code Sender v0.1")
+        self.setMinimumSize(1200, 800)
+        
+        # Центральная область - TrajectoryView
+        self.trajectory_view = TrajectoryView()
+        self.setCentralWidget(self.trajectory_view)
+        
+        # Создаем доки
+        self._create_docks()
+        
+        # Создаем меню
+        self._create_menus()
+        
+        # Создаем тулбар
+        self._create_toolbar()
+        
+        # Статус бар
+        self.status_bar = QStatusBar()
+        self.setStatusBar(self.status_bar)
+        self.status_bar.showMessage("Готово")
+        
+        # Инициализируем виджеты контроллеров
+        self._init_controllers()
+    
+    def _create_docks(self):
+        """Создать доки"""
+        
+        # Док слева: G-code редактор (ширина ~35%)
+        self.gcode_view = GCodeView()
+        gcode_dock = QDockWidget("G-code", self)
+        gcode_dock.setWidget(self.gcode_view)
+        gcode_dock.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.RightDockWidgetArea)
+        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, gcode_dock)
+        
+        # Док справа: Управление (сплит с PortPanel и JogPanel)
+        control_widget = QWidget()
+        control_layout = QVBoxLayout(control_widget)
+        control_layout.setContentsMargins(0, 0, 0, 0)
+        control_layout.setSpacing(0)
+        
+        # Сплиттер для разделения панелей
+        splitter = QSplitter(Qt.Orientation.Vertical)
+        
+        self.port_panel = PortPanel()
+        self.jog_panel = JogPanel()
+        
+        splitter.addWidget(self.port_panel)
+        splitter.addWidget(self.jog_panel)
+        splitter.setStretchFactor(0, 1)  # PortPanel растягивается
+        splitter.setStretchFactor(1, 2)  # JogPanel растягивается больше
+        
+        control_layout.addWidget(splitter)
+        
+        control_dock = QDockWidget("Управление", self)
+        control_dock.setWidget(control_widget)
+        control_dock.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.RightDockWidgetArea)
+        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, control_dock)
+        
+        # Док снизу: Консоль (высота ~25%)
+        self.console_view = ConsoleView()
+        console_dock = QDockWidget("Консоль", self)
+        console_dock.setWidget(self.console_view)
+        console_dock.setAllowedAreas(Qt.DockWidgetArea.TopDockWidgetArea | Qt.DockWidgetArea.BottomDockWidgetArea)
+        self.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, console_dock)
+        
+        # Устанавливаем пропорции
+        self.resizeDocks([gcode_dock, control_dock], [350, 300], Qt.Orientation.Horizontal)
+        self.resizeDocks([console_dock], [200], Qt.Orientation.Vertical)
+    
+    def _create_menus(self):
+        """Создать меню"""
+        
+        # Файл
+        file_menu = self.menuBar().addMenu("Файл")
+        
+        open_action = QAction("Открыть G-code…", self)
+        open_action.setShortcut("Ctrl+O")
+        open_action.triggered.connect(self._on_open_file)
+        file_menu.addAction(open_action)
+        
+        file_menu.addSeparator()
+        
+        exit_action = QAction("Выход", self)
+        exit_action.setShortcut("Alt+F4")
+        exit_action.triggered.connect(self.close)
+        file_menu.addAction(exit_action)
+        
+        # Подключение
+        connection_menu = self.menuBar().addMenu("Подключение")
+        
+        refresh_ports_action = QAction("Обновить порты", self)
+        refresh_ports_action.setShortcut("F5")
+        refresh_ports_action.triggered.connect(self._on_refresh_ports)
+        connection_menu.addAction(refresh_ports_action)
+        
+        connection_menu.addSeparator()
+        
+        self.connect_action = QAction("Подключить", self)
+        self.connect_action.setShortcut("Ctrl+C")
+        self.connect_action.triggered.connect(self._on_connect)
+        connection_menu.addAction(self.connect_action)
+        
+        self.disconnect_action = QAction("Отключить", self)
+        self.disconnect_action.setShortcut("Ctrl+D")
+        self.disconnect_action.setEnabled(False)
+        self.disconnect_action.triggered.connect(self._on_disconnect)
+        connection_menu.addAction(self.disconnect_action)
+        
+        # Пуск
+        run_menu = self.menuBar().addMenu("Пуск")
+        
+        self.start_action = QAction("Старт", self)
+        self.start_action.setShortcut("F9")
+        self.start_action.setEnabled(False)
+        self.start_action.triggered.connect(self._on_start)
+        run_menu.addAction(self.start_action)
+        
+        self.pause_action = QAction("Пауза/Продолжить", self)
+        self.pause_action.setShortcut("F8")
+        self.pause_action.setEnabled(False)
+        self.pause_action.triggered.connect(self._on_pause)
+        run_menu.addAction(self.pause_action)
+        
+        run_menu.addSeparator()
+        
+        self.stop_action = QAction("Стоп", self)
+        self.stop_action.setShortcut("F10")
+        self.stop_action.setEnabled(False)
+        self.stop_action.triggered.connect(self._on_stop)
+        run_menu.addAction(self.stop_action)
+        
+        # Вид
+        view_menu = self.menuBar().addMenu("Вид")
+        
+        theme_action = QAction("Светлая тема", self)
+        theme_action.setCheckable(True)
+        theme_action.setChecked(True)
+        theme_action.triggered.connect(self._on_toggle_theme)
+        view_menu.addAction(theme_action)
+        
+        reset_layout_action = QAction("Сбросить компоновку", self)
+        reset_layout_action.triggered.connect(self._on_reset_layout)
+        view_menu.addAction(reset_layout_action)
+    
+    def _create_toolbar(self):
+        """Создать тулбар"""
+        
+        self.toolbar = QToolBar("Основная панель", self)
+        self.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.toolbar)
+        
+        # Добавляем основные действия
+        open_action = QAction("Открыть", self)
+        open_action.setShortcut("Ctrl+O")
+        open_action.triggered.connect(self._on_open_file)
+        self.toolbar.addAction(open_action)
+        
+        self.toolbar.addSeparator()
+        
+        self.toolbar.connect_action = QAction("Подключить", self)
+        self.toolbar.connect_action.triggered.connect(self._on_connect)
+        self.toolbar.addAction(self.toolbar.connect_action)
+        
+        self.toolbar.disconnect_action = QAction("Отключить", self)
+        self.toolbar.disconnect_action.setEnabled(False)
+        self.toolbar.disconnect_action.triggered.connect(self._on_disconnect)
+        self.toolbar.addAction(self.toolbar.disconnect_action)
+        
+        self.toolbar.addSeparator()
+        
+        self.toolbar.start_action = QAction("Старт", self)
+        self.toolbar.start_action.setEnabled(False)
+        self.toolbar.start_action.triggered.connect(self._on_start)
+        self.toolbar.addAction(self.toolbar.start_action)
+        
+        self.toolbar.pause_action = QAction("Пауза", self)
+        self.toolbar.pause_action.setEnabled(False)
+        self.toolbar.pause_action.triggered.connect(self._on_pause)
+        self.toolbar.addAction(self.toolbar.pause_action)
+        
+        self.toolbar.stop_action = QAction("Стоп", self)
+        self.toolbar.stop_action.setEnabled(False)
+        self.toolbar.stop_action.triggered.connect(self._on_stop)
+        self.toolbar.addAction(self.toolbar.stop_action)
+    
+    def _init_controllers(self):
+        """Инициализировать контроллеры"""
+        # Контроллеры уже созданы в __init__
+        # Здесь можно выполнить дополнительную инициализацию
+        pass
+    
+    def _connect_signals(self):
+        """Подключить все сигналы между контроллерами и виджетами"""
+        logger.info("Подключение сигналов...")
+        
+        # === PortPanel -> ConnectionController ===
+        self.port_panel.connect_clicked.connect(self._on_connect)
+        self.port_panel.disconnect_clicked.connect(self._on_disconnect)
+        self.port_panel.refresh_clicked.connect(self._on_refresh_ports)
+        
+        # === JogPanel -> RunController ===
+        self.jog_panel.jog_command.connect(self._on_jog_command)
+        
+        # === ConsoleView -> RunController ===
+        self.console_view.command_to_send.connect(self._on_console_command)
+        
+        # === ConnectionController -> PortPanel ===
+        self.connection_controller.ports_changed.connect(self._on_ports_changed)
+        self.connection_controller.connected.connect(self._on_connected)
+        self.connection_controller.disconnected.connect(self._on_disconnected)
+        self.connection_controller.error_occurred.connect(self._on_connection_error)
+        
+        # === GCodeController -> Views ===
+        self.gcode_controller.gcode_loaded.connect(self._on_gcode_loaded)
+        self.gcode_controller.trajectory_updated.connect(self._on_trajectory_updated)
+        
+        # === SerialManager -> ConsoleView ===
+        manager = self.connection_controller.get_manager()
+        manager.line_sent.connect(self.console_view.add_sent_command)
+        manager.line_received.connect(self._on_line_received)
+        manager.error.connect(self.console_view.add_error)
+        
+        # === RunController -> Views ===
+        self.run_controller.started.connect(self._on_run_started)
+        self.run_controller.paused.connect(self._on_run_paused)
+        self.run_controller.resumed.connect(self._on_run_resumed)
+        self.run_controller.stopped.connect(self._on_run_stopped)
+        self.run_controller.completed.connect(self._on_run_completed)
+        self.run_controller.progress.connect(self._on_run_progress)
+        
+        # === AppState -> Views ===
+        self.app_state.connection_status_changed.connect(self._on_connection_status_changed)
+        self.app_state.run_status_changed.connect(self._on_run_status_changed)
+        self.app_state.current_line_changed.connect(self._on_current_line_changed)
+        
+        logger.info("Сигналы подключены")
+    
+    # === Обработчики действий от виджетов ===
+    
+    def _on_refresh_ports(self):
+        """Обновить список портов"""
+        logger.info("Обновление портов...")
+        self.console_view.add_info("Обновление списка портов...")
+        self.connection_controller.refresh_ports()
+    
+    def _on_connect(self):
+        """Подключиться к выбранному порту"""
+        port = self.port_panel.get_selected_port()
+        if not port:
+            QMessageBox.warning(self, "Внимание", "Выберите COM-порт")
+            return
+        
+        logger.info(f"Подключение к {port}...")
+        self.console_view.add_info(f"Подключение к {port}...")
+        self.settings.save_last_port(port)
+        self.connection_controller.connect_to_port(port)
+    
+    def _on_disconnect(self):
+        """Отключиться от порта"""
+        logger.info("Отключение...")
+        self.console_view.add_info("Отключение...")
+        self.connection_controller.disconnect_from_port()
+    
+    def _on_open_file(self):
+        """Открыть файл G-code и загрузить его"""
+        filepath, _ = QFileDialog.getOpenFileName(
+            self,
+            "Открыть G-code файл",
+            "",
+            "G-code файлы (*.gcode *.nc);;Все файлы (*.*)"
+        )
+        
+        if filepath:
+            logger.info(f"Загрузка файла: {filepath}")
+            self.console_view.add_info(f"Загрузка файла: {filepath}")
+            
+            if self.gcode_controller.load_gcode_from_file(filepath):
+                self.app_state.set_gcode_file_path(filepath)
+                self.start_action.setEnabled(True)
+                self.toolbar.start_action.setEnabled(True)
+            else:
+                QMessageBox.critical(self, "Ошибка", "Не удалось загрузить G-code файл")
+    
+    def _on_start(self):
+        """Начать выполнение G-code"""
+        logger.info("Старт выполнения...")
+        self.console_view.add_info("Начато выполнение G-code")
+        self.run_controller.start()
+    
+    def _on_pause(self):
+        """Пауза/продолжить выполнение"""
+        if self.app_state.run_status == RunStatus.RUNNING:
+            logger.info("Пауза...")
+            self.console_view.add_info("Пауза")
+            self.run_controller.pause()
+        elif self.app_state.run_status == RunStatus.PAUSED:
+            logger.info("Продолжить...")
+            self.console_view.add_info("Продолжить")
+            self.run_controller.resume()
+    
+    def _on_stop(self):
+        """Остановить выполнение"""
+        logger.info("Стоп выполнения...")
+        self.console_view.add_info("Остановлено выполнение")
+        self.run_controller.stop()
+    
+    def _on_jog_command(self, command: str):
+        """Обработка jog команды"""
+        logger.info(f"Jog команда: {command}")
+        self.console_view.add_sent_command(command)
+        self.run_controller.send_immediate(command, wait_ok=True)
+    
+    def _on_console_command(self, command: str):
+        """Отправить команду из консоли"""
+        logger.info(f"Консольная команда: {command}")
+        self.console_view.add_sent_command(command)
+        self.run_controller.send_immediate(command, wait_ok=True)
+    
+    # === Обработчики сигналов от контроллеров ===
+    
+    def _on_line_received(self, line: str):
+        """Обработка полученной строки"""
+        self.console_view.add_received_response(line)
+    
+    def _on_ports_changed(self, ports: list):
+        """Обновление списка портов"""
+        port_strings = [str(p) for p in ports]
+        self.port_panel.set_ports(port_strings)
+        
+        # Автовыбор последнего порта
+        last_port = self.settings.load_last_port()
+        if last_port:
+            for i in range(self.port_panel.port_combo.count()):
+                if last_port in self.port_panel.port_combo.itemText(i):
+                    self.port_panel.port_combo.setCurrentIndex(i)
+                    break
+        
+        self.console_view.add_info(f"Найдено портов: {len(ports)}")
+    
+    def _on_connected(self, port_name: str):
+        """Подключено"""
+        self.port_panel.set_connection_state(True)
+        self.connect_action.setEnabled(False)
+        self.disconnect_action.setEnabled(True)
+        self.toolbar.connect_action.setEnabled(False)
+        self.toolbar.disconnect_action.setEnabled(True)
+        self.jog_panel.set_enabled(True)
+        self.status_bar.showMessage(f"Подключено: {port_name}")
+        self.console_view.add_info(f"Подключено к {port_name}")
+    
+    def _on_disconnected(self):
+        """Отключено"""
+        self.port_panel.set_connection_state(False)
+        self.connect_action.setEnabled(True)
+        self.disconnect_action.setEnabled(False)
+        self.toolbar.connect_action.setEnabled(True)
+        self.toolbar.disconnect_action.setEnabled(False)
+        self.jog_panel.set_enabled(False)
+        self.status_bar.showMessage("Отключено")
+        self.console_view.add_info("Отключено")
+    
+    def _on_connection_error(self, error: str):
+        """Ошибка подключения"""
+        self.console_view.add_error(error)
+        QMessageBox.warning(self, "Ошибка", f"Ошибка подключения:\n{error}")
+    
+    def _on_connection_status_changed(self, status: ConnectionStatus):
+        """Изменение статуса подключения"""
+        self.status_bar.showMessage(f"Статус: {status.value}")
+    
+    def _on_gcode_loaded(self, lines: list):
+        """G-code загружен"""
+        self.gcode_view.set_text('\n'.join(lines))
+        self.console_view.add_info(f"G-code загружен: {len(lines)} строк")
+    
+    def _on_trajectory_updated(self, points: list):
+        """Обновление траектории"""
+        self.app_state.set_trajectory_points(points)
+        self.trajectory_view.set_path(points)
+        self.console_view.add_info(f"Траектория построена: {len(points)} точек")
+    
+    def _on_run_started(self):
+        """Начало выполнения"""
+        self.start_action.setEnabled(False)
+        self.pause_action.setEnabled(True)
+        self.stop_action.setEnabled(True)
+        self.toolbar.start_action.setEnabled(False)
+        self.toolbar.pause_action.setEnabled(True)
+        self.toolbar.stop_action.setEnabled(True)
+        self.pause_action.setText("Пауза")
+        self.status_bar.showMessage("Выполнение...")
+    
+    def _on_run_paused(self):
+        """Пауза выполнения"""
+        self.pause_action.setText("Продолжить")
+        self.status_bar.showMessage("Пауза")
+    
+    def _on_run_resumed(self):
+        """Продолжение выполнения"""
+        self.pause_action.setText("Пауза")
+        self.status_bar.showMessage("Выполнение...")
+    
+    def _on_run_stopped(self):
+        """Остановка выполнения"""
+        self.start_action.setEnabled(True)
+        self.pause_action.setEnabled(False)
+        self.stop_action.setEnabled(False)
+        self.toolbar.start_action.setEnabled(True)
+        self.toolbar.pause_action.setEnabled(False)
+        self.toolbar.stop_action.setEnabled(False)
+        self.pause_action.setText("Пауза")
+        self.status_bar.showMessage("Остановлено")
+    
+    def _on_run_completed(self):
+        """Завершение выполнения"""
+        self.start_action.setEnabled(True)
+        self.pause_action.setEnabled(False)
+        self.stop_action.setEnabled(False)
+        self.toolbar.start_action.setEnabled(True)
+        self.toolbar.pause_action.setEnabled(False)
+        self.toolbar.stop_action.setEnabled(False)
+        self.status_bar.showMessage("Завершено")
+        self.console_view.add_info("G-code выполнен полностью")
+        QMessageBox.information(self, "Готово", "Выполнение G-code завершено")
+    
+    def _on_run_progress(self, current: int, total: int):
+        """Прогресс выполнения"""
+        percent = (current / total * 100) if total > 0 else 0
+        self.status_bar.showMessage(f"Выполнение: {current}/{total} ({percent:.1f}%)")
+    
+    def _on_run_status_changed(self, status: RunStatus):
+        """Изменение статуса выполнения"""
+        self.start_action.setEnabled(status == RunStatus.IDLE)
+        self.pause_action.setEnabled(status in [RunStatus.RUNNING, RunStatus.PAUSED])
+        self.stop_action.setEnabled(status in [RunStatus.RUNNING, RunStatus.PAUSED])
+    
+    def _on_current_line_changed(self, line_index: int):
+        """Изменение текущей строки"""
+        # TODO: подсветка строки в GCodeView
+        pass
+    
+    def _on_toggle_theme(self, checked: bool):
+        """Переключить тему"""
+        logger.info(f"Переключение темы: {'Светлая' if checked else 'Тёмная'}")
+        self.console_view.add_info(f"Тема: {'Светлая' if checked else 'Тёмная'}")
+        # TODO: реализовать переключение тем
+    
+    def _on_reset_layout(self):
+        """Сбросить компоновку"""
+        logger.info("Сброс компоновки окон")
+        self.console_view.add_info("Компоновка окна сброшена")
+        # TODO: восстановить дефолтную компоновку доков
+    
+    def _load_settings(self):
+        """Загрузить настройки"""
+        logger.info("Загрузка настроек...")
+        
+        # Геометрия окна
+        geometry = self.settings.load_geometry()
+        if geometry:
+            self.restoreGeometry(geometry)
+            logger.debug("Геометрия восстановлена")
+        
+        # Состояние окна (доки)
+        state = self.settings.load_state()
+        if state:
+            self.restoreState(state)
+            logger.debug("Состояние доков восстановлено")
+        
+        # Jog параметры
+        jog_step = self.settings.load_jog_step()
+        self.app_state.set_jog_step(jog_step)
+        self.jog_panel.set_step(jog_step)
+        
+        jog_feedrate = self.settings.load_jog_feedrate()
+        self.app_state.set_jog_feedrate(jog_feedrate)
+        
+        logger.info("Настройки загружены")
+    
+    def closeEvent(self, event):
+        """Обработка закрытия окна"""
+        logger.info("Закрытие приложения...")
+        
+        # Останавливаем выполнение если запущено
+        if self.app_state.run_status != RunStatus.IDLE:
+            self.run_controller.stop()
+        
+        # Отключаемся если подключено
+        if self.connection_controller.is_connected:
+            self.connection_controller.disconnect_from_port()
+        
+        # Сохраняем настройки
+        geometry = self.saveGeometry()
+        state = self.saveState()
+        
+        self.settings.save_geometry(geometry)
+        self.settings.save_state(state)
+        
+        # Сохраняем jog параметры
+        self.settings.save_jog_step(self.app_state.jog_step)
+        self.settings.save_jog_feedrate(self.app_state.jog_feedrate)
+        
+        self.settings.sync()
+        
+        logger.info("Окно закрыто, настройки сохранены")
+        event.accept()
+
