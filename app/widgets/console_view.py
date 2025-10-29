@@ -2,7 +2,7 @@
 Виджет консоли для отображения обмена данными и отправки команд
 """
 from PyQt6.QtWidgets import (QPlainTextEdit, QVBoxLayout, QHBoxLayout, 
-                              QWidget, QLabel, QPushButton, QLineEdit)
+                              QWidget, QLabel, QPushButton, QLineEdit, QSizePolicy)
 from PyQt6.QtCore import Qt, pyqtSignal
 from datetime import datetime
 
@@ -27,6 +27,8 @@ class ConsoleView(QWidget):
         """Инициализация UI"""
         layout = QVBoxLayout()
         layout.setContentsMargins(5, 5, 5, 5)
+        # Политика размера контейнера консоли
+        self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         
         # Заголовок с кнопкой очистки
         header_layout = QHBoxLayout()

@@ -349,3 +349,9 @@ GCodeView QWidget[objectName="lineNumberArea"] {
     font-weight: 600;
 }
 
+/* --- Bottom spacer dock (visual cleanup) --- */
+#BottomSpacerDock {
+    border: none;
+    background: transparent;
+}
+

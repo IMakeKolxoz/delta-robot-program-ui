@@ -4,7 +4,7 @@
 from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                               QDockWidget, QToolBar, QStatusBar, QFileDialog,
                               QMessageBox, QSplitter, QSizePolicy)
-from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtCore import Qt, pyqtSignal, QTimer
 from PyQt6.QtGui import QAction, QIcon
 
 from app.models.app_state import AppState, ConnectionStatus, RunStatus
@@ -79,6 +79,10 @@ class MainWindow(QMainWindow):
         
         # Включаем компактный режим для консоли
         self.console_view.set_compact_mode(True, max_input_width=600)
+        
+        # Включаем вложенные доки и настраиваем разделение нижней области
+        self.setDockNestingEnabled(True)
+        self._setup_bottom_split()
     
     def _create_docks(self):
         """Создать доки"""
@@ -116,16 +120,44 @@ class MainWindow(QMainWindow):
         
         # Док снизу: Консоль (компактный режим)
         self.console_view = ConsoleView()
-        console_dock = QDockWidget("Консоль", self)
-        console_dock.setWidget(self.console_view)
-        console_dock.setAllowedAreas(Qt.DockWidgetArea.TopDockWidgetArea | Qt.DockWidgetArea.BottomDockWidgetArea)
-        console_dock.setMinimumHeight(160)
-        console_dock.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        self.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, console_dock)
+        self.console_dock = QDockWidget("Консоль", self)
+        self.console_dock.setWidget(self.console_view)
+        self.console_dock.setAllowedAreas(Qt.DockWidgetArea.TopDockWidgetArea | Qt.DockWidgetArea.BottomDockWidgetArea)
+        self.console_dock.setMinimumHeight(160)
+        self.console_dock.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        self.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, self.console_dock)
         
         # Устанавливаем пропорции
         self.resizeDocks([gcode_dock, control_dock], [350, 300], Qt.Orientation.Horizontal)
-        self.resizeDocks([console_dock], [200], Qt.Orientation.Vertical)
+        self.resizeDocks([self.console_dock], [200], Qt.Orientation.Vertical)
+    
+    def _setup_bottom_split(self):
+        """Создать пустой правый док и разделить нижнюю область пополам."""
+        # Пустой правый док-разделитель
+        self.bottom_spacer = QDockWidget("", self)
+        self.bottom_spacer.setObjectName("BottomSpacerDock")
+        self.bottom_spacer.setFeatures(QDockWidget.DockWidgetFeature.NoDockWidgetFeatures)
+        self.bottom_spacer.setTitleBarWidget(QWidget(self.bottom_spacer))
+        self.bottom_spacer.setAllowedAreas(Qt.DockWidgetArea.BottomDockWidgetArea)
+        self.bottom_spacer.setWidget(QWidget())
+        self.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, self.bottom_spacer)
+        
+        # Делим нижнюю область горизонтально: консоль слева, спейсер справа
+        if hasattr(self, 'console_dock') and self.console_dock is not None:
+            self.splitDockWidget(self.console_dock, self.bottom_spacer, Qt.Orientation.Horizontal)
+        
+        # Устанавливаем стартовые пропорции после показа окна
+        QTimer.singleShot(0, self._resize_bottom_area)
+    
+    def _resize_bottom_area(self):
+        if getattr(self, 'console_dock', None) and getattr(self, 'bottom_spacer', None):
+            self.resizeDocks([self.console_dock, self.bottom_spacer],
+                             [int(self.width() * 0.5), int(self.width() * 0.5)],
+                             Qt.Orientation.Horizontal)
+    
+    def showEvent(self, e):
+        super().showEvent(e)
+        QTimer.singleShot(0, self._resize_bottom_area)
     
     def _create_menus(self):
         """Создать меню"""
