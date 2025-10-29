@@ -246,11 +246,57 @@ class SerialManager(QObject):
         
         # Состояние
         self._connected_port: Optional[str] = None
+        self._selected_port: Optional[str] = None  # Выбранный пользователем порт
     
     @property
     def is_connected(self) -> bool:
         """Проверить подключение"""
         return self._connected_port is not None
+    
+    def set_selected_port(self, device: str) -> None:
+        """
+        Установить выбранный порт (без открытия)
+        
+        Args:
+            device: Имя порта (например, "COM3")
+        """
+        self._selected_port = device
+        logger.info(f"Выбран порт: {device}")
+    
+    def ensure_open(self, baud: int = 115200) -> bool:
+        """
+        Убедиться, что порт открыт (ленивое открытие)
+        
+        Args:
+            baud: Скорость подключения
+            
+        Returns:
+            True если порт открыт или успешно открыт, False при ошибке
+        """
+        if self._connected_port:
+            return True  # Уже открыт
+        
+        if not self._selected_port:
+            self.error.emit("Порт не выбран")
+            return False
+        
+        try:
+            logger.info(f"Ленивое открытие порта {self._selected_port}...")
+            self.worker._connect_requested.emit(self._selected_port, baud)
+            # Ждём результат подключения через сигналы
+            return True
+        except Exception as e:
+            logger.error(f"Ошибка ленивого открытия: {e}")
+            self.error.emit(str(e))
+            return False
+    
+    def force_close(self) -> None:
+        """Принудительно закрыть порт"""
+        if self._connected_port:
+            logger.info(f"Принудительное закрытие порта {self._connected_port}")
+            self.worker._disconnect_requested.emit()
+            self._connected_port = None
+            self.disconnected.emit()
     
     def list_ports(self) -> List[PortInfo]:
         """
@@ -271,7 +317,7 @@ class SerialManager(QObject):
     
     def connect(self, port_name: str, baud: int = 115200):
         """
-        Подключиться к COM-порту
+        Подключиться к COM-порту (legacy method)
         
         Args:
             port_name: Имя порта (например, "COM3")
@@ -282,6 +328,7 @@ class SerialManager(QObject):
             return
         
         logger.info(f"Подключение к {port_name}...")
+        self._selected_port = port_name
         self.worker._connect_requested.emit(port_name, baud)
     
     def disconnect(self):
@@ -314,8 +361,7 @@ class SerialManager(QObject):
     
     def start_queue(self):
         """Начать отправку очереди"""
-        if not self._connected_port:
-            self.error.emit("Не подключено")
+        if not self.ensure_open():
             return
         
         if not self.worker.queue:
@@ -345,8 +391,7 @@ class SerialManager(QObject):
             line: Строка G-code
             wait_ok: Ждать ответ ok
         """
-        if not self._connected_port:
-            self.error.emit("Не подключено")
+        if not self.ensure_open():
             return
         
         self.worker._send_requested.emit(line, wait_ok)

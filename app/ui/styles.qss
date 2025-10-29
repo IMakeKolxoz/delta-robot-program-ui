@@ -47,12 +47,14 @@ QPushButton {
     padding: 6px 12px;
     min-height: 28px;
     font-size: 10pt;
-    color: #2c3e50;
+    color: #111;
+    font-weight: 600;
 }
 
 QPushButton:hover {
     background-color: #d5dbdb;
     border-color: #95a5a6;
+    color: #000;
 }
 
 QPushButton:pressed {
@@ -68,11 +70,12 @@ QPushButton:disabled {
 
 /* --- Поля ввода --- */
 QLineEdit, QPlainTextEdit, QTextEdit {
-    background-color: white;
+    background-color: #fafafa;
     border: 1px solid #d5dbdb;
     border-radius: 4px;
     padding: 6px 10px;
     font-size: 10pt;
+    color: #111;
     selection-background-color: #3498db;
     selection-color: white;
 }
@@ -171,10 +174,13 @@ QToolButton {
     border: none;
     padding: 5px;
     border-radius: 3px;
+    color: #111;
+    font-weight: 600;
 }
 
 QToolButton:hover {
     background-color: #d5dbdb;
+    color: #000;
 }
 
 QToolButton:pressed {
@@ -192,7 +198,7 @@ QMenuBar {
 QMenuBar::item {
     padding: 6px 12px;
     font-size: 10pt;
-    color: #2c3e50;
+    color: #111;
 }
 
 QMenuBar::item:selected {
@@ -209,7 +215,7 @@ QMenu {
 QMenu::item {
     padding: 6px 35px 6px 25px;
     font-size: 10pt;
-    color: #2c3e50;
+    color: #111;
 }
 
 QMenu::item:selected {
@@ -288,5 +294,58 @@ QScrollBar::handle:horizontal:hover {
 
 QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
     width: 0px;
+}
+
+/* --- G-code Editor --- */
+GCodeView {
+    background-color: #fafafa;
+    color: #111;
+    font-family: "Consolas", "Monaco", "Courier New", monospace;
+    font-size: 9pt;
+    line-height: 1.2;
+}
+
+/* Line numbers styling (if implemented) */
+GCodeView QWidget[objectName="lineNumberArea"] {
+    background-color: #ecf0f1;
+    color: #7f8c8d;
+    border-right: 1px solid #bdc3c7;
+    font-family: "Consolas", "Monaco", "Courier New", monospace;
+    font-size: 9pt;
+}
+
+/* --- Console Input Row --- */
+#ConsoleInputRow QLineEdit {
+    padding: 6px 8px;
+}
+
+#ConsoleInputRow QPushButton {
+    padding: 6px 10px;
+}
+
+/* --- Jog Panel: Dark Labels and Inputs --- */
+#JogPanel QLabel,
+#JogPanel QLineEdit,
+#JogPanel QSpinBox,
+#JogPanel QDoubleSpinBox {
+    color: #111;
+}
+
+/* Darker on hover for better visibility */
+#JogPanel QLineEdit:hover,
+#JogPanel QSpinBox:hover,
+#JogPanel QDoubleSpinBox:hover {
+    color: #000;
+}
+
+/* Placeholder text styling */
+#JogPanel QLineEdit::placeholder {
+    color: #444;
+}
+
+/* Specific targeting for step and feedrate labels */
+#JogStepLabel, #JogFeedrateLabel {
+    color: #111;
+    font-weight: 600;
 }
 

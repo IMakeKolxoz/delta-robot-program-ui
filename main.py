@@ -1,6 +1,3 @@
-"""
-Точка входа в приложение Delta Robot - G-code Sender
-"""
 import sys
 import signal
 from pathlib import Path

@@ -4,6 +4,7 @@
 from PyQt6.QtCore import QObject, pyqtSignal
 from app.models.app_state import AppState, RunStatus
 from app.services.serial_manager import SerialManager
+from app.services.gcode_parser import GCodeParser
 from app.utils.logger import get_logger
 
 logger = get_logger()
@@ -35,6 +36,7 @@ class RunController(QObject):
         super().__init__(parent)
         self.app_state = app_state
         self.manager = serial_manager
+        self.parser = GCodeParser()
         
         # Подключаем сигналы
         self.manager.line_sent.connect(self._on_line_sent)
@@ -115,12 +117,71 @@ class RunController(QObject):
             line: Строка G-code
             wait_ok: Ждать ответ ok
         """
-        if not self.manager.is_connected:
-            logger.error("Не подключено")
+        # Проверяем, выбран ли порт
+        if not self.app_state.active_port:
+            logger.error("Порт не выбран")
+            return
+        
+        # Проверяем подключение через ленивое открытие
+        if not self.manager.ensure_open():
+            logger.error("Не удалось открыть порт")
             return
         
         logger.info(f"Немедленная отправка: {line}")
         self.manager.send_immediate(line, wait_ok)
+    
+    def start_from_editor(self, gcode_view):
+        """
+        Начать выполнение G-code из редактора
+        
+        Args:
+            gcode_view: GCodeView виджет с текстом
+        """
+        if self.app_state.run_status not in [RunStatus.IDLE, RunStatus.COMPLETED]:
+            logger.warning("Выполнение уже запущено")
+            return
+        
+        # Проверяем, выбран ли порт
+        if not self.app_state.active_port:
+            logger.error("Порт не выбран")
+            return
+        
+        # Проверяем подключение через ленивое открытие
+        if not self.manager.ensure_open():
+            logger.error("Не удалось открыть порт")
+            return
+        
+        # Получаем строки из редактора
+        raw_lines = gcode_view.get_lines()
+        if not raw_lines:
+            logger.error("G-code редактор пуст")
+            return
+        
+        # Очищаем строки через парсер
+        clean_lines = []
+        for line in raw_lines:
+            cleaned = self.parser.clean_line(line)
+            if cleaned:  # Пропускаем пустые строки
+                clean_lines.append(cleaned)
+        
+        if not clean_lines:
+            logger.error("Нет команд для отправки после очистки")
+            return
+        
+        # Очищаем очередь и добавляем новые команды
+        self.manager.stop()  # Очищает очередь
+        self.manager.enqueue_batch(clean_lines)
+        
+        # Сбрасываем прогресс
+        self.current_line_index = 0
+        
+        # Запускаем очередь
+        self.manager.start_queue()
+        
+        # Обновляем статус
+        self.app_state.set_run_status(RunStatus.RUNNING)
+        self.started.emit()
+        logger.info(f"Старт построчной отправки из редактора: {len(clean_lines)} команд")
     
     def _on_line_sent(self, line: str):
         """Обработка отправки строки"""

@@ -22,6 +22,17 @@ class GCodeView(QPlainTextEdit):
         # Настройка моноширинного шрифта для номера строк
         self.setLineWrapMode(QPlainTextEdit.LineWrapMode.NoWrap)
         self.setTabStopDistance(40)
+        
+        # Принудительно устанавливаем стили для чёрного текста
+        self.setStyleSheet("""
+            GCodeView {
+                background-color: #fafafa;
+                color: #111;
+                font-family: "Consolas", "Monaco", "Courier New", monospace;
+                font-size: 9pt;
+                line-height: 1.2;
+            }
+        """)
     
     def set_text(self, text: str) -> None:
         """
@@ -31,6 +42,16 @@ class GCodeView(QPlainTextEdit):
             text: Полный текст для отображения
         """
         self.setPlainText(text)
+        # Убеждаемся, что текст отображается чёрным цветом
+        self.setStyleSheet("""
+            GCodeView {
+                background-color: #fafafa;
+                color: #111;
+                font-family: "Consolas", "Monaco", "Courier New", monospace;
+                font-size: 9pt;
+                line-height: 1.2;
+            }
+        """)
     
     def get_lines(self) -> List[str]:
         """
@@ -69,4 +90,70 @@ class GCodeView(QPlainTextEdit):
             Содержимое редактора как строка
         """
         return self.toPlainText()
+    
+    def highlight_line(self, line_index: int):
+        """
+        Подсветить строку по индексу
+        
+        Args:
+            line_index: Индекс строки (0-based)
+        """
+        if line_index < 0:
+            return
+        
+        # Получаем текст и разбиваем на строки
+        lines = self.toPlainText().split('\n')
+        if line_index >= len(lines):
+            return
+        
+        # Вычисляем позицию начала строки
+        char_position = 0
+        for i in range(line_index):
+            char_position += len(lines[i]) + 1  # +1 для символа новой строки
+        
+        # Устанавливаем курсор в начало строки
+        cursor = self.textCursor()
+        cursor.setPosition(char_position)
+        cursor.movePosition(cursor.MoveOperation.StartOfLine)
+        cursor.movePosition(cursor.MoveOperation.EndOfLine, cursor.MoveMode.KeepAnchor)
+        
+        # Выделяем строку
+        self.setTextCursor(cursor)
+        self.ensureCursorVisible()
+        
+        # Применяем стиль подсветки
+        self.setExtraSelections([self._create_line_selection(line_index)])
+    
+    def _create_line_selection(self, line_index: int):
+        """Создать выделение для подсветки строки"""
+        from PyQt6.QtWidgets import QTextEdit
+        from PyQt6.QtCore import Qt
+        from PyQt6.QtGui import QTextCharFormat, QColor
+        
+        selection = QTextEdit.ExtraSelection()
+        
+        # Стиль подсветки
+        format = QTextCharFormat()
+        format.setBackground(QColor(255, 255, 0, 50))  # Светло-жёлтый фон
+        format.setProperty(QTextCharFormat.Property.BackgroundColor, QColor(255, 255, 0, 50))
+        
+        selection.format = format
+        
+        # Получаем позицию строки
+        lines = self.toPlainText().split('\n')
+        if line_index >= len(lines):
+            return selection
+        
+        char_position = 0
+        for i in range(line_index):
+            char_position += len(lines[i]) + 1
+        
+        # Устанавливаем выделение
+        cursor = self.textCursor()
+        cursor.setPosition(char_position)
+        cursor.movePosition(cursor.MoveOperation.StartOfLine)
+        cursor.movePosition(cursor.MoveOperation.EndOfLine, cursor.MoveMode.KeepAnchor)
+        
+        selection.cursor = cursor
+        return selection
 

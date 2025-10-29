@@ -3,7 +3,7 @@
 """
 from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                               QDockWidget, QToolBar, QStatusBar, QFileDialog,
-                              QMessageBox, QSplitter)
+                              QMessageBox, QSplitter, QSizePolicy)
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QAction, QIcon
 
@@ -32,14 +32,10 @@ class MainWindow(QMainWindow):
         self.settings = AppSettings()
         self.app_state = AppState()
         
-        # Контроллеры
+        # Контроллеры (часть создадим после доков, чтобы иметь PortPanel)
         self.connection_controller = ConnectionController(self.app_state, self)
-        self.gcode_controller = GCodeController(self.app_state, self)
-        self.run_controller = RunController(
-            self.app_state, 
-            self.connection_controller.get_manager(), 
-            self
-        )
+        self.gcode_controller = None
+        self.run_controller = None
         
         # Виджеты
         self.gcode_view = None
@@ -80,6 +76,9 @@ class MainWindow(QMainWindow):
         
         # Инициализируем виджеты контроллеров
         self._init_controllers()
+        
+        # Включаем компактный режим для консоли
+        self.console_view.set_compact_mode(True, max_input_width=600)
     
     def _create_docks(self):
         """Создать доки"""
@@ -115,11 +114,13 @@ class MainWindow(QMainWindow):
         control_dock.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.RightDockWidgetArea)
         self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, control_dock)
         
-        # Док снизу: Консоль (высота ~25%)
+        # Док снизу: Консоль (компактный режим)
         self.console_view = ConsoleView()
         console_dock = QDockWidget("Консоль", self)
         console_dock.setWidget(self.console_view)
         console_dock.setAllowedAreas(Qt.DockWidgetArea.TopDockWidgetArea | Qt.DockWidgetArea.BottomDockWidgetArea)
+        console_dock.setMinimumHeight(160)
+        console_dock.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         self.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, console_dock)
         
         # Устанавливаем пропорции
@@ -188,6 +189,14 @@ class MainWindow(QMainWindow):
         self.stop_action.triggered.connect(self._on_stop)
         run_menu.addAction(self.stop_action)
         
+        run_menu.addSeparator()
+        
+        self.send_line_by_line_action = QAction("Отправить (построчно)", self)
+        self.send_line_by_line_action.setShortcut("F11")
+        self.send_line_by_line_action.setEnabled(False)
+        self.send_line_by_line_action.triggered.connect(self._on_send_line_by_line)
+        run_menu.addAction(self.send_line_by_line_action)
+        
         # Вид
         view_menu = self.menuBar().addMenu("Вид")
         
@@ -206,6 +215,9 @@ class MainWindow(QMainWindow):
         
         self.toolbar = QToolBar("Основная панель", self)
         self.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.toolbar)
+        
+        # Убеждаемся, что текст кнопок виден
+        self.toolbar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
         
         # Добавляем основные действия
         open_action = QAction("Открыть", self)
@@ -240,12 +252,25 @@ class MainWindow(QMainWindow):
         self.toolbar.stop_action.setEnabled(False)
         self.toolbar.stop_action.triggered.connect(self._on_stop)
         self.toolbar.addAction(self.toolbar.stop_action)
+        
+        self.toolbar.addSeparator()
+        
+        self.toolbar.send_line_by_line_action = QAction("Отправить (построчно)", self)
+        self.toolbar.send_line_by_line_action.setEnabled(False)
+        self.toolbar.send_line_by_line_action.triggered.connect(self._on_send_line_by_line)
+        self.toolbar.addAction(self.toolbar.send_line_by_line_action)
     
     def _init_controllers(self):
         """Инициализировать контроллеры"""
-        # Контроллеры уже созданы в __init__
-        # Здесь можно выполнить дополнительную инициализацию
-        pass
+        # Теперь, когда PortPanel и ConsoleView созданы, прикрепим их к контроллеру подключения
+        self.connection_controller.attach_port_panel(self.port_panel, self.console_view)
+        # Создаём остальные контроллеры, которые зависят от менеджера соединения
+        self.gcode_controller = GCodeController(self.app_state, self)
+        self.run_controller = RunController(
+            self.app_state,
+            self.connection_controller.get_manager(),
+            self
+        )
     
     def _connect_signals(self):
         """Подключить все сигналы между контроллерами и виджетами"""
@@ -263,7 +288,7 @@ class MainWindow(QMainWindow):
         self.console_view.command_to_send.connect(self._on_console_command)
         
         # === ConnectionController -> PortPanel ===
-        self.connection_controller.ports_changed.connect(self._on_ports_changed)
+        # Обновление списка портов теперь выполняет сам ConnectionController через PortPanel.update_ports
         self.connection_controller.connected.connect(self._on_connected)
         self.connection_controller.disconnected.connect(self._on_disconnected)
         self.connection_controller.error_occurred.connect(self._on_connection_error)
@@ -285,6 +310,7 @@ class MainWindow(QMainWindow):
         self.run_controller.stopped.connect(self._on_run_stopped)
         self.run_controller.completed.connect(self._on_run_completed)
         self.run_controller.progress.connect(self._on_run_progress)
+        self.run_controller.line_highlighted.connect(self._on_line_highlighted)
         
         # === AppState -> Views ===
         self.app_state.connection_status_changed.connect(self._on_connection_status_changed)
@@ -302,22 +328,23 @@ class MainWindow(QMainWindow):
         self.connection_controller.refresh_ports()
     
     def _on_connect(self):
-        """Подключиться к выбранному порту"""
+        """Подключиться к выбранному порту (упрощённая модель)"""
         port = self.port_panel.get_selected_port()
         if not port:
             QMessageBox.warning(self, "Внимание", "Выберите COM-порт")
             return
         
-        logger.info(f"Подключение к {port}...")
-        self.console_view.add_info(f"Подключение к {port}...")
+        logger.info(f"Подключение (упрощённо) к {port}...")
+        self.console_view.add_info(f"Подключено (упрощённо): {port}")
         self.settings.save_last_port(port)
-        self.connection_controller.connect_to_port(port)
+        # Не вызываем реальное подключение - это делается лениво при первой отправке
     
     def _on_disconnect(self):
-        """Отключиться от порта"""
+        """Отключиться от порта (упрощённая модель)"""
         logger.info("Отключение...")
-        self.console_view.add_info("Отключение...")
-        self.connection_controller.disconnect_from_port()
+        self.console_view.add_info("Отключено")
+        # Вызываем отключение через контроллер
+        self.connection_controller._on_disconnect_clicked()
     
     def _on_open_file(self):
         """Открыть файл G-code и загрузить его"""
@@ -332,12 +359,14 @@ class MainWindow(QMainWindow):
             logger.info(f"Загрузка файла: {filepath}")
             self.console_view.add_info(f"Загрузка файла: {filepath}")
             
-            if self.gcode_controller.load_gcode_from_file(filepath):
-                self.app_state.set_gcode_file_path(filepath)
-                self.start_action.setEnabled(True)
-                self.toolbar.start_action.setEnabled(True)
-            else:
-                QMessageBox.critical(self, "Ошибка", "Не удалось загрузить G-code файл")
+        if self.gcode_controller.load_gcode_from_file(filepath):
+            self.app_state.set_gcode_file_path(filepath)
+            self.start_action.setEnabled(True)
+            self.send_line_by_line_action.setEnabled(True)
+            self.toolbar.start_action.setEnabled(True)
+            self.toolbar.send_line_by_line_action.setEnabled(True)
+        else:
+            QMessageBox.critical(self, "Ошибка", "Не удалось загрузить G-code файл")
     
     def _on_start(self):
         """Начать выполнение G-code"""
@@ -362,6 +391,20 @@ class MainWindow(QMainWindow):
         self.console_view.add_info("Остановлено выполнение")
         self.run_controller.stop()
     
+    def _on_send_line_by_line(self):
+        """Отправить G-code построчно из редактора"""
+        if not self.port_panel.get_selected_port():
+            QMessageBox.warning(self, "Внимание", "Сначала выберите COM-порт")
+            return
+        
+        if not self.gcode_view.get_text().strip():
+            QMessageBox.warning(self, "Внимание", "G-code редактор пуст")
+            return
+        
+        logger.info("Начало построчной отправки из редактора...")
+        self.console_view.add_info("Начало построчной отправки G-code из редактора")
+        self.run_controller.start_from_editor(self.gcode_view)
+    
     def _on_jog_command(self, command: str):
         """Обработка jog команды"""
         logger.info(f"Jog команда: {command}")
@@ -370,6 +413,10 @@ class MainWindow(QMainWindow):
     
     def _on_console_command(self, command: str):
         """Отправить команду из консоли"""
+        if not self.port_panel.get_selected_port():
+            self.console_view.add_error("Выберите COM-порт для отправки команд")
+            return
+        
         logger.info(f"Консольная команда: {command}")
         self.console_view.add_sent_command(command)
         self.run_controller.send_immediate(command, wait_ok=True)
@@ -442,9 +489,11 @@ class MainWindow(QMainWindow):
         self.start_action.setEnabled(False)
         self.pause_action.setEnabled(True)
         self.stop_action.setEnabled(True)
+        self.send_line_by_line_action.setEnabled(False)
         self.toolbar.start_action.setEnabled(False)
         self.toolbar.pause_action.setEnabled(True)
         self.toolbar.stop_action.setEnabled(True)
+        self.toolbar.send_line_by_line_action.setEnabled(False)
         self.pause_action.setText("Пауза")
         self.status_bar.showMessage("Выполнение...")
     
@@ -463,9 +512,11 @@ class MainWindow(QMainWindow):
         self.start_action.setEnabled(True)
         self.pause_action.setEnabled(False)
         self.stop_action.setEnabled(False)
+        self.send_line_by_line_action.setEnabled(True)
         self.toolbar.start_action.setEnabled(True)
         self.toolbar.pause_action.setEnabled(False)
         self.toolbar.stop_action.setEnabled(False)
+        self.toolbar.send_line_by_line_action.setEnabled(True)
         self.pause_action.setText("Пауза")
         self.status_bar.showMessage("Остановлено")
     
@@ -474,9 +525,11 @@ class MainWindow(QMainWindow):
         self.start_action.setEnabled(True)
         self.pause_action.setEnabled(False)
         self.stop_action.setEnabled(False)
+        self.send_line_by_line_action.setEnabled(True)
         self.toolbar.start_action.setEnabled(True)
         self.toolbar.pause_action.setEnabled(False)
         self.toolbar.stop_action.setEnabled(False)
+        self.toolbar.send_line_by_line_action.setEnabled(True)
         self.status_bar.showMessage("Завершено")
         self.console_view.add_info("G-code выполнен полностью")
         QMessageBox.information(self, "Готово", "Выполнение G-code завершено")
@@ -491,11 +544,16 @@ class MainWindow(QMainWindow):
         self.start_action.setEnabled(status == RunStatus.IDLE)
         self.pause_action.setEnabled(status in [RunStatus.RUNNING, RunStatus.PAUSED])
         self.stop_action.setEnabled(status in [RunStatus.RUNNING, RunStatus.PAUSED])
+        self.send_line_by_line_action.setEnabled(status == RunStatus.IDLE)
     
     def _on_current_line_changed(self, line_index: int):
         """Изменение текущей строки"""
         # TODO: подсветка строки в GCodeView
         pass
+    
+    def _on_line_highlighted(self, line_index: int):
+        """Подсветка строки в G-code редакторе"""
+        self.gcode_view.highlight_line(line_index)
     
     def _on_toggle_theme(self, checked: bool):
         """Переключить тему"""

@@ -55,21 +55,31 @@ class ConsoleView(QWidget):
                 font-size: 9pt;
             }
         """)
-        layout.addWidget(self.text_edit)
+        layout.addWidget(self.text_edit, 1)  # Expanding
         
-        # Поле ввода команды + кнопка
-        input_layout = QHBoxLayout()
+        # Поле ввода команды + кнопка в отдельном контейнере
+        self.input_row = QWidget()
+        self.input_row.setObjectName("ConsoleInputRow")
+        input_layout = QHBoxLayout(self.input_row)
+        input_layout.setContentsMargins(0, 0, 0, 0)
+        
         self.command_input = QLineEdit()
         self.command_input.setPlaceholderText("Введите команду (например: G28 X0 Y0 Z0) и нажмите Enter или кнопку...")
         self.command_input.returnPressed.connect(self._send_command)
-        input_layout.addWidget(self.command_input)
         
-        send_btn = QPushButton("Отправить")
-        send_btn.setMaximumWidth(100)
-        send_btn.clicked.connect(self._send_command)
-        input_layout.addWidget(send_btn)
+        # Устанавливаем ограничения ширины для компактного режима
+        self.command_input.setMinimumWidth(280)
+        self.command_input.setMaximumWidth(600)
         
-        layout.addLayout(input_layout)
+        self.send_btn = QPushButton("Отправить")
+        self.send_btn.setMaximumWidth(100)
+        self.send_btn.clicked.connect(self._send_command)
+        
+        input_layout.addWidget(self.command_input, 0)
+        input_layout.addWidget(self.send_btn, 0)
+        input_layout.addStretch(1)  # Растягивает пустое пространство справа
+        
+        layout.addWidget(self.input_row, 0)  # Fixed/compact
         self.setLayout(layout)
     
     def _send_command(self):
@@ -125,4 +135,17 @@ class ConsoleView(QWidget):
     def clear(self):
         """Очистить консоль"""
         self.text_edit.clear()
+    
+    def set_compact_mode(self, enabled: bool = True, max_input_width: int = 600) -> None:
+        """
+        Установить компактный режим для поля ввода
+        
+        Args:
+            enabled: Включить компактный режим
+            max_input_width: Максимальная ширина поля ввода в пикселях
+        """
+        if enabled:
+            self.command_input.setMaximumWidth(max_input_width)
+        else:
+            self.command_input.setMaximumWidth(16777215)  # Qt's maximum value
 

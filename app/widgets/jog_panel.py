@@ -26,6 +26,9 @@ class JogPanel(QWidget):
     
     def _init_ui(self):
         """Инициализация UI"""
+        # Устанавливаем объектное имя для QSS-таргетинга
+        self.setObjectName("JogPanel")
+        
         layout = QVBoxLayout()
         layout.setContentsMargins(10, 10, 10, 10)
         
@@ -35,10 +38,12 @@ class JogPanel(QWidget):
         layout.addWidget(label)
         
         # Шаг перемещения
-        step_label = QLabel("Шаг (мм):")
-        layout.addWidget(step_label)
+        self.step_label = QLabel("Шаг (мм):")
+        self.step_label.setObjectName("JogStepLabel")
+        layout.addWidget(self.step_label)
         
         self.step_spinbox = QDoubleSpinBox()
+        self.step_spinbox.setObjectName("JogStepInput")
         self.step_spinbox.setDecimals(1)
         self.step_spinbox.setRange(0.1, 100.0)
         self.step_spinbox.setValue(1.0)
@@ -48,10 +53,12 @@ class JogPanel(QWidget):
         layout.addSpacing(10)
         
         # Feedrate
-        feedrate_label = QLabel("Feedrate (мм/мин):")
-        layout.addWidget(feedrate_label)
+        self.feedrate_label = QLabel("Feedrate (мм/мин):")
+        self.feedrate_label.setObjectName("JogFeedrateLabel")
+        layout.addWidget(self.feedrate_label)
         
         self.feedrate_spinbox = QDoubleSpinBox()
+        self.feedrate_spinbox.setObjectName("JogFeedrateInput")
         self.feedrate_spinbox.setDecimals(0)
         self.feedrate_spinbox.setRange(10, 10000)
         self.feedrate_spinbox.setValue(1000)
@@ -99,6 +106,7 @@ class JogPanel(QWidget):
         
         input_layout = QHBoxLayout()
         self.command_input = QLineEdit()
+        self.command_input.setObjectName("JogCommandInput")
         self.command_input.setPlaceholderText("Например: G28 X0 Y0 Z0")
         self.command_input.returnPressed.connect(self._on_send_command)
         input_layout.addWidget(self.command_input)
