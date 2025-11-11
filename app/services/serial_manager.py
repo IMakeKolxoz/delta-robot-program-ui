@@ -47,6 +47,7 @@ class SerialWorker(QObject):
         self.is_running = False
         self.is_paused = False
         self._response_buffer = ""
+        self._connecting = False  # Флаг подключения
         
         # Подключаем слоты
         self._connect_requested.connect(self._connect)
@@ -67,7 +68,7 @@ class SerialWorker(QObject):
             self.serial_port = serial.Serial(
                 port=port_name,
                 baudrate=baud_rate,
-                timeout=0.1,
+                timeout=0.5,
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
                 stopbits=serial.STOPBITS_ONE
@@ -79,8 +80,13 @@ class SerialWorker(QObject):
             logger.info(f"Подключено к {port_name}")
             self.data_sent.emit(f"Connected to {port_name}")
             
+            # Сбрасываем флаг подключения при успехе
+            self._connecting = False
+            
         except Exception as e:
             logger.error(f"Ошибка подключения: {e}")
+            # Сбрасываем флаг подключения при ошибке
+            self._connecting = False
             self.error_occurred.emit(str(e))
     
     @pyqtSlot()
@@ -90,9 +96,13 @@ class SerialWorker(QObject):
             if self.serial_port and self.serial_port.is_open:
                 self.serial_port.close()
             self.serial_port = None
+            # Сбрасываем флаг подключения при отключении
+            self._connecting = False
             logger.info("Отключено")
         except Exception as e:
             logger.error(f"Ошибка отключения: {e}")
+            # Сбрасываем флаг подключения при ошибке
+            self._connecting = False
     
     @pyqtSlot(str, bool)
     def _send_command(self, command: str, wait_ok: bool = True):
@@ -265,30 +275,12 @@ class SerialManager(QObject):
     
     def ensure_open(self, baud: int = 115200) -> bool:
         """
-        Убедиться, что порт открыт (ленивое открытие)
-        
-        Args:
-            baud: Скорость подключения
-            
-        Returns:
-            True если порт открыт или успешно открыт, False при ошибке
+        Проверка: открыт ли порт. Без автоматического подключения.
         """
         if self._connected_port:
-            return True  # Уже открыт
-        
-        if not self._selected_port:
-            self.error.emit("Порт не выбран")
-            return False
-        
-        try:
-            logger.info(f"Ленивое открытие порта {self._selected_port}...")
-            self.worker._connect_requested.emit(self._selected_port, baud)
-            # Ждём результат подключения через сигналы
             return True
-        except Exception as e:
-            logger.error(f"Ошибка ленивого открытия: {e}")
-            self.error.emit(str(e))
-            return False
+        self.error.emit("Не подключено")
+        return False
     
     def force_close(self) -> None:
         """Принудительно закрыть порт"""
@@ -361,7 +353,8 @@ class SerialManager(QObject):
     
     def start_queue(self):
         """Начать отправку очереди"""
-        if not self.ensure_open():
+        # Проверяем подключение только если порт не открыт
+        if not self._connected_port and not self.ensure_open():
             return
         
         if not self.worker.queue:
@@ -391,13 +384,20 @@ class SerialManager(QObject):
             line: Строка G-code
             wait_ok: Ждать ответ ok
         """
-        if not self.ensure_open():
+        # Проверяем подключение только если порт не открыт
+        if not self._connected_port and not self.ensure_open():
             return
         
         self.worker._send_requested.emit(line, wait_ok)
     
     def _on_data_sent(self, data: str):
         """Обработка отправленных данных"""
+        # Детектируем успешное подключение по сервисному сообщению
+        if data.startswith("Connected to "):
+            if not self._connected_port and self._selected_port:
+                self._connected_port = self._selected_port
+                logger.info(f"Порт открыт: {self._connected_port}")
+                self.connected.emit(self._connected_port)
         self.line_sent.emit(data)
     
     def _on_data_received(self, data: str):
@@ -411,6 +411,9 @@ class SerialManager(QObject):
     def _on_error(self, error: str):
         """Обработка ошибки"""
         logger.error(f"SerialManager error: {error}")
+        # Сбрасываем флаг подключения при ошибке
+        if hasattr(self.worker, '_connecting'):
+            self.worker._connecting = False
         self.error.emit(error)
     
     def _on_queue_continue(self):

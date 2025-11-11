@@ -935,3 +935,298 @@
 2025-10-29 10:57:07.050 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: Таймаут ожидания ok
 2025-10-29 10:57:13.781 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: Таймаут ожидания ok
 2025-10-29 10:57:13.783 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2025-10-29 11:00:16.515 | INFO     | app.ui.main_window:closeEvent:630 | Закрытие приложения...
+2025-10-29 11:00:16.602 | INFO     | app.ui.main_window:closeEvent:653 | Окно закрыто, настройки сохранены
+2025-10-29 11:00:16.625 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2025-10-29 11:00:30.828 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2025-10-29 11:00:30.970 | INFO     | __main__:main:38 | ==================================================
+2025-10-29 11:00:30.970 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2025-10-29 11:00:30.971 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2025-10-29 11:00:30.971 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2025-10-29 11:00:30.971 | INFO     | __main__:main:42 | ==================================================
+2025-10-29 11:00:30.990 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2025-10-29 11:00:30.991 | INFO     | __main__:main:57 | Создание главного окна...
+2025-10-29 11:00:30.993 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2025-10-29 11:00:31.248 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2025-10-29 11:00:31.249 | INFO     | app.ui.main_window:_connect_signals:309 | Подключение сигналов...
+2025-10-29 11:00:31.250 | INFO     | app.ui.main_window:_connect_signals:352 | Сигналы подключены
+2025-10-29 11:00:31.250 | INFO     | app.ui.main_window:_load_settings:604 | Загрузка настроек...
+2025-10-29 11:00:31.336 | DEBUG    | app.ui.main_window:_load_settings:610 | Геометрия восстановлена
+2025-10-29 11:00:31.338 | DEBUG    | app.ui.main_window:_load_settings:616 | Состояние доков восстановлено
+2025-10-29 11:00:31.338 | INFO     | app.ui.main_window:_load_settings:626 | Настройки загружены
+2025-10-29 11:00:31.338 | INFO     | app.ui.main_window:_on_refresh_ports:358 | Обновление портов...
+2025-10-29 11:00:31.340 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-10-29 11:00:31.344 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 1
+2025-10-29 11:00:31.346 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-10-29 11:00:31.376 | INFO     | __main__:main:61 | Приложение готово к работе
+2025-10-29 11:00:31.377 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2025-10-29 11:00:39.150 | INFO     | app.ui.main_window:_on_open_file:391 | Загрузка файла: D:/github/delta-robot-program/test.gcode
+2025-10-29 11:00:39.151 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:44 | Загрузка файла: D:/github/delta-robot-program/test.gcode
+2025-10-29 11:00:39.151 | INFO     | app.services.gcode_parser:parse:115 | Спарсено: 3 строк, 3 точек
+2025-10-29 11:00:39.155 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:61 | Загружено строк: 3, точек: 3
+2025-10-29 11:00:41.539 | INFO     | app.ui.main_window:_on_refresh_ports:358 | Обновление портов...
+2025-10-29 11:00:41.540 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-10-29 11:00:41.544 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 1
+2025-10-29 11:00:41.545 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-10-29 11:00:42.227 | INFO     | app.ui.main_window:_on_connect:369 | Подключение (упрощённо) к COM3...
+2025-10-29 11:01:15.817 | INFO     | app.ui.main_window:_on_start:405 | Старт выполнения...
+2025-10-29 11:01:15.819 | ERROR    | app.controllers.run_controller:start:64 | Не подключено
+2025-10-29 11:01:17.995 | INFO     | app.ui.main_window:_on_send_line_by_line:436 | Начало построчной отправки из редактора...
+2025-10-29 11:01:17.996 | INFO     | app.services.serial_manager:ensure_open:299 | Ленивое открытие порта COM3...
+2025-10-29 11:01:17.997 | INFO     | app.services.serial_manager:ensure_open:295 | Подключение уже в процессе...
+2025-10-29 11:01:17.997 | INFO     | app.services.serial_manager:start_queue:387 | Начало отправки очереди: 3 команд
+2025-10-29 11:01:17.998 | INFO     | app.controllers.run_controller:start_from_editor:184 | Старт построчной отправки из редактора: 3 команд
+2025-10-29 11:01:18.000 | INFO     | app.services.serial_manager:_connect:80 | Подключено к COM3
+2025-10-29 11:01:18.001 | WARNING  | app.services.serial_manager:_start_queue:171 | Очередь пуста
+2025-10-29 11:01:18.004 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → Connected to COM3
+2025-10-29 11:02:25.726 | INFO     | app.ui.main_window:_on_pause:412 | Пауза...
+2025-10-29 11:02:25.728 | INFO     | app.controllers.run_controller:pause:94 | Пауза
+2025-10-29 11:02:26.274 | INFO     | app.ui.main_window:_on_stop:422 | Стоп выполнения...
+2025-10-29 11:02:26.275 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2025-10-29 11:02:26.978 | INFO     | app.ui.main_window:_on_start:405 | Старт выполнения...
+2025-10-29 11:02:26.980 | ERROR    | app.controllers.run_controller:start:64 | Не подключено
+2025-10-29 11:03:04.832 | INFO     | app.ui.main_window:_on_console_command:452 | Консольная команда: G01 Z-350 F50
+2025-10-29 11:03:04.834 | INFO     | app.services.serial_manager:ensure_open:299 | Ленивое открытие порта COM3...
+2025-10-29 11:03:04.834 | INFO     | app.controllers.run_controller:send_immediate:130 | Немедленная отправка: G01 Z-350 F50
+2025-10-29 11:03:04.835 | INFO     | app.services.serial_manager:ensure_open:295 | Подключение уже в процессе...
+2025-10-29 11:03:04.840 | INFO     | app.services.serial_manager:_connect:80 | Подключено к COM3
+2025-10-29 11:03:04.841 | INFO     | app.services.serial_manager:_send_command:120 | → G01 Z-350 F50
+2025-10-29 11:03:04.842 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → Connected to COM3
+2025-10-29 11:03:04.843 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → G01 Z-350 F50
+2025-10-29 11:03:10.329 | ERROR    | app.services.serial_manager:_on_error:430 | SerialManager error: Таймаут ожидания ok
+2025-10-29 11:03:10.331 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: Таймаут ожидания ok
+2025-10-29 11:03:12.547 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: Таймаут ожидания ok
+2025-10-29 11:03:12.548 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2025-10-29 11:04:53.228 | INFO     | app.ui.main_window:closeEvent:630 | Закрытие приложения...
+2025-10-29 11:04:53.229 | INFO     | app.ui.main_window:closeEvent:653 | Окно закрыто, настройки сохранены
+2025-10-29 11:04:53.242 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2025-10-29 11:04:55.568 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2025-10-29 11:04:55.703 | INFO     | __main__:main:38 | ==================================================
+2025-10-29 11:04:55.704 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2025-10-29 11:04:55.704 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2025-10-29 11:04:55.705 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2025-10-29 11:04:55.705 | INFO     | __main__:main:42 | ==================================================
+2025-10-29 11:04:55.721 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2025-10-29 11:04:55.722 | INFO     | __main__:main:57 | Создание главного окна...
+2025-10-29 11:04:55.724 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2025-10-29 11:04:55.932 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2025-10-29 11:04:55.933 | INFO     | app.ui.main_window:_connect_signals:309 | Подключение сигналов...
+2025-10-29 11:04:55.934 | INFO     | app.ui.main_window:_connect_signals:352 | Сигналы подключены
+2025-10-29 11:04:55.934 | INFO     | app.ui.main_window:_load_settings:604 | Загрузка настроек...
+2025-10-29 11:04:56.015 | DEBUG    | app.ui.main_window:_load_settings:610 | Геометрия восстановлена
+2025-10-29 11:04:56.018 | DEBUG    | app.ui.main_window:_load_settings:616 | Состояние доков восстановлено
+2025-10-29 11:04:56.019 | INFO     | app.ui.main_window:_load_settings:626 | Настройки загружены
+2025-10-29 11:04:56.019 | INFO     | app.ui.main_window:_on_refresh_ports:358 | Обновление портов...
+2025-10-29 11:04:56.021 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-10-29 11:04:56.026 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 1
+2025-10-29 11:04:56.027 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-10-29 11:04:56.067 | INFO     | __main__:main:61 | Приложение готово к работе
+2025-10-29 11:04:56.068 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2025-10-29 11:05:01.034 | INFO     | app.ui.main_window:_on_open_file:391 | Загрузка файла: D:/github/delta-robot-program/test.gcode
+2025-10-29 11:05:01.034 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:44 | Загрузка файла: D:/github/delta-robot-program/test.gcode
+2025-10-29 11:05:01.035 | INFO     | app.services.gcode_parser:parse:115 | Спарсено: 3 строк, 3 точек
+2025-10-29 11:05:01.038 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:61 | Загружено строк: 3, точек: 3
+2025-10-29 11:05:04.121 | INFO     | app.ui.main_window:_on_send_line_by_line:436 | Начало построчной отправки из редактора...
+2025-10-29 11:05:04.122 | INFO     | app.services.serial_manager:ensure_open:299 | Ленивое открытие порта COM3...
+2025-10-29 11:05:04.123 | INFO     | app.services.serial_manager:ensure_open:295 | Подключение уже в процессе...
+2025-10-29 11:05:04.123 | INFO     | app.services.serial_manager:start_queue:387 | Начало отправки очереди: 3 команд
+2025-10-29 11:05:04.125 | INFO     | app.controllers.run_controller:start_from_editor:184 | Старт построчной отправки из редактора: 3 команд
+2025-10-29 11:05:04.126 | INFO     | app.services.serial_manager:_connect:80 | Подключено к COM3
+2025-10-29 11:05:04.127 | WARNING  | app.services.serial_manager:_start_queue:171 | Очередь пуста
+2025-10-29 11:05:04.131 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → Connected to COM3
+2025-10-29 11:12:23.534 | INFO     | app.ui.main_window:closeEvent:630 | Закрытие приложения...
+2025-10-29 11:12:23.536 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2025-10-29 11:12:23.538 | INFO     | app.ui.main_window:closeEvent:653 | Окно закрыто, настройки сохранены
+2025-10-29 11:12:23.595 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2025-10-29 11:12:41.280 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2025-10-29 11:12:41.457 | INFO     | __main__:main:38 | ==================================================
+2025-10-29 11:12:41.457 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2025-10-29 11:12:41.458 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2025-10-29 11:12:41.458 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2025-10-29 11:12:41.459 | INFO     | __main__:main:42 | ==================================================
+2025-10-29 11:12:41.482 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2025-10-29 11:12:41.483 | INFO     | __main__:main:57 | Создание главного окна...
+2025-10-29 11:12:41.485 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2025-10-29 11:12:41.703 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2025-10-29 11:12:41.704 | INFO     | app.ui.main_window:_connect_signals:310 | Подключение сигналов...
+2025-10-29 11:12:41.705 | INFO     | app.ui.main_window:_connect_signals:354 | Сигналы подключены
+2025-10-29 11:12:41.705 | INFO     | app.ui.main_window:_load_settings:613 | Загрузка настроек...
+2025-10-29 11:12:42.018 | DEBUG    | app.ui.main_window:_load_settings:619 | Геометрия восстановлена
+2025-10-29 11:12:42.020 | DEBUG    | app.ui.main_window:_load_settings:625 | Состояние доков восстановлено
+2025-10-29 11:12:42.020 | INFO     | app.ui.main_window:_load_settings:635 | Настройки загружены
+2025-10-29 11:12:42.021 | INFO     | app.ui.main_window:_on_refresh_ports:360 | Обновление портов...
+2025-10-29 11:12:42.022 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-10-29 11:12:42.027 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 1
+2025-10-29 11:12:42.028 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-10-29 11:12:42.029 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-10-29 11:12:42.030 | INFO     | app.services.serial_manager:connect:322 | Подключение к COM3...
+2025-10-29 11:12:42.042 | INFO     | app.services.serial_manager:_connect:80 | Подключено к COM3
+2025-10-29 11:12:42.070 | INFO     | __main__:main:61 | Приложение готово к работе
+2025-10-29 11:12:42.071 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2025-10-29 11:12:42.095 | INFO     | app.services.serial_manager:_on_data_sent:399 | Порт открыт: COM3
+2025-10-29 11:12:42.096 | INFO     | app.controllers.connection_controller:_on_manager_connected:100 | Подключено к COM3
+2025-10-29 11:12:42.097 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → Connected to COM3
+2025-10-29 11:12:52.244 | INFO     | app.ui.main_window:_on_open_file:393 | Загрузка файла: D:/github/delta-robot-program/test.gcode
+2025-10-29 11:12:52.245 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:44 | Загрузка файла: D:/github/delta-robot-program/test.gcode
+2025-10-29 11:12:52.246 | INFO     | app.services.gcode_parser:parse:115 | Спарсено: 3 строк, 3 точек
+2025-10-29 11:12:52.248 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:61 | Загружено строк: 3, точек: 3
+2025-10-29 11:12:54.144 | INFO     | app.ui.main_window:_on_send_line_by_line:438 | Начало построчной отправки из редактора...
+2025-10-29 11:12:54.145 | INFO     | app.services.serial_manager:start_queue:364 | Начало отправки очереди: 3 команд
+2025-10-29 11:12:54.146 | INFO     | app.controllers.run_controller:start_from_editor:184 | Старт построчной отправки из редактора: 3 команд
+2025-10-29 11:12:54.146 | WARNING  | app.services.serial_manager:_start_queue:171 | Очередь пуста
+2025-10-29 11:13:06.117 | INFO     | app.ui.main_window:_on_pause:414 | Пауза...
+2025-10-29 11:13:06.119 | INFO     | app.controllers.run_controller:pause:94 | Пауза
+2025-10-29 11:13:12.140 | INFO     | app.ui.main_window:_on_console_command:454 | Консольная команда: G01 Z-350 F50
+2025-10-29 11:13:12.141 | INFO     | app.controllers.run_controller:send_immediate:130 | Немедленная отправка: G01 Z-350 F50
+2025-10-29 11:13:12.144 | INFO     | app.services.serial_manager:_send_command:120 | → G01 Z-350 F50
+2025-10-29 11:13:12.147 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → G01 Z-350 F50
+2025-10-29 11:13:14.759 | INFO     | app.services.serial_manager:_wait_for_ok:148 | ← ok
+2025-10-29 11:13:14.762 | INFO     | app.controllers.run_controller:_on_line_received:192 | ← Соединение прошло
+Ok
+2025-10-29 11:13:33.465 | INFO     | app.ui.main_window:_on_console_command:454 | Консольная команда: G01 X100 F50
+2025-10-29 11:13:33.467 | INFO     | app.controllers.run_controller:send_immediate:130 | Немедленная отправка: G01 X100 F50
+2025-10-29 11:13:33.468 | INFO     | app.services.serial_manager:_send_command:120 | → G01 X100 F50
+2025-10-29 11:13:33.472 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → G01 X100 F50
+2025-10-29 11:13:35.603 | INFO     | app.services.serial_manager:_wait_for_ok:148 | ← ok
+2025-10-29 11:13:35.606 | INFO     | app.controllers.run_controller:_on_line_received:192 | ← Ok
+2025-10-29 11:13:43.351 | INFO     | app.ui.main_window:_on_console_command:454 | Консольная команда: G01 X-100
+2025-10-29 11:13:43.352 | INFO     | app.controllers.run_controller:send_immediate:130 | Немедленная отправка: G01 X-100
+2025-10-29 11:13:43.354 | INFO     | app.services.serial_manager:_send_command:120 | → G01 X-100
+2025-10-29 11:13:43.357 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → G01 X-100
+2025-10-29 11:13:47.496 | INFO     | app.services.serial_manager:_wait_for_ok:148 | ← ok
+2025-10-29 11:13:47.499 | INFO     | app.controllers.run_controller:_on_line_received:192 | ← Ok
+2025-10-29 11:14:27.593 | INFO     | app.ui.main_window:_on_console_command:454 | Консольная команда: G01 X0 Y100
+2025-10-29 11:14:27.594 | INFO     | app.controllers.run_controller:send_immediate:130 | Немедленная отправка: G01 X0 Y100
+2025-10-29 11:14:27.597 | INFO     | app.services.serial_manager:_send_command:120 | → G01 X0 Y100
+2025-10-29 11:14:27.600 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → G01 X0 Y100
+2025-10-29 11:14:30.509 | INFO     | app.services.serial_manager:_wait_for_ok:148 | ← ok
+2025-10-29 11:14:30.511 | INFO     | app.controllers.run_controller:_on_line_received:192 | ← Ok
+2025-10-29 11:14:49.011 | INFO     | app.ui.main_window:_on_console_command:454 | Консольная команда: G01 X0 Y0
+2025-10-29 11:14:49.013 | INFO     | app.controllers.run_controller:send_immediate:130 | Немедленная отправка: G01 X0 Y0
+2025-10-29 11:14:49.014 | INFO     | app.services.serial_manager:_send_command:120 | → G01 X0 Y0
+2025-10-29 11:14:49.017 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → G01 X0 Y0
+2025-10-29 11:14:51.150 | INFO     | app.services.serial_manager:_wait_for_ok:148 | ← ok
+2025-10-29 11:14:51.152 | INFO     | app.controllers.run_controller:_on_line_received:192 | ← Ok
+2025-10-29 11:20:00.075 | INFO     | app.ui.main_window:_on_console_command:454 | Консольная команда: G91
+2025-10-29 11:20:00.076 | INFO     | app.controllers.run_controller:send_immediate:130 | Немедленная отправка: G91
+2025-10-29 11:20:00.078 | INFO     | app.services.serial_manager:_send_command:120 | → G91
+2025-10-29 11:20:00.082 | INFO     | app.services.serial_manager:_wait_for_ok:148 | ← ok
+2025-10-29 11:20:00.083 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → G91
+2025-10-29 11:20:00.084 | INFO     | app.controllers.run_controller:_on_line_received:192 | ← Ok
+2025-10-29 11:22:33.120 | INFO     | app.ui.main_window:_on_console_command:454 | Консольная команда: M220 I0
+2025-10-29 11:22:33.121 | INFO     | app.controllers.run_controller:send_immediate:130 | Немедленная отправка: M220 I0
+2025-10-29 11:22:33.123 | INFO     | app.services.serial_manager:_send_command:120 | → M220 I0
+2025-10-29 11:22:33.125 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M220 I0
+2025-10-29 11:22:38.565 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: Таймаут ожидания ok
+2025-10-29 11:22:38.566 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: Таймаут ожидания ok
+2025-10-29 11:22:47.229 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: Таймаут ожидания ok
+2025-10-29 11:22:47.230 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2025-10-29 11:22:48.573 | INFO     | app.services.serial_manager:force_close:288 | Принудительное закрытие порта COM3
+2025-10-29 11:22:48.574 | INFO     | app.controllers.connection_controller:_on_manager_disconnected:107 | Отключено
+2025-10-29 11:22:48.577 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: None
+2025-10-29 11:22:48.578 | INFO     | app.services.serial_manager:_disconnect:101 | Отключено
+2025-10-29 11:22:48.579 | INFO     | app.ui.main_window:_on_disconnect:378 | Отключение...
+2025-10-29 11:22:48.580 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: None
+2025-10-29 11:33:10.435 | INFO     | app.ui.main_window:_on_refresh_ports:360 | Обновление портов...
+2025-10-29 11:33:10.437 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-10-29 11:33:10.442 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 1
+2025-10-29 11:33:10.443 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-10-29 11:33:10.445 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-10-29 11:33:12.668 | INFO     | app.ui.main_window:_on_connect:371 | Подключение (упрощённо) к COM3...
+2025-10-29 11:36:34.255 | INFO     | app.ui.main_window:_on_console_command:454 | Консольная команда: G90
+2025-10-29 11:36:34.256 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: Не подключено
+2025-10-29 11:36:35.727 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: Не подключено
+2025-10-29 11:36:35.728 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2025-10-29 11:36:35.729 | ERROR    | app.controllers.run_controller:send_immediate:127 | Не удалось открыть порт
+2025-10-29 11:36:37.690 | INFO     | app.ui.main_window:_on_refresh_ports:360 | Обновление портов...
+2025-10-29 11:36:37.691 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-10-29 11:36:37.697 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 1
+2025-10-29 11:36:37.698 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-10-29 11:36:37.699 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-10-29 11:36:39.293 | INFO     | app.ui.main_window:_on_connect:371 | Подключение (упрощённо) к COM3...
+2025-10-29 11:36:42.755 | INFO     | app.ui.main_window:closeEvent:639 | Закрытие приложения...
+2025-10-29 11:36:42.890 | INFO     | app.ui.main_window:closeEvent:662 | Окно закрыто, настройки сохранены
+2025-10-29 11:36:42.944 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2025-10-29 11:38:41.315 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2025-10-29 11:38:41.467 | INFO     | __main__:main:38 | ==================================================
+2025-10-29 11:38:41.468 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2025-10-29 11:38:41.468 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2025-10-29 11:38:41.468 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2025-10-29 11:38:41.469 | INFO     | __main__:main:42 | ==================================================
+2025-10-29 11:38:41.489 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2025-10-29 11:38:41.489 | INFO     | __main__:main:57 | Создание главного окна...
+2025-10-29 11:38:41.492 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2025-10-29 11:38:41.696 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2025-10-29 11:38:41.697 | INFO     | app.ui.main_window:_connect_signals:310 | Подключение сигналов...
+2025-10-29 11:38:41.698 | INFO     | app.ui.main_window:_connect_signals:354 | Сигналы подключены
+2025-10-29 11:38:41.699 | INFO     | app.ui.main_window:_load_settings:613 | Загрузка настроек...
+2025-10-29 11:38:41.916 | DEBUG    | app.ui.main_window:_load_settings:619 | Геометрия восстановлена
+2025-10-29 11:38:41.918 | DEBUG    | app.ui.main_window:_load_settings:625 | Состояние доков восстановлено
+2025-10-29 11:38:41.919 | INFO     | app.ui.main_window:_load_settings:635 | Настройки загружены
+2025-10-29 11:38:41.919 | INFO     | app.ui.main_window:_on_refresh_ports:360 | Обновление портов...
+2025-10-29 11:38:41.921 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-10-29 11:38:41.926 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 1
+2025-10-29 11:38:41.927 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-10-29 11:38:41.929 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-10-29 11:38:41.931 | INFO     | app.services.serial_manager:connect:322 | Подключение к COM3...
+2025-10-29 11:38:41.936 | ERROR    | app.services.serial_manager:_connect:87 | Ошибка подключения: could not open port 'COM3': PermissionError(13, 'Отказано в доступе.', None, 5)
+2025-10-29 11:38:41.975 | INFO     | __main__:main:61 | Приложение готово к работе
+2025-10-29 11:38:41.976 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2025-10-29 11:38:42.000 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: could not open port 'COM3': PermissionError(13, 'Отказано в доступе.', None, 5)
+2025-10-29 11:38:42.000 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: could not open port 'COM3': PermissionError(13, 'Отказано в доступе.', None, 5)
+2025-10-29 11:38:43.896 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: could not open port 'COM3': PermissionError(13, 'Отказано в доступе.', None, 5)
+2025-10-29 11:38:43.897 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2025-11-11 09:43:43.200 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2025-11-11 09:43:46.586 | INFO     | __main__:main:38 | ==================================================
+2025-11-11 09:43:46.587 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2025-11-11 09:43:46.587 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2025-11-11 09:43:46.587 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2025-11-11 09:43:46.588 | INFO     | __main__:main:42 | ==================================================
+2025-11-11 09:43:46.788 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2025-11-11 09:43:46.789 | INFO     | __main__:main:57 | Создание главного окна...
+2025-11-11 09:43:46.791 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2025-11-11 09:43:48.077 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2025-11-11 09:43:48.078 | INFO     | app.ui.main_window:_connect_signals:310 | Подключение сигналов...
+2025-11-11 09:43:48.079 | INFO     | app.ui.main_window:_connect_signals:354 | Сигналы подключены
+2025-11-11 09:43:48.079 | INFO     | app.ui.main_window:_load_settings:613 | Загрузка настроек...
+2025-11-11 09:43:48.172 | DEBUG    | app.ui.main_window:_load_settings:619 | Геометрия восстановлена
+2025-11-11 09:43:48.175 | DEBUG    | app.ui.main_window:_load_settings:625 | Состояние доков восстановлено
+2025-11-11 09:43:48.175 | INFO     | app.ui.main_window:_load_settings:635 | Настройки загружены
+2025-11-11 09:43:48.175 | INFO     | app.ui.main_window:_on_refresh_ports:360 | Обновление портов...
+2025-11-11 09:43:48.177 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-11-11 09:43:48.181 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2025-11-11 09:43:48.197 | INFO     | __main__:main:61 | Приложение готово к работе
+2025-11-11 09:43:48.197 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2025-11-11 09:43:54.698 | INFO     | app.ui.main_window:_on_jog_command:444 | Jog команда: G91 G0 X1.00 F1000
+2025-11-11 09:43:54.699 | ERROR    | app.controllers.run_controller:send_immediate:122 | Порт не выбран
+2025-11-11 09:43:57.000 | INFO     | app.ui.main_window:_on_jog_command:444 | Jog команда: G91 G0 X+1.00 F1000
+2025-11-11 09:43:57.001 | ERROR    | app.controllers.run_controller:send_immediate:122 | Порт не выбран
+2025-11-11 09:44:08.173 | INFO     | app.ui.main_window:closeEvent:639 | Закрытие приложения...
+2025-11-11 09:44:08.176 | INFO     | app.ui.main_window:closeEvent:662 | Окно закрыто, настройки сохранены
+2025-11-11 09:45:32.538 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2025-11-11 09:45:32.698 | INFO     | __main__:main:38 | ==================================================
+2025-11-11 09:45:32.698 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2025-11-11 09:45:32.699 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2025-11-11 09:45:32.699 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2025-11-11 09:45:32.700 | INFO     | __main__:main:42 | ==================================================
+2025-11-11 09:45:32.723 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2025-11-11 09:45:32.724 | INFO     | __main__:main:57 | Создание главного окна...
+2025-11-11 09:45:32.727 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2025-11-11 09:45:33.109 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2025-11-11 09:45:33.110 | INFO     | app.ui.main_window:_connect_signals:310 | Подключение сигналов...
+2025-11-11 09:45:33.111 | INFO     | app.ui.main_window:_connect_signals:354 | Сигналы подключены
+2025-11-11 09:45:33.111 | INFO     | app.ui.main_window:_load_settings:613 | Загрузка настроек...
+2025-11-11 09:45:33.191 | DEBUG    | app.ui.main_window:_load_settings:619 | Геометрия восстановлена
+2025-11-11 09:45:33.194 | DEBUG    | app.ui.main_window:_load_settings:625 | Состояние доков восстановлено
+2025-11-11 09:45:33.194 | INFO     | app.ui.main_window:_load_settings:635 | Настройки загружены
+2025-11-11 09:45:33.195 | INFO     | app.ui.main_window:_on_refresh_ports:360 | Обновление портов...
+2025-11-11 09:45:33.196 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-11-11 09:45:33.201 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2025-11-11 09:45:33.262 | INFO     | __main__:main:61 | Приложение готово к работе
+2025-11-11 09:45:33.263 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2025-11-11 09:45:40.097 | INFO     | app.ui.main_window:_on_refresh_ports:360 | Обновление портов...
+2025-11-11 09:45:40.098 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-11-11 09:45:40.102 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2025-11-11 09:45:42.155 | INFO     | app.ui.main_window:closeEvent:639 | Закрытие приложения...
+2025-11-11 09:45:42.160 | INFO     | app.ui.main_window:closeEvent:662 | Окно закрыто, настройки сохранены
+2025-11-11 09:45:42.254 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)

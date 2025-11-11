@@ -47,6 +47,7 @@ class MainWindow(QMainWindow):
         self._init_ui()
         self._connect_signals()
         self._load_settings()
+        self._initial_connect_done = False
         
         # Обновляем порты при старте
         self._on_refresh_ports()
@@ -320,7 +321,8 @@ class MainWindow(QMainWindow):
         self.console_view.command_to_send.connect(self._on_console_command)
         
         # === ConnectionController -> PortPanel ===
-        # Обновление списка портов теперь выполняет сам ConnectionController через PortPanel.update_ports
+        # Подписываемся на обновление портов для авто-выбора и первичного подключения
+        self.connection_controller.ports_changed.connect(self._on_ports_changed)
         self.connection_controller.connected.connect(self._on_connected)
         self.connection_controller.disconnected.connect(self._on_disconnected)
         self.connection_controller.error_occurred.connect(self._on_connection_error)
@@ -470,6 +472,13 @@ class MainWindow(QMainWindow):
             for i in range(self.port_panel.port_combo.count()):
                 if last_port in self.port_panel.port_combo.itemText(i):
                     self.port_panel.port_combo.setCurrentIndex(i)
+                    # Первичное подключение один раз при старте
+                    if not self._initial_connect_done:
+                        try:
+                            self.connection_controller.get_manager().connect(last_port)
+                            self._initial_connect_done = True
+                        except Exception:
+                            pass
                     break
         
         self.console_view.add_info(f"Найдено портов: {len(ports)}")
