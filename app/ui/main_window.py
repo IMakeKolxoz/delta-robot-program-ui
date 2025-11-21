@@ -16,6 +16,9 @@ from app.widgets.trajectory_view import TrajectoryView
 from app.widgets.console_view import ConsoleView
 from app.widgets.port_panel import PortPanel
 from app.widgets.jog_panel import JogPanel
+from app.widgets.coordinates_panel import CoordinatesPanel
+from app.ui.coordinates_viewmodel import CoordinatesViewModel
+from app.services.coordinates_provider import SerialCoordinatesProvider
 from app.utils.settings import AppSettings
 from app.utils.logger import get_logger
 
@@ -43,6 +46,8 @@ class MainWindow(QMainWindow):
         self.console_view = None
         self.port_panel = None
         self.jog_panel = None
+        self.coordinates_panel = None
+        self.coordinates_vm = None
         
         self._init_ui()
         self._connect_signals()
@@ -95,7 +100,7 @@ class MainWindow(QMainWindow):
         gcode_dock.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.RightDockWidgetArea)
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, gcode_dock)
         
-        # Док справа: Управление (сплит с PortPanel и JogPanel)
+        # Док справа: Управление (сплит с PortPanel, CoordinatesPanel и JogPanel)
         control_widget = QWidget()
         control_layout = QVBoxLayout(control_widget)
         control_layout.setContentsMargins(0, 0, 0, 0)
@@ -105,12 +110,21 @@ class MainWindow(QMainWindow):
         splitter = QSplitter(Qt.Orientation.Vertical)
         
         self.port_panel = PortPanel()
+        
+        # Создаём CoordinatesViewModel и CoordinatesPanel
+        serial_manager = self.connection_controller.get_manager()
+        coordinates_provider = SerialCoordinatesProvider(serial_manager)
+        self.coordinates_vm = CoordinatesViewModel(coordinates_provider, serial_manager, self)
+        self.coordinates_panel = CoordinatesPanel(self.coordinates_vm)
+        
         self.jog_panel = JogPanel()
         
         splitter.addWidget(self.port_panel)
+        splitter.addWidget(self.coordinates_panel)
         splitter.addWidget(self.jog_panel)
         splitter.setStretchFactor(0, 1)  # PortPanel растягивается
-        splitter.setStretchFactor(1, 2)  # JogPanel растягивается больше
+        splitter.setStretchFactor(1, 1)  # CoordinatesPanel растягивается
+        splitter.setStretchFactor(2, 2)  # JogPanel растягивается больше
         
         control_layout.addWidget(splitter)
         
@@ -350,6 +364,11 @@ class MainWindow(QMainWindow):
         self.app_state.connection_status_changed.connect(self._on_connection_status_changed)
         self.app_state.run_status_changed.connect(self._on_run_status_changed)
         self.app_state.current_line_changed.connect(self._on_current_line_changed)
+        
+        # === CoordinatesViewModel -> Auto-refresh ===
+        # Автообновление координат при подключении/отключении
+        self.connection_controller.connected.connect(self._on_coordinates_connected)
+        self.connection_controller.disconnected.connect(self._on_coordinates_disconnected)
         
         logger.info("Сигналы подключены")
     
@@ -591,6 +610,18 @@ class MainWindow(QMainWindow):
         """Изменение текущей строки"""
         # TODO: подсветка строки в GCodeView
         pass
+    
+    def _on_coordinates_connected(self, port_name: str):
+        """Обработка подключения для автообновления координат"""
+        if self.coordinates_vm:
+            self.coordinates_vm.set_auto_refresh_enabled(True)
+            logger.info("Автообновление координат включено")
+    
+    def _on_coordinates_disconnected(self):
+        """Обработка отключения для остановки автообновления координат"""
+        if self.coordinates_vm:
+            self.coordinates_vm.set_auto_refresh_enabled(False)
+            logger.info("Автообновление координат выключено")
     
     def _on_line_highlighted(self, line_index: int):
         """Подсветка строки в G-code редакторе"""
