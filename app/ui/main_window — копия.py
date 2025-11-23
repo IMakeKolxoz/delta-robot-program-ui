@@ -19,7 +19,6 @@ from app.widgets.jog_panel import JogPanel
 from app.widgets.coordinates_panel import CoordinatesPanel
 from app.ui.coordinates_viewmodel import CoordinatesViewModel
 from app.ui.main_compact_view import MainCompactView
-from app.ui.trajectory_dialog import TrajectoryDialog
 from app.services.coordinates_provider import SerialCoordinatesProvider
 from app.utils.settings import AppSettings
 from app.utils.logger import get_logger
@@ -44,13 +43,11 @@ class MainWindow(QMainWindow):
         
         # Виджеты
         self.gcode_view = None
-        self.gcode_dock = None
         self.trajectory_view = None
         self.console_view = None
         self.port_panel = None
         self.jog_panel = None
         self.coordinates_panel = None
-        self.control_dock = None
         self.coordinates_vm = None
         self.compact_view = None
         self._primary_central_widget = None
@@ -105,10 +102,10 @@ class MainWindow(QMainWindow):
         
         # Док слева: G-code редактор (ширина ~35%)
         self.gcode_view = GCodeView()
-        self.gcode_dock = QDockWidget("G-code", self)
-        self.gcode_dock.setWidget(self.gcode_view)
-        self.gcode_dock.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.RightDockWidgetArea)
-        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.gcode_dock)
+        gcode_dock = QDockWidget("G-code", self)
+        gcode_dock.setWidget(self.gcode_view)
+        gcode_dock.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.RightDockWidgetArea)
+        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, gcode_dock)
         
         # Док справа: Управление (сплит с PortPanel, CoordinatesPanel и JogPanel)
         control_widget = QWidget()
@@ -138,10 +135,10 @@ class MainWindow(QMainWindow):
         
         control_layout.addWidget(splitter)
         
-        self.control_dock = QDockWidget("Управление", self)
-        self.control_dock.setWidget(control_widget)
-        self.control_dock.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.RightDockWidgetArea)
-        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.control_dock)
+        control_dock = QDockWidget("Управление", self)
+        control_dock.setWidget(control_widget)
+        control_dock.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.RightDockWidgetArea)
+        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, control_dock)
         
         # Док снизу: Консоль (компактный режим)
         self.console_view = ConsoleView()
@@ -153,7 +150,7 @@ class MainWindow(QMainWindow):
         self.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, self.console_dock)
         
         # Устанавливаем пропорции
-        self.resizeDocks([self.gcode_dock, self.control_dock], [350, 300], Qt.Orientation.Horizontal)
+        self.resizeDocks([gcode_dock, control_dock], [350, 300], Qt.Orientation.Horizontal)
         self.resizeDocks([self.console_dock], [200], Qt.Orientation.Vertical)
     
     def _setup_bottom_split(self):
@@ -257,13 +254,6 @@ class MainWindow(QMainWindow):
         # Вид
         view_menu = self.menuBar().addMenu("Вид")
         
-        trajectory_action = QAction("Траектория", self)
-        trajectory_action.setShortcut("Ctrl+T")
-        trajectory_action.triggered.connect(self._on_show_trajectory)
-        view_menu.addAction(trajectory_action)
-        
-        view_menu.addSeparator()
-        
         theme_action = QAction("Светлая тема", self)
         theme_action.setCheckable(True)
         theme_action.setChecked(True)
@@ -294,11 +284,6 @@ class MainWindow(QMainWindow):
         open_action.setShortcut("Ctrl+O")
         open_action.triggered.connect(self._on_open_file)
         self.toolbar.addAction(open_action)
-        
-        trajectory_toolbar_action = QAction("Траектория", self)
-        trajectory_toolbar_action.setShortcut("Ctrl+T")
-        trajectory_toolbar_action.triggered.connect(self._on_show_trajectory)
-        self.toolbar.addAction(trajectory_toolbar_action)
         
         self.toolbar.addSeparator()
         
@@ -362,12 +347,6 @@ class MainWindow(QMainWindow):
             parent=self,
         )
     
-    def _set_legacy_docks_visible(self, visible: bool):
-        """Показать или скрыть доки старого дизайна."""
-        for dock in (self.gcode_dock, self.control_dock):
-            if dock is not None:
-                dock.setVisible(visible)
-    
     def _show_compact_mode(self):
         """Переключить центральный виджет на компактный режим."""
         self._init_compact_view()
@@ -381,7 +360,6 @@ class MainWindow(QMainWindow):
             previous_central.hide()
         self.setCentralWidget(self.compact_view)
         self.compact_view.show()
-        self._set_legacy_docks_visible(False)
         self._compact_mode_enabled = True
         if hasattr(self, "compact_mode_action"):
             self.compact_mode_action.setChecked(True)
@@ -396,7 +374,6 @@ class MainWindow(QMainWindow):
             current_central.hide()
         self.setCentralWidget(self._primary_central_widget)
         self._primary_central_widget.show()
-        self._set_legacy_docks_visible(True)
         self._compact_mode_enabled = False
         if hasattr(self, "compact_mode_action"):
             self.compact_mode_action.setChecked(False)
@@ -708,27 +685,6 @@ class MainWindow(QMainWindow):
     def _on_line_highlighted(self, line_index: int):
         """Подсветка строки в G-code редакторе"""
         self.gcode_view.highlight_line(line_index)
-    
-    def _on_show_trajectory(self):
-        """Открыть диалог с проекциями траектории"""
-        # Получаем точки траектории из AppState
-        trajectory_points_2d = self.app_state.trajectory_points
-        
-        if not trajectory_points_2d:
-            QMessageBox.information(self, "Информация", "Траектория не загружена. Загрузите G-code файл.")
-            return
-        
-        # Преобразуем 2D точки (x, y) в 3D (x, y, z=0)
-        trajectory_points_3d = []
-        for point in trajectory_points_2d:
-            if len(point) >= 2:
-                x, y = point[0], point[1]
-                z = point[2] if len(point) >= 3 else 0.0
-                trajectory_points_3d.append((x, y, z))
-        
-        # Создаем и показываем диалог
-        dialog = TrajectoryDialog(trajectory_points_3d, self)
-        dialog.exec()
     
     def _on_toggle_theme(self, checked: bool):
         """Переключить тему"""
