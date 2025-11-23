@@ -249,7 +249,7 @@ class MainCompactView(QWidget):
     def _build_jog_group(self) -> QGroupBox:
         group = QGroupBox("Jog Panel")
         grid = QGridLayout()
-        grid.setContentsMargins(0, 0, 0, 0)
+        grid.setContentsMargins(2, 2, 2, 2)
         grid.setSpacing(0)
 
         buttons = {
@@ -276,21 +276,32 @@ class MainCompactView(QWidget):
 
     def _build_motion_params_group(self) -> QGroupBox:
         group = QGroupBox("Параметры движения")
-        layout = QFormLayout()
-        layout.setContentsMargins(8, 8, 8, 8)
-        layout.setSpacing(6)
+        grid = QGridLayout()
+        grid.setContentsMargins(4, 4, 4, 4)
+        grid.setSpacing(4)
 
         self.feed_field = self._create_numeric_field()
+        self.feed_field.setMaximumWidth(60)
         self.spindle_field = self._create_numeric_field()
+        self.spindle_field.setMaximumWidth(60)
         self.step_field = self._create_numeric_field()
+        self.step_field.setMaximumWidth(60)
         self.jog_speed_field = self._create_numeric_field()
+        self.jog_speed_field.setMaximumWidth(60)
 
-        layout.addRow(QLabel("Подача (F)"), self.feed_field)
-        layout.addRow(QLabel("Шпиндель (S)"), self.spindle_field)
-        layout.addRow(QLabel("Шаг джога"), self.step_field)
-        layout.addRow(QLabel("Скорость джога"), self.jog_speed_field)
+        # Сетка 2x2: каждая ячейка содержит метку и поле
+        # Строка 0: F | S
+        # Строка 1: Шаг | Скорость
+        grid.addWidget(QLabel("F"), 0, 0)
+        grid.addWidget(self.feed_field, 0, 1)
+        grid.addWidget(QLabel("S"), 0, 2)
+        grid.addWidget(self.spindle_field, 0, 3)
+        grid.addWidget(QLabel("Шаг"), 1, 0)
+        grid.addWidget(self.step_field, 1, 1)
+        grid.addWidget(QLabel("Скорость"), 1, 2)
+        grid.addWidget(self.jog_speed_field, 1, 3)
 
-        group.setLayout(layout)
+        group.setLayout(grid)
         return group
 
     def _build_console_group(self) -> QGroupBox:

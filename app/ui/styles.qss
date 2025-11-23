@@ -569,3 +569,16 @@ QWidget[class~="compact-tight"] {
     border-color: #e5e7e9;
 }
 
+/* Компактные поля ввода параметров движения */
+#MainCompactView QGroupBox[title="Параметры движения"] QLineEdit {
+    max-width: 60px;
+    min-width: 50px;
+    padding: 2px 4px;
+    font-size: 8pt;
+}
+
+#MainCompactView QGroupBox[title="Параметры движения"] QLabel {
+    font-size: 8pt;
+    padding: 0px 2px;
+}
+

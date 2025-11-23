@@ -2500,3 +2500,53 @@ Ok
 2025-11-23 20:14:48.167 | INFO     | app.ui.main_window:closeEvent:780 | Закрытие приложения...
 2025-11-23 20:14:48.373 | INFO     | app.ui.main_window:closeEvent:803 | Окно закрыто, настройки сохранены
 2025-11-23 20:14:48.422 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2025-11-23 20:19:55.104 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2025-11-23 20:19:55.425 | INFO     | __main__:main:38 | ==================================================
+2025-11-23 20:19:55.426 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2025-11-23 20:19:55.427 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2025-11-23 20:19:55.428 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2025-11-23 20:19:55.429 | INFO     | __main__:main:42 | ==================================================
+2025-11-23 20:19:55.464 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2025-11-23 20:19:55.465 | INFO     | __main__:main:57 | Создание главного окна...
+2025-11-23 20:19:55.470 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2025-11-23 20:19:56.009 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2025-11-23 20:19:56.066 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2025-11-23 20:19:56.092 | INFO     | app.ui.main_window:_connect_signals:406 | Подключение сигналов...
+2025-11-23 20:19:56.094 | INFO     | app.ui.main_window:_connect_signals:455 | Сигналы подключены
+2025-11-23 20:19:56.095 | INFO     | app.ui.main_window:_load_settings:754 | Загрузка настроек...
+2025-11-23 20:19:56.231 | DEBUG    | app.ui.main_window:_load_settings:760 | Геометрия восстановлена
+2025-11-23 20:19:56.236 | DEBUG    | app.ui.main_window:_load_settings:766 | Состояние доков восстановлено
+2025-11-23 20:19:56.237 | INFO     | app.ui.main_window:_load_settings:776 | Настройки загружены
+2025-11-23 20:19:56.238 | INFO     | app.ui.main_window:_on_refresh_ports:461 | Обновление портов...
+2025-11-23 20:19:56.241 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-11-23 20:19:56.249 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2025-11-23 20:19:56.382 | INFO     | __main__:main:61 | Приложение готово к работе
+2025-11-23 20:19:56.384 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2025-11-23 20:23:21.238 | INFO     | app.ui.main_window:closeEvent:780 | Закрытие приложения...
+2025-11-23 20:23:21.468 | INFO     | app.ui.main_window:closeEvent:803 | Окно закрыто, настройки сохранены
+2025-11-23 20:23:21.499 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2025-11-23 20:23:30.162 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2025-11-23 20:23:30.478 | INFO     | __main__:main:38 | ==================================================
+2025-11-23 20:23:30.479 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2025-11-23 20:23:30.479 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2025-11-23 20:23:30.480 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2025-11-23 20:23:30.480 | INFO     | __main__:main:42 | ==================================================
+2025-11-23 20:23:30.514 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2025-11-23 20:23:30.515 | INFO     | __main__:main:57 | Создание главного окна...
+2025-11-23 20:23:30.519 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2025-11-23 20:23:31.070 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2025-11-23 20:23:31.118 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2025-11-23 20:23:31.155 | INFO     | app.ui.main_window:_connect_signals:406 | Подключение сигналов...
+2025-11-23 20:23:31.157 | INFO     | app.ui.main_window:_connect_signals:455 | Сигналы подключены
+2025-11-23 20:23:31.157 | INFO     | app.ui.main_window:_load_settings:754 | Загрузка настроек...
+2025-11-23 20:23:31.159 | DEBUG    | app.ui.main_window:_load_settings:760 | Геометрия восстановлена
+2025-11-23 20:23:31.163 | DEBUG    | app.ui.main_window:_load_settings:766 | Состояние доков восстановлено
+2025-11-23 20:23:31.164 | INFO     | app.ui.main_window:_load_settings:776 | Настройки загружены
+2025-11-23 20:23:31.166 | INFO     | app.ui.main_window:_on_refresh_ports:461 | Обновление портов...
+2025-11-23 20:23:31.169 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-11-23 20:23:31.176 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2025-11-23 20:23:31.353 | INFO     | __main__:main:61 | Приложение готово к работе
+2025-11-23 20:23:31.354 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2025-11-23 20:23:47.241 | INFO     | app.ui.main_window:closeEvent:780 | Закрытие приложения...
+2025-11-23 20:23:47.474 | INFO     | app.ui.main_window:closeEvent:803 | Окно закрыто, настройки сохранены
+2025-11-23 20:23:47.532 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
