@@ -100,6 +100,7 @@ class MainCompactView(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
 
+        # Верхняя часть: левая и правая колонки (консоль не здесь)
         self.columns_splitter = QSplitter(Qt.Orientation.Horizontal, self)
         self.columns_splitter.setChildrenCollapsible(False)
 
@@ -112,7 +113,27 @@ class MainCompactView(QWidget):
         self.columns_splitter.setStretchFactor(1, 2)
         self.columns_splitter.setSizes([320, 480])
 
-        layout.addWidget(self.columns_splitter)
+        # Нижняя часть: консоль ~50% ширины, справа — блок управления/пусто
+        self.bottom_splitter = QSplitter(Qt.Orientation.Horizontal, self)
+        self.bottom_splitter.setChildrenCollapsible(False)
+        self.bottom_splitter.setMinimumHeight(120)
+        self.bottom_splitter.setMaximumHeight(200)
+        self.console_group = self._build_console_group()
+        self.console_container = QWidget()
+        console_container_layout = QVBoxLayout(self.console_container)
+        console_container_layout.setContentsMargins(0, 0, 0, 0)
+        console_container_layout.addWidget(self.console_group)
+        self.bottom_right_placeholder = QWidget()
+        self.bottom_right_placeholder.setMinimumWidth(100)
+        self.bottom_splitter.addWidget(self.console_container)
+        self.bottom_splitter.addWidget(self.bottom_right_placeholder)
+        self.bottom_splitter.setStretchFactor(0, 1)
+        self.bottom_splitter.setStretchFactor(1, 1)
+        # Консоль ~50% ширины, справа ~50%; по умолчанию скрыта, показывается по клавише *
+        self.bottom_splitter.setSizes([400, 400])
+        layout.addWidget(self.columns_splitter, 1)
+        layout.addWidget(self.bottom_splitter, 0)
+        self.bottom_splitter.setVisible(False)
 
     def _build_left_column(self) -> QWidget:
         container = QWidget()
@@ -144,19 +165,15 @@ class MainCompactView(QWidget):
         self.right_splitter.setChildrenCollapsible(False)
 
         self.com_group = self._build_com_group()
-        self.jog_group = self._build_jog_group()
         self.motion_group = self._build_motion_params_group()
-        self.console_group = self._build_console_group()
+        # Jog-кнопки (+X, -X, +Y, -Y, +Z, -Z) удалены: управление через клавиатуру 4x4 (keyboard_control.py)
+        # Консоль перенесена в нижнюю горизонтальную панель (50% ширины)
 
         self.right_splitter.addWidget(self.com_group)
-        self.right_splitter.addWidget(self.jog_group)
         self.right_splitter.addWidget(self.motion_group)
-        self.right_splitter.addWidget(self.console_group)
 
         self.right_splitter.setStretchFactor(0, 0)
-        self.right_splitter.setStretchFactor(1, 0)
-        self.right_splitter.setStretchFactor(2, 0)
-        self.right_splitter.setStretchFactor(3, 1)
+        self.right_splitter.setStretchFactor(1, 1)
 
         column_layout.addWidget(self.right_splitter)
         return container
@@ -244,34 +261,6 @@ class MainCompactView(QWidget):
 
         layout.addLayout(row)
         group.setLayout(layout)
-        return group
-
-    def _build_jog_group(self) -> QGroupBox:
-        group = QGroupBox("Jog Panel")
-        grid = QGridLayout()
-        grid.setContentsMargins(2, 2, 2, 2)
-        grid.setSpacing(0)
-
-        buttons = {
-            (0, 1): ("Y+", "Y", 1.0),
-            (2, 1): ("Y-", "Y", -1.0),
-            (1, 0): ("X-", "X", -1.0),
-            (1, 2): ("X+", "X", 1.0),
-            (0, 3): ("Z+", "Z", 1.0),
-            (2, 3): ("Z-", "Z", -1.0),
-        }
-
-        self.jog_buttons: Dict[str, QPushButton] = {}
-        for (row, col), (label, axis, direction) in buttons.items():
-            btn = QPushButton(label)
-            btn.setProperty("axis", axis)
-            btn.setProperty("direction", direction)
-            btn.setProperty("class", "compact-jog-button")
-            btn.clicked.connect(self._on_jog_button_clicked)
-            grid.addWidget(btn, row, col)
-            self.jog_buttons[label] = btn
-
-        group.setLayout(grid)
         return group
 
     def _build_motion_params_group(self) -> QGroupBox:
@@ -718,6 +707,10 @@ class MainCompactView(QWidget):
 
     def _append_console(self, text: str) -> None:
         self.console_history.appendPlainText(text)
+
+    def toggle_console_visibility(self) -> None:
+        """Показать/скрыть блок консоли (вызывается по клавише * на клавиатуре 4x4)."""
+        self.bottom_splitter.setVisible(not self.bottom_splitter.isVisible())
 
 
 class _InlineEditorAdapter:

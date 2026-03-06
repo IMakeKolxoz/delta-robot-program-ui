@@ -2550,3 +2550,1049 @@ Ok
 2025-11-23 20:23:47.241 | INFO     | app.ui.main_window:closeEvent:780 | Закрытие приложения...
 2025-11-23 20:23:47.474 | INFO     | app.ui.main_window:closeEvent:803 | Окно закрыто, настройки сохранены
 2025-11-23 20:23:47.532 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2025-11-23 21:31:18.312 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2025-11-23 21:31:26.933 | INFO     | __main__:main:38 | ==================================================
+2025-11-23 21:31:26.936 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2025-11-23 21:31:26.936 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2025-11-23 21:31:26.937 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2025-11-23 21:31:26.937 | INFO     | __main__:main:42 | ==================================================
+2025-11-23 21:31:27.316 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2025-11-23 21:31:27.317 | INFO     | __main__:main:57 | Создание главного окна...
+2025-11-23 21:31:27.323 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2025-11-23 21:31:29.015 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2025-11-23 21:31:29.071 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2025-11-23 21:31:29.102 | INFO     | app.ui.main_window:_connect_signals:406 | Подключение сигналов...
+2025-11-23 21:31:29.104 | INFO     | app.ui.main_window:_connect_signals:455 | Сигналы подключены
+2025-11-23 21:31:29.104 | INFO     | app.ui.main_window:_load_settings:754 | Загрузка настроек...
+2025-11-23 21:31:29.106 | DEBUG    | app.ui.main_window:_load_settings:760 | Геометрия восстановлена
+2025-11-23 21:31:29.108 | DEBUG    | app.ui.main_window:_load_settings:766 | Состояние доков восстановлено
+2025-11-23 21:31:29.108 | INFO     | app.ui.main_window:_load_settings:776 | Настройки загружены
+2025-11-23 21:31:29.109 | INFO     | app.ui.main_window:_on_refresh_ports:461 | Обновление портов...
+2025-11-23 21:31:29.111 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-11-23 21:31:29.117 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2025-11-23 21:31:29.388 | INFO     | __main__:main:61 | Приложение готово к работе
+2025-11-23 21:31:29.391 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2025-11-23 21:35:23.585 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:44 | Загрузка файла: D:/github/delta-robot-program/tsttesttpu.gcode
+2025-11-23 21:35:23.588 | INFO     | app.services.gcode_parser:parse:115 | Спарсено: 49 строк, 44 точек
+2025-11-23 21:35:23.594 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:61 | Загружено строк: 49, точек: 44
+2025-11-23 21:35:34.466 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2025-11-23 21:35:34.521 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 1
+2025-11-23 21:35:34.525 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-11-23 21:35:34.530 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2025-11-23 21:35:34.532 | INFO     | app.services.serial_manager:connect:322 | Подключение к COM3...
+2025-11-23 21:35:34.538 | INFO     | app.services.serial_manager:_connect:80 | Подключено к COM3
+2025-11-23 21:35:34.543 | INFO     | app.services.serial_manager:_on_data_sent:399 | Порт открыт: COM3
+2025-11-23 21:35:34.544 | INFO     | app.controllers.connection_controller:_on_manager_connected:100 | Подключено к COM3
+2025-11-23 21:35:34.549 | INFO     | app.ui.coordinates_viewmodel:start_auto_refresh:310 | Автообновление координат запущено
+2025-11-23 21:35:34.550 | INFO     | app.ui.main_window:_on_coordinates_connected:700 | Автообновление координат включено
+2025-11-23 21:35:34.551 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → Connected to COM3
+2025-11-23 21:35:36.589 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:36.594 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:36.595 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:37.609 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:35:38.561 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:38.565 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:38.579 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:39.571 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:35:40.587 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:40.590 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:40.591 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:41.584 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:35:42.577 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:42.579 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:42.581 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:43.578 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:35:44.578 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:44.580 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:44.580 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:45.657 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:35:46.588 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:46.590 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:46.591 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:47.612 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:35:48.573 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:48.577 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:48.578 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:49.589 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:35:50.593 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:50.595 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:50.596 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:51.592 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:35:52.596 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:52.599 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:52.600 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:53.606 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:35:54.591 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:54.593 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:54.613 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:55.615 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:35:56.607 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:56.610 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:56.611 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:57.605 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:35:58.621 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:35:58.623 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:35:58.623 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:35:59.633 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:00.621 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:00.625 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:00.626 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:01.627 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:02.619 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:02.621 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:02.622 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:03.630 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:04.624 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:04.626 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:04.627 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:05.627 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:06.629 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:06.637 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:06.644 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:07.634 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:08.624 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:08.627 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:08.628 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:09.632 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:10.642 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:10.645 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:10.646 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:11.656 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:12.644 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:12.647 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:12.648 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:13.642 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:14.658 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:14.661 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:14.662 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:15.660 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:16.668 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:16.671 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:16.672 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:17.680 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:18.685 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:18.690 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:18.693 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:19.696 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:20.692 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:20.694 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:20.696 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:21.688 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:22.705 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:22.707 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:22.709 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:23.701 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:24.699 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:24.701 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:24.701 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:25.710 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:26.699 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:26.702 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:26.702 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:27.721 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:28.701 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:28.703 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:28.705 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:29.699 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:30.714 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2025-11-23 21:36:30.715 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2025-11-23 21:36:30.715 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2025-11-23 21:36:31.728 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2025-11-23 21:36:32.121 | INFO     | app.ui.main_window:closeEvent:780 | Закрытие приложения...
+2025-11-23 21:36:32.123 | INFO     | app.controllers.connection_controller:disconnect_from_port:95 | Отключение...
+2025-11-23 21:36:32.125 | INFO     | app.services.serial_manager:disconnect:331 | Отключение...
+2025-11-23 21:36:32.126 | INFO     | app.controllers.connection_controller:_on_manager_disconnected:107 | Отключено
+2025-11-23 21:36:32.128 | INFO     | app.services.serial_manager:_disconnect:101 | Отключено
+2025-11-23 21:36:32.129 | INFO     | app.ui.coordinates_viewmodel:stop_auto_refresh:319 | Автообновление координат остановлено
+2025-11-23 21:36:32.131 | INFO     | app.ui.main_window:_on_coordinates_disconnected:706 | Автообновление координат выключено
+2025-11-23 21:36:32.164 | INFO     | app.ui.main_window:closeEvent:803 | Окно закрыто, настройки сохранены
+2025-11-23 21:36:32.283 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-01-04 20:53:30.610 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-01-04 20:53:34.021 | INFO     | __main__:main:38 | ==================================================
+2026-01-04 20:53:34.022 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-01-04 20:53:34.022 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-01-04 20:53:34.023 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-01-04 20:53:34.023 | INFO     | __main__:main:42 | ==================================================
+2026-01-04 20:53:34.231 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-01-04 20:53:34.231 | INFO     | __main__:main:57 | Создание главного окна...
+2026-01-04 20:53:34.240 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-01-04 20:53:35.569 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-01-04 20:53:35.619 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-01-04 20:53:35.637 | INFO     | app.ui.main_window:_connect_signals:406 | Подключение сигналов...
+2026-01-04 20:53:35.638 | INFO     | app.ui.main_window:_connect_signals:455 | Сигналы подключены
+2026-01-04 20:53:35.638 | INFO     | app.ui.main_window:_load_settings:754 | Загрузка настроек...
+2026-01-04 20:53:35.639 | DEBUG    | app.ui.main_window:_load_settings:760 | Геометрия восстановлена
+2026-01-04 20:53:35.641 | DEBUG    | app.ui.main_window:_load_settings:766 | Состояние доков восстановлено
+2026-01-04 20:53:35.641 | INFO     | app.ui.main_window:_load_settings:776 | Настройки загружены
+2026-01-04 20:53:35.641 | INFO     | app.ui.main_window:_on_refresh_ports:461 | Обновление портов...
+2026-01-04 20:53:35.644 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-01-04 20:53:35.647 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-01-04 20:53:35.760 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-01-04 20:53:35.760 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-01-04 20:53:47.897 | INFO     | app.ui.main_window:_on_toggle_theme:735 | Переключение темы: Тёмная
+2026-01-04 20:55:09.698 | INFO     | app.ui.main_window:closeEvent:780 | Закрытие приложения...
+2026-01-04 20:55:09.702 | INFO     | app.ui.main_window:closeEvent:803 | Окно закрыто, настройки сохранены
+2026-01-04 20:55:09.710 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-01-22 15:27:36.097 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-01-22 15:27:40.761 | INFO     | __main__:main:38 | ==================================================
+2026-01-22 15:27:40.762 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-01-22 15:27:40.762 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-01-22 15:27:40.763 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-01-22 15:27:40.763 | INFO     | __main__:main:42 | ==================================================
+2026-01-22 15:27:41.025 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-01-22 15:27:41.026 | INFO     | __main__:main:57 | Создание главного окна...
+2026-01-22 15:27:41.040 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-01-22 15:27:42.650 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-01-22 15:27:42.688 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-01-22 15:27:42.710 | INFO     | app.ui.main_window:_connect_signals:406 | Подключение сигналов...
+2026-01-22 15:27:42.711 | INFO     | app.ui.main_window:_connect_signals:455 | Сигналы подключены
+2026-01-22 15:27:42.711 | INFO     | app.ui.main_window:_load_settings:754 | Загрузка настроек...
+2026-01-22 15:27:42.713 | DEBUG    | app.ui.main_window:_load_settings:760 | Геометрия восстановлена
+2026-01-22 15:27:42.715 | DEBUG    | app.ui.main_window:_load_settings:766 | Состояние доков восстановлено
+2026-01-22 15:27:42.715 | INFO     | app.ui.main_window:_load_settings:776 | Настройки загружены
+2026-01-22 15:27:42.716 | INFO     | app.ui.main_window:_on_refresh_ports:461 | Обновление портов...
+2026-01-22 15:27:42.719 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-01-22 15:27:42.723 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-01-22 15:27:42.870 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-01-22 15:27:42.871 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-01-22 15:27:57.891 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:44 | Загрузка файла: D:/github/delta-robot-program/test.gcode
+2026-01-22 15:27:57.892 | INFO     | app.services.gcode_parser:parse:115 | Спарсено: 3 строк, 3 точек
+2026-01-22 15:27:57.900 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:61 | Загружено строк: 3, точек: 3
+2026-01-22 15:28:08.354 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:44 | Загрузка файла: D:/github/delta-robot-program/tsttesttpu.gcode
+2026-01-22 15:28:08.381 | INFO     | app.services.gcode_parser:parse:115 | Спарсено: 49 строк, 44 точек
+2026-01-22 15:28:08.386 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:61 | Загружено строк: 49, точек: 44
+2026-01-22 15:28:26.090 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: Не подключено
+2026-01-22 15:28:27.494 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: Не подключено
+2026-01-22 15:28:27.495 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:06:44.289 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-02-13 13:06:50.848 | INFO     | __main__:main:38 | ==================================================
+2026-02-13 13:06:50.849 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-02-13 13:06:50.850 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-02-13 13:06:50.850 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-02-13 13:06:50.851 | INFO     | __main__:main:42 | ==================================================
+2026-02-13 13:06:51.169 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-02-13 13:06:51.170 | INFO     | __main__:main:57 | Создание главного окна...
+2026-02-13 13:06:51.186 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-02-13 13:06:52.616 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-02-13 13:06:52.663 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-02-13 13:06:52.688 | INFO     | app.ui.main_window:_connect_signals:406 | Подключение сигналов...
+2026-02-13 13:06:52.689 | INFO     | app.ui.main_window:_connect_signals:455 | Сигналы подключены
+2026-02-13 13:06:52.689 | INFO     | app.ui.main_window:_load_settings:754 | Загрузка настроек...
+2026-02-13 13:06:52.691 | DEBUG    | app.ui.main_window:_load_settings:760 | Геометрия восстановлена
+2026-02-13 13:06:52.693 | DEBUG    | app.ui.main_window:_load_settings:766 | Состояние доков восстановлено
+2026-02-13 13:06:52.693 | INFO     | app.ui.main_window:_load_settings:776 | Настройки загружены
+2026-02-13 13:06:52.693 | INFO     | app.ui.main_window:_on_refresh_ports:461 | Обновление портов...
+2026-02-13 13:06:52.699 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-02-13 13:06:52.704 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-02-13 13:06:52.897 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-02-13 13:06:52.898 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-02-13 13:06:57.629 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-02-13 13:06:57.636 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-02-13 13:07:12.464 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-02-13 13:07:12.500 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 1
+2026-02-13 13:07:12.503 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2026-02-13 13:07:12.506 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM3
+2026-02-13 13:07:12.508 | INFO     | app.services.serial_manager:connect:322 | Подключение к COM3...
+2026-02-13 13:07:12.511 | INFO     | app.services.serial_manager:_connect:80 | Подключено к COM3
+2026-02-13 13:07:12.520 | INFO     | app.services.serial_manager:_on_data_sent:399 | Порт открыт: COM3
+2026-02-13 13:07:12.521 | INFO     | app.controllers.connection_controller:_on_manager_connected:100 | Подключено к COM3
+2026-02-13 13:07:12.522 | INFO     | app.ui.coordinates_viewmodel:start_auto_refresh:310 | Автообновление координат запущено
+2026-02-13 13:07:12.523 | INFO     | app.ui.main_window:_on_coordinates_connected:700 | Автообновление координат включено
+2026-02-13 13:07:12.523 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → Connected to COM3
+2026-02-13 13:07:14.542 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:14.544 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:14.545 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:15.536 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:16.235 | ERROR    | app.controllers.run_controller:start:68 | G-code не загружен
+2026-02-13 13:07:16.521 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:16.524 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:16.525 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:17.521 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:18.709 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:18.710 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:18.746 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:19.709 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:20.526 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:20.527 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:20.528 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:21.520 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:22.520 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:22.522 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:22.523 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:23.523 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:24.525 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:24.529 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:24.534 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:25.524 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:26.528 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:26.530 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:26.531 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:27.532 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:28.519 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:28.521 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:28.522 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:29.523 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:30.523 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:30.525 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:30.526 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:31.526 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:32.530 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:32.533 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:32.534 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:33.529 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:34.530 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:34.532 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:34.533 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:35.551 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:36.520 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:36.522 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:36.523 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:37.521 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:38.523 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:38.524 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:38.525 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:39.522 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:40.521 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:40.523 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:40.524 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:41.523 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:42.523 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:42.524 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:42.525 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:43.521 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:44.525 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:44.527 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:44.528 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:45.528 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:46.522 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:46.531 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:46.535 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:47.525 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:48.520 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:48.521 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:48.522 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:49.521 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:50.523 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:50.525 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:50.525 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:51.520 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:52.543 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:52.545 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:52.545 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:53.544 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:54.559 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:54.560 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:54.560 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:55.553 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:56.553 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:56.554 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:56.555 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:57.553 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:07:58.555 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:07:58.556 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:07:58.557 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:07:59.552 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:00.558 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:00.562 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:00.563 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:01.554 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:02.552 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:02.553 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:02.553 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:03.557 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:04.557 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:04.562 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:04.563 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:05.568 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:06.556 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:06.561 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:06.563 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:07.555 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:08.554 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:08.556 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:08.558 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:09.555 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:10.552 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:10.553 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:10.555 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:11.554 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:12.553 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:12.554 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:12.555 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:13.554 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:14.556 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:14.559 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:14.560 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:15.560 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:16.552 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:16.557 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:16.559 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:17.552 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:18.554 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:18.559 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:18.561 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:19.556 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:20.551 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:20.552 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:20.553 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:21.568 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:22.555 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:22.557 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:22.557 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:23.559 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:24.553 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:24.556 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:24.557 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:25.552 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:26.552 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:26.554 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:26.555 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:27.553 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:28.564 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:28.566 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:28.567 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:29.552 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:30.561 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:30.563 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:30.565 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:31.556 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:32.564 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:32.568 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:32.570 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:33.570 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:34.566 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:34.569 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:34.569 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:35.571 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:36.560 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:36.562 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:36.563 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:37.558 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:38.555 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:38.556 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:38.557 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:39.555 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:40.559 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:40.561 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:40.562 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:41.559 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:42.562 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:42.564 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:42.565 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:43.551 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:44.554 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:44.556 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:44.557 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:45.553 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:46.552 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:46.554 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:46.555 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:47.555 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:48.562 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:48.565 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:48.566 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:49.567 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:50.565 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:50.568 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:50.569 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:51.582 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:52.553 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:52.556 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:52.557 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:53.552 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:54.558 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:54.560 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:54.561 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:55.561 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:56.564 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:56.565 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:56.567 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:57.552 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:08:58.556 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:08:58.558 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:08:58.559 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:08:59.556 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:00.556 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:00.557 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:09:00.558 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:09:01.556 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:02.556 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:02.557 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:09:02.558 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:09:03.570 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:04.552 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:04.555 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:09:04.556 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:09:05.571 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:06.558 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:06.560 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:09:06.561 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:09:07.552 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:08.553 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:08.556 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:09:08.557 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:09:09.552 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:10.551 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:10.580 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:10.581 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:10.583 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:11.552 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:12.570 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:12.572 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:12.573 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:12.573 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:13.575 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:14.568 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:14.569 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:14.570 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:14.570 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:15.567 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:16.568 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:16.569 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:16.572 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:16.573 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:17.568 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:18.573 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:18.575 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:18.575 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:18.576 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:19.575 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:20.570 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:20.571 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:20.573 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:20.575 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:21.568 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:22.568 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:22.569 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:22.571 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:22.573 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:23.567 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:24.570 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:24.573 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:24.575 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:24.576 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:25.574 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:26.568 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:26.571 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:26.573 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:26.573 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:27.569 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:28.572 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:28.574 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:28.576 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:28.577 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:29.574 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:30.574 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:30.576 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:30.576 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:30.577 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:31.575 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:32.571 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:32.572 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:32.574 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:32.576 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:33.569 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:34.566 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:34.567 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:34.568 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:34.569 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:35.569 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:36.569 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:36.571 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:36.572 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:36.572 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:37.570 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:38.570 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:38.571 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:38.572 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:38.572 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:39.568 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:40.569 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:40.571 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:40.572 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:40.572 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:41.571 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:42.569 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:42.571 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:42.571 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:42.572 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:43.569 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:44.571 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:44.573 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:44.574 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:44.575 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:45.570 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:46.568 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:46.570 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:46.571 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:46.572 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:47.570 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:48.573 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:48.574 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:48.575 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:48.576 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:49.567 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:50.570 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:50.573 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:50.576 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:50.577 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:51.568 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:52.568 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:52.569 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:52.570 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:52.571 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:53.567 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:54.574 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:54.578 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:54.579 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:54.580 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:55.569 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:56.569 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:56.575 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:56.577 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:56.578 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:57.570 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:09:58.569 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:09:58.571 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:58.574 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:58.574 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:09:59.569 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:00.571 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:00.575 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:00.576 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:00.576 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:01.573 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:02.574 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:02.575 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:02.577 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:02.578 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:03.574 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:04.573 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:04.574 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:04.577 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:04.578 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:05.577 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:06.569 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:06.572 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:06.575 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:06.578 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:07.570 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:08.575 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:08.580 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:08.582 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:08.583 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:09.569 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:10.573 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:10.574 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:10.575 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:10.576 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:11.570 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:12.570 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:12.573 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:12.574 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:12.575 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:13.571 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:14.569 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:14.571 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:14.573 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:14.574 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:15.570 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:16.569 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:16.571 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:16.573 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:16.574 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:17.568 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:18.568 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:18.568 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:18.569 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:18.569 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:18.978 | ERROR    | app.ui.coordinates_viewmodel:_on_serial_error:250 | Ошибка при запросе координат: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:18.979 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:18.979 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:20.503 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:20.508 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:20.596 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:20.599 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:20.600 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:20.601 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:20.994 | ERROR    | app.ui.coordinates_viewmodel:_on_serial_error:250 | Ошибка при запросе координат: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:20.996 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:20.997 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:21.290 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:21.291 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:21.469 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:21.470 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:22.584 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:22.587 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:22.589 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:22.590 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:23.590 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:24.448 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:24.449 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:24.586 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:24.587 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:24.589 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:24.590 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:25.589 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:26.587 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:26.590 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:26.592 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:26.593 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:26.935 | ERROR    | app.ui.coordinates_viewmodel:_on_serial_error:250 | Ошибка при запросе координат: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:26.936 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:26.937 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:27.269 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:27.270 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:28.043 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:28.045 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:28.589 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:28.591 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:28.594 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:28.595 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:29.588 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:30.586 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:30.587 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:30.590 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:30.591 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:31.587 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:32.595 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:32.597 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:32.598 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:32.599 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:33.595 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:34.594 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:34.595 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:34.596 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:34.596 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:35.590 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:36.587 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:36.587 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:36.589 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:36.590 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:37.592 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:38.594 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:10:38.597 | ERROR    | app.services.serial_manager:_send_command:128 | Ошибка отправки: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:38.599 | ERROR    | app.services.serial_manager:_on_error:413 | SerialManager error: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:38.600 | ERROR    | app.controllers.connection_controller:_on_manager_error:114 | Ошибка подключения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:39.595 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:10:40.596 | INFO     | __main__:signal_handler:29 | Получен сигнал 2, завершение работы...
+2026-02-13 13:10:40.673 | INFO     | app.ui.main_window:closeEvent:780 | Закрытие приложения...
+2026-02-13 13:10:40.673 | INFO     | app.controllers.connection_controller:disconnect_from_port:95 | Отключение...
+2026-02-13 13:10:40.674 | INFO     | app.services.serial_manager:disconnect:331 | Отключение...
+2026-02-13 13:10:40.674 | INFO     | app.controllers.connection_controller:_on_manager_disconnected:107 | Отключено
+2026-02-13 13:10:40.675 | INFO     | app.ui.coordinates_viewmodel:stop_auto_refresh:319 | Автообновление координат остановлено
+2026-02-13 13:10:40.675 | INFO     | app.ui.main_window:_on_coordinates_disconnected:706 | Автообновление координат выключено
+2026-02-13 13:10:40.676 | INFO     | app.services.serial_manager:_disconnect:101 | Отключено
+2026-02-13 13:10:40.683 | INFO     | app.ui.main_window:closeEvent:803 | Окно закрыто, настройки сохранены
+2026-02-13 13:10:40.693 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.694 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.696 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.696 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.697 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.698 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.699 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.700 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.701 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.704 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.706 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.707 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.708 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.709 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.711 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.712 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.713 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.714 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.715 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.716 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.718 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.718 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.719 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.720 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.722 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.722 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.724 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.724 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.726 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.726 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.727 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.728 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.729 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.730 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.731 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.732 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.733 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.733 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.735 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.736 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.737 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.738 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.739 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.740 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.742 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.743 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.744 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.745 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.747 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.747 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.748 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.749 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.750 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.751 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.752 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.753 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.754 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.754 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.756 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.756 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.757 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.758 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.759 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.759 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.760 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.761 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.762 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.763 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.764 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.764 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.765 | ERROR    | app.controllers.run_controller:_on_error:218 | Ошибка выполнения: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-02-13 13:10:40.766 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-02-13 13:10:40.767 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-02-13 13:42:54.646 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-02-13 13:42:54.791 | INFO     | __main__:main:38 | ==================================================
+2026-02-13 13:42:54.791 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-02-13 13:42:54.792 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-02-13 13:42:54.792 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-02-13 13:42:54.792 | INFO     | __main__:main:42 | ==================================================
+2026-02-13 13:42:54.812 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-02-13 13:42:54.813 | INFO     | __main__:main:57 | Создание главного окна...
+2026-02-13 13:42:54.816 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-02-13 13:42:55.072 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-02-13 13:42:55.101 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-02-13 13:42:55.116 | INFO     | app.ui.main_window:_connect_signals:406 | Подключение сигналов...
+2026-02-13 13:42:55.116 | INFO     | app.ui.main_window:_connect_signals:455 | Сигналы подключены
+2026-02-13 13:42:55.117 | INFO     | app.ui.main_window:_load_settings:754 | Загрузка настроек...
+2026-02-13 13:42:55.144 | DEBUG    | app.ui.main_window:_load_settings:760 | Геометрия восстановлена
+2026-02-13 13:42:55.147 | DEBUG    | app.ui.main_window:_load_settings:766 | Состояние доков восстановлено
+2026-02-13 13:42:55.148 | INFO     | app.ui.main_window:_load_settings:776 | Настройки загружены
+2026-02-13 13:42:55.148 | INFO     | app.ui.main_window:_on_refresh_ports:461 | Обновление портов...
+2026-02-13 13:42:55.150 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-02-13 13:42:55.154 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-02-13 13:42:55.256 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-02-13 13:42:55.257 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-02-13 13:44:01.673 | INFO     | app.ui.main_window:closeEvent:780 | Закрытие приложения...
+2026-02-13 13:44:01.676 | INFO     | app.ui.main_window:closeEvent:803 | Окно закрыто, настройки сохранены
+2026-02-13 13:44:01.703 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-02-13 13:44:58.399 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-02-13 13:44:58.554 | INFO     | __main__:main:38 | ==================================================
+2026-02-13 13:44:58.554 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-02-13 13:44:58.555 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-02-13 13:44:58.555 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-02-13 13:44:58.555 | INFO     | __main__:main:42 | ==================================================
+2026-02-13 13:44:58.573 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-02-13 13:44:58.574 | INFO     | __main__:main:57 | Создание главного окна...
+2026-02-13 13:44:58.576 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-02-13 13:44:58.842 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-02-13 13:44:58.865 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-02-13 13:44:58.883 | INFO     | app.ui.main_window:_connect_signals:406 | Подключение сигналов...
+2026-02-13 13:44:58.884 | INFO     | app.ui.main_window:_connect_signals:455 | Сигналы подключены
+2026-02-13 13:44:58.884 | INFO     | app.ui.main_window:_load_settings:754 | Загрузка настроек...
+2026-02-13 13:44:58.886 | DEBUG    | app.ui.main_window:_load_settings:760 | Геометрия восстановлена
+2026-02-13 13:44:58.888 | DEBUG    | app.ui.main_window:_load_settings:766 | Состояние доков восстановлено
+2026-02-13 13:44:58.888 | INFO     | app.ui.main_window:_load_settings:776 | Настройки загружены
+2026-02-13 13:44:58.891 | INFO     | app.ui.main_window:_on_refresh_ports:461 | Обновление портов...
+2026-02-13 13:44:58.894 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-02-13 13:44:58.899 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 1
+2026-02-13 13:44:58.901 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM4
+2026-02-13 13:44:58.903 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM4
+2026-02-13 13:44:59.025 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-02-13 13:44:59.026 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-02-13 13:45:04.641 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-02-13 13:45:04.646 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 1
+2026-02-13 13:45:04.647 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM4
+2026-02-13 13:45:04.649 | INFO     | app.services.serial_manager:set_selected_port:274 | Выбран порт: COM4
+2026-02-13 13:45:06.458 | INFO     | app.controllers.connection_controller:connect_to_port:86 | Подключение к COM4...
+2026-02-13 13:45:06.459 | INFO     | app.services.serial_manager:connect:322 | Подключение к COM4...
+2026-02-13 13:45:06.464 | INFO     | app.services.serial_manager:_connect:80 | Подключено к COM4
+2026-02-13 13:45:06.465 | INFO     | app.services.serial_manager:_on_data_sent:399 | Порт открыт: COM4
+2026-02-13 13:45:06.465 | INFO     | app.controllers.connection_controller:_on_manager_connected:100 | Подключено к COM4
+2026-02-13 13:45:06.467 | INFO     | app.ui.coordinates_viewmodel:start_auto_refresh:310 | Автообновление координат запущено
+2026-02-13 13:45:06.468 | INFO     | app.ui.main_window:_on_coordinates_connected:700 | Автообновление координат включено
+2026-02-13 13:45:06.469 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → Connected to COM4
+2026-02-13 13:45:08.459 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:45:08.461 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:45:08.461 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:45:09.459 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:45:10.470 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:45:10.472 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:45:10.473 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:45:11.473 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:45:12.457 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:45:12.459 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:45:12.460 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:45:13.471 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:45:14.471 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:45:14.473 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:45:14.473 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:45:15.469 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:45:16.470 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:45:16.472 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:45:16.474 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:45:17.485 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:45:18.458 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:45:18.460 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:45:18.461 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:45:19.459 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:45:20.459 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:45:20.461 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:45:20.467 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:45:21.460 | WARNING  | app.ui.coordinates_viewmodel:_on_response_timeout:258 | Таймаут ожидания ответа координат (1 секунда)
+2026-02-13 13:45:22.708 | DEBUG    | app.ui.coordinates_viewmodel:refresh_coordinates:183 | Запрос обновления координат
+2026-02-13 13:45:22.709 | INFO     | app.ui.main_window:closeEvent:780 | Закрытие приложения...
+2026-02-13 13:45:22.710 | INFO     | app.controllers.connection_controller:disconnect_from_port:95 | Отключение...
+2026-02-13 13:45:22.710 | INFO     | app.services.serial_manager:_send_command:120 | → M114
+2026-02-13 13:45:22.711 | INFO     | app.services.serial_manager:disconnect:331 | Отключение...
+2026-02-13 13:45:22.711 | INFO     | app.controllers.connection_controller:_on_manager_disconnected:107 | Отключено
+2026-02-13 13:45:22.713 | INFO     | app.ui.coordinates_viewmodel:stop_auto_refresh:319 | Автообновление координат остановлено
+2026-02-13 13:45:22.714 | INFO     | app.ui.main_window:_on_coordinates_disconnected:706 | Автообновление координат выключено
+2026-02-13 13:45:22.714 | INFO     | app.services.serial_manager:_disconnect:101 | Отключено
+2026-02-13 13:45:22.717 | INFO     | app.ui.main_window:closeEvent:803 | Окно закрыто, настройки сохранены
+2026-02-13 13:45:22.749 | INFO     | app.controllers.run_controller:_on_line_sent:188 | → M114
+2026-02-13 13:45:22.751 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-03-06 11:30:51.352 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-03-06 11:30:58.227 | INFO     | __main__:main:38 | ==================================================
+2026-03-06 11:30:58.230 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-03-06 11:30:58.231 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-03-06 11:30:58.233 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-03-06 11:30:58.234 | INFO     | __main__:main:42 | ==================================================
+2026-03-06 11:30:58.615 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-03-06 11:30:58.616 | INFO     | __main__:main:57 | Создание главного окна...
+2026-03-06 11:30:58.637 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-03-06 11:31:01.036 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-03-06 11:31:01.179 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-03-06 11:31:01.261 | INFO     | app.ui.main_window:_connect_signals:406 | Подключение сигналов...
+2026-03-06 11:31:01.265 | INFO     | app.ui.main_window:_connect_signals:455 | Сигналы подключены
+2026-03-06 11:31:01.266 | INFO     | app.ui.main_window:_load_settings:754 | Загрузка настроек...
+2026-03-06 11:31:01.269 | DEBUG    | app.ui.main_window:_load_settings:760 | Геометрия восстановлена
+2026-03-06 11:31:01.275 | DEBUG    | app.ui.main_window:_load_settings:766 | Состояние доков восстановлено
+2026-03-06 11:31:01.276 | INFO     | app.ui.main_window:_load_settings:776 | Настройки загружены
+2026-03-06 11:31:01.277 | INFO     | app.ui.main_window:_on_refresh_ports:461 | Обновление портов...
+2026-03-06 11:31:01.283 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-03-06 11:31:01.301 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-03-06 11:31:01.680 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-03-06 11:31:01.681 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-03-06 11:31:09.250 | INFO     | app.ui.main_window:closeEvent:780 | Закрытие приложения...
+2026-03-06 11:31:09.261 | INFO     | app.ui.main_window:closeEvent:803 | Окно закрыто, настройки сохранены
+2026-03-06 11:31:09.272 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-03-06 11:41:20.518 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-03-06 11:41:20.688 | INFO     | __main__:main:38 | ==================================================
+2026-03-06 11:41:20.688 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-03-06 11:41:20.689 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-03-06 11:41:20.689 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-03-06 11:41:20.690 | INFO     | __main__:main:42 | ==================================================
+2026-03-06 11:41:20.711 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-03-06 11:41:20.712 | INFO     | __main__:main:57 | Создание главного окна...
+2026-03-06 11:41:20.714 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-03-06 11:41:21.393 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-03-06 11:41:21.437 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-03-06 11:41:21.459 | INFO     | app.ui.main_window:_connect_signals:467 | Подключение сигналов...
+2026-03-06 11:41:21.460 | INFO     | app.ui.main_window:_connect_signals:516 | Сигналы подключены
+2026-03-06 11:41:21.460 | INFO     | app.ui.main_window:_load_settings:815 | Загрузка настроек...
+2026-03-06 11:41:21.461 | DEBUG    | app.ui.main_window:_load_settings:821 | Геометрия восстановлена
+2026-03-06 11:41:21.463 | DEBUG    | app.ui.main_window:_load_settings:827 | Состояние доков восстановлено
+2026-03-06 11:41:21.464 | INFO     | app.ui.main_window:_load_settings:837 | Настройки загружены
+2026-03-06 11:41:21.464 | INFO     | app.ui.main_window:_on_refresh_ports:522 | Обновление портов...
+2026-03-06 11:41:21.467 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-03-06 11:41:21.472 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-03-06 11:41:21.619 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-03-06 11:41:21.621 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-03-06 11:41:33.027 | INFO     | app.ui.main_window:closeEvent:841 | Закрытие приложения...
+2026-03-06 11:41:33.032 | INFO     | app.ui.main_window:closeEvent:864 | Окно закрыто, настройки сохранены
+2026-03-06 11:41:33.044 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-03-06 11:41:37.187 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-03-06 11:41:37.352 | INFO     | __main__:main:38 | ==================================================
+2026-03-06 11:41:37.353 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-03-06 11:41:37.353 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-03-06 11:41:37.354 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-03-06 11:41:37.354 | INFO     | __main__:main:42 | ==================================================
+2026-03-06 11:41:37.373 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-03-06 11:41:37.374 | INFO     | __main__:main:57 | Создание главного окна...
+2026-03-06 11:41:37.377 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-03-06 11:41:37.928 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-03-06 11:41:37.964 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-03-06 11:41:37.980 | INFO     | app.ui.main_window:_connect_signals:467 | Подключение сигналов...
+2026-03-06 11:41:37.981 | INFO     | app.ui.main_window:_connect_signals:516 | Сигналы подключены
+2026-03-06 11:41:37.981 | INFO     | app.ui.main_window:_load_settings:815 | Загрузка настроек...
+2026-03-06 11:41:37.982 | DEBUG    | app.ui.main_window:_load_settings:821 | Геометрия восстановлена
+2026-03-06 11:41:37.984 | DEBUG    | app.ui.main_window:_load_settings:827 | Состояние доков восстановлено
+2026-03-06 11:41:37.985 | INFO     | app.ui.main_window:_load_settings:837 | Настройки загружены
+2026-03-06 11:41:37.985 | INFO     | app.ui.main_window:_on_refresh_ports:522 | Обновление портов...
+2026-03-06 11:41:37.988 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-03-06 11:41:37.991 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-03-06 11:41:38.090 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-03-06 11:41:38.091 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-03-06 11:41:39.930 | INFO     | app.ui.main_window:closeEvent:841 | Закрытие приложения...
+2026-03-06 11:41:39.935 | INFO     | app.ui.main_window:closeEvent:864 | Окно закрыто, настройки сохранены
+2026-03-06 11:41:39.951 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-03-06 11:46:51.271 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-03-06 11:46:51.448 | INFO     | __main__:main:38 | ==================================================
+2026-03-06 11:46:51.449 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-03-06 11:46:51.449 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-03-06 11:46:51.449 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-03-06 11:46:51.450 | INFO     | __main__:main:42 | ==================================================
+2026-03-06 11:46:51.471 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-03-06 11:46:51.471 | INFO     | __main__:main:57 | Создание главного окна...
+2026-03-06 11:46:51.474 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-03-06 11:46:52.113 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-03-06 11:46:52.159 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-03-06 11:46:52.178 | INFO     | app.ui.main_window:_connect_signals:471 | Подключение сигналов...
+2026-03-06 11:46:52.179 | INFO     | app.ui.main_window:_connect_signals:520 | Сигналы подключены
+2026-03-06 11:46:52.179 | INFO     | app.ui.main_window:_load_settings:819 | Загрузка настроек...
+2026-03-06 11:46:52.180 | DEBUG    | app.ui.main_window:_load_settings:825 | Геометрия восстановлена
+2026-03-06 11:46:52.182 | DEBUG    | app.ui.main_window:_load_settings:831 | Состояние доков восстановлено
+2026-03-06 11:46:52.182 | INFO     | app.ui.main_window:_load_settings:841 | Настройки загружены
+2026-03-06 11:46:52.183 | INFO     | app.ui.main_window:_on_refresh_ports:526 | Обновление портов...
+2026-03-06 11:46:52.184 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-03-06 11:46:52.188 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-03-06 11:46:52.304 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-03-06 11:46:52.304 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-03-06 11:52:17.114 | INFO     | app.ui.main_window:closeEvent:845 | Закрытие приложения...
+2026-03-06 11:52:17.122 | INFO     | app.ui.main_window:closeEvent:868 | Окно закрыто, настройки сохранены
+2026-03-06 11:52:17.133 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-03-06 11:57:47.349 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-03-06 11:57:47.512 | INFO     | __main__:main:38 | ==================================================
+2026-03-06 11:57:47.513 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-03-06 11:57:47.513 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-03-06 11:57:47.514 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-03-06 11:57:47.514 | INFO     | __main__:main:42 | ==================================================
+2026-03-06 11:57:47.533 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-03-06 11:57:47.534 | INFO     | __main__:main:57 | Создание главного окна...
+2026-03-06 11:57:47.537 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-03-06 11:57:48.154 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-03-06 11:57:48.186 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-03-06 11:57:48.187 | INFO     | app.ui.main_window:_init_position_tracker:430 | PositionTracker: координаты по приращениям (обновление по ok)
+2026-03-06 11:57:48.208 | INFO     | app.ui.main_window:_connect_signals:496 | Подключение сигналов...
+2026-03-06 11:57:48.209 | INFO     | app.ui.main_window:_connect_signals:545 | Сигналы подключены
+2026-03-06 11:57:48.209 | INFO     | app.ui.main_window:_load_settings:851 | Загрузка настроек...
+2026-03-06 11:57:48.210 | DEBUG    | app.ui.main_window:_load_settings:857 | Геометрия восстановлена
+2026-03-06 11:57:48.212 | DEBUG    | app.ui.main_window:_load_settings:863 | Состояние доков восстановлено
+2026-03-06 11:57:48.212 | INFO     | app.ui.main_window:_load_settings:873 | Настройки загружены
+2026-03-06 11:57:48.213 | INFO     | app.ui.main_window:_on_refresh_ports:551 | Обновление портов...
+2026-03-06 11:57:48.215 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-03-06 11:57:48.220 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-03-06 11:57:48.320 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-03-06 11:57:48.320 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-03-06 11:57:52.108 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-03-06 11:57:52.113 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-03-06 11:57:53.944 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-03-06 11:57:53.948 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-03-06 11:57:57.272 | INFO     | app.ui.main_window:_on_open_file:584 | Загрузка файла: D:/github/delta-robot-program/test.gcode
+2026-03-06 11:57:57.273 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:44 | Загрузка файла: D:/github/delta-robot-program/test.gcode
+2026-03-06 11:57:57.274 | INFO     | app.services.gcode_parser:parse:115 | Спарсено: 3 строк, 3 точек
+2026-03-06 11:57:57.280 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:61 | Загружено строк: 3, точек: 3
+2026-03-06 11:58:05.785 | INFO     | app.ui.main_window:_on_open_file:584 | Загрузка файла: D:/github/delta-robot-program/tsttesttpu.gcode
+2026-03-06 11:58:05.786 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:44 | Загрузка файла: D:/github/delta-robot-program/tsttesttpu.gcode
+2026-03-06 11:58:05.789 | INFO     | app.services.gcode_parser:parse:115 | Спарсено: 49 строк, 44 точек
+2026-03-06 11:58:05.793 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:61 | Загружено строк: 49, точек: 44
+2026-03-06 11:58:17.809 | INFO     | app.ui.main_window:closeEvent:877 | Закрытие приложения...
+2026-03-06 11:58:17.821 | INFO     | app.ui.main_window:closeEvent:900 | Окно закрыто, настройки сохранены
+2026-03-06 11:58:17.837 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)

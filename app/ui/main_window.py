@@ -1,7 +1,9 @@
 """
 Главное окно приложения
 """
-from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
+import queue
+
+from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                               QDockWidget, QToolBar, QStatusBar, QFileDialog,
                               QMessageBox, QSplitter, QSizePolicy)
 from PyQt6.QtCore import Qt, pyqtSignal, QTimer
@@ -23,8 +25,21 @@ from app.ui.trajectory_dialog import TrajectoryDialog
 from app.services.coordinates_provider import SerialCoordinatesProvider
 from app.utils.settings import AppSettings
 from app.utils.logger import get_logger
+from app.services.position_tracker import PositionTracker
 
 logger = get_logger()
+
+# Опционально: клавиатура 4x4 на RPi GPIO (управление джогом вместо кнопок)
+try:
+    from app.keyboard_control import (
+        is_available as keypad_available,
+        KeypadScanner,
+        create_jog_handler,
+    )
+except ImportError:
+    keypad_available = lambda: False
+    KeypadScanner = None  # type: ignore
+    create_jog_handler = None  # type: ignore
 
 
 class MainWindow(QMainWindow):
@@ -55,7 +70,11 @@ class MainWindow(QMainWindow):
         self.compact_view = None
         self._primary_central_widget = None
         self._compact_mode_enabled = False
-        
+        self._keypad_queue = None
+        self._keypad_scanner = None
+        self._keypad_timer = None
+        self.position_tracker = None  # программный счётчик координат (по ok)
+
         self._init_ui()
         self._connect_signals()
         self._load_settings()
@@ -88,8 +107,9 @@ class MainWindow(QMainWindow):
         self.setStatusBar(self.status_bar)
         self.status_bar.showMessage("Готово")
         
-        # Инициализируем виджеты контроллеров
+        # Инициализируем контроллеры и программный счётчик координат
         self._init_controllers()
+        self._init_position_tracker()
         self._init_compact_view()
         self._show_compact_mode()
         
@@ -99,6 +119,9 @@ class MainWindow(QMainWindow):
         # Включаем вложенные доки и настраиваем разделение нижней области
         self.setDockNestingEnabled(True)
         self._setup_bottom_split()
+
+        # Клавиатура 4x4 на RPi: те же команды джога, что и кнопки
+        self._start_keypad_if_available()
     
     def _create_docks(self):
         """Создать доки"""
@@ -179,7 +202,52 @@ class MainWindow(QMainWindow):
             self.resizeDocks([self.console_dock, self.bottom_spacer],
                              [int(self.width() * 0.5), int(self.width() * 0.5)],
                              Qt.Orientation.Horizontal)
-    
+
+    def _start_keypad_if_available(self):
+        """Запуск сканирования клавиатуры 4x4 на RPi GPIO; команды как от кнопок джога."""
+        if not keypad_available() or KeypadScanner is None or create_jog_handler is None:
+            return
+        try:
+            self._keypad_queue = queue.Queue()
+
+            def send_command(cmd: str) -> None:
+                self.run_controller.send_immediate(cmd, wait_ok=False)
+
+            jog_handler = create_jog_handler(
+                send_command=send_command,
+                get_step=lambda: self.app_state.jog_step,
+                get_feed=lambda: self.app_state.jog_feedrate,
+                set_step=self.app_state.set_jog_step,
+                step_delta=0.5,
+            )
+
+            def on_key(key: str) -> None:
+                self._keypad_queue.put(key)
+
+            self._keypad_scanner = KeypadScanner(on_key=on_key)
+            self._keypad_scanner.start()
+
+            def process_keypad_queue() -> None:
+                if self._keypad_queue is None:
+                    return
+                try:
+                    while True:
+                        key = self._keypad_queue.get_nowait()
+                        if key == "*":
+                            if self._compact_mode_enabled and self.compact_view is not None:
+                                self.compact_view.toggle_console_visibility()
+                        else:
+                            jog_handler(key)
+                except queue.Empty:
+                    pass
+
+            self._keypad_timer = QTimer(self)
+            self._keypad_timer.timeout.connect(process_keypad_queue)
+            self._keypad_timer.start(100)
+            logger.info("Клавиатура 4x4 (GPIO) включена: 1–6 оси, 7/8 шаг")
+        except Exception as e:
+            logger.warning("Клавиатура 4x4 не запущена: %s", e)
+
     def showEvent(self, e):
         super().showEvent(e)
         QTimer.singleShot(0, self._resize_bottom_area)
@@ -274,6 +342,11 @@ class MainWindow(QMainWindow):
         reset_layout_action.triggered.connect(self._on_reset_layout)
         view_menu.addAction(reset_layout_action)
         
+        view_menu.addSeparator()
+        reset_coords_action = QAction("Обнулить координаты (после Homing)", self)
+        reset_coords_action.triggered.connect(self._on_reset_coordinates)
+        view_menu.addAction(reset_coords_action)
+        
         window_menu = self.menuBar().addMenu("Окно")
         self.compact_mode_action = QAction("Компактный режим", self)
         self.compact_mode_action.setCheckable(True)
@@ -346,7 +419,24 @@ class MainWindow(QMainWindow):
             self.connection_controller.get_manager(),
             self
         )
-    
+
+    def _init_position_tracker(self):
+        """Программный счётчик координат: обновление только по ответу ok."""
+        manager = self.connection_controller.get_manager()
+        self.position_tracker = PositionTracker(self)
+        manager.line_sent.connect(self.position_tracker.on_line_sent)
+        manager.ok_received.connect(self.position_tracker.on_ok_received)
+        self.position_tracker.position_updated.connect(self._on_tracker_position_updated)
+        logger.info("PositionTracker: координаты по приращениям (обновление по ok)")
+
+    def _on_tracker_position_updated(self, x: float, y: float, z: float):
+        """Обновить отображение координат из программного счётчика."""
+        if self.coordinates_vm is None:
+            return
+        self.coordinates_vm.machine_x = x
+        self.coordinates_vm.machine_y = y
+        self.coordinates_vm.machine_z = z
+
     def _init_compact_view(self):
         """Создать компактный вид, если он ещё не создан."""
         if self.compact_view is not None:
@@ -694,10 +784,10 @@ class MainWindow(QMainWindow):
         pass
     
     def _on_coordinates_connected(self, port_name: str):
-        """Обработка подключения для автообновления координат"""
-        if self.coordinates_vm:
-            self.coordinates_vm.set_auto_refresh_enabled(True)
-            logger.info("Автообновление координат включено")
+        """При подключении: координаты ведёт программный счётчик (PositionTracker), M114 не используем."""
+        if self.coordinates_vm and self.position_tracker:
+            self.coordinates_vm.set_auto_refresh_enabled(False)
+            logger.info("Координаты по программному счётчику (обновление по ok)")
     
     def _on_coordinates_disconnected(self):
         """Обработка отключения для остановки автообновления координат"""
@@ -741,6 +831,13 @@ class MainWindow(QMainWindow):
         logger.info("Сброс компоновки окон")
         self.console_view.add_info("Компоновка окна сброшена")
         # TODO: восстановить дефолтную компоновку доков
+
+    def _on_reset_coordinates(self):
+        """Обнулить программные координаты (вызывать после процедуры homing)."""
+        if self.position_tracker is None:
+            return
+        self.position_tracker.reset_coordinates()
+        self.console_view.add_info("Координаты обнулены (X=0 Y=0 Z=0) после Homing")
     
     def _on_toggle_compact_mode(self, checked: bool):
         """Переключить компактный режим."""
