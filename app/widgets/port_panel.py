@@ -1,9 +1,9 @@
 """
 Панель выбора COM-порта и управления подключением
 """
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QComboBox, 
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QComboBox, 
                               QPushButton, QLabel)
-from PyQt6.QtCore import Qt, pyqtSignal
+from PySide6.QtCore import Qt, Signal
 
 
 class PortPanel(QWidget):
@@ -18,11 +18,11 @@ class PortPanel(QWidget):
     """
     
     # Сигналы
-    port_selected = pyqtSignal(str)  # Выбранный порт (legacy)
-    portSelected = pyqtSignal(str)  # Новый сигнал: передаёт device (COMx)
-    connect_clicked = pyqtSignal()
-    disconnect_clicked = pyqtSignal()
-    refresh_clicked = pyqtSignal()
+    port_selected = Signal(str)  # Выбранный порт (legacy)
+    portSelected = Signal(str)  # Новый сигнал: передаёт device (COMx)
+    connect_clicked = Signal()
+    disconnect_clicked = Signal()
+    refresh_clicked = Signal()
     
     def __init__(self, parent=None):
         super().__init__(parent)

@@ -1,7 +1,7 @@
 """
 ViewModel для отображения координат дельта-робота
 """
-from PyQt6.QtCore import QObject, pyqtSignal, pyqtProperty, QTimer, QThread
+from PySide6.QtCore import QObject, Signal, Property, QTimer, QThread
 from typing import Optional, Tuple
 from app.services.coordinates_provider import ICoordinatesProvider
 from app.services.serial_manager import SerialManager
@@ -21,13 +21,13 @@ class CoordinatesViewModel(QObject):
     """
     
     # Сигналы для обновления свойств
-    machine_x_changed = pyqtSignal(float)
-    machine_y_changed = pyqtSignal(float)
-    machine_z_changed = pyqtSignal(float)
-    work_x_changed = pyqtSignal(float)
-    work_y_changed = pyqtSignal(float)
-    work_z_changed = pyqtSignal(float)
-    is_updating_changed = pyqtSignal(bool)
+    machine_x_changed = Signal(float)
+    machine_y_changed = Signal(float)
+    machine_z_changed = Signal(float)
+    work_x_changed = Signal(float)
+    work_y_changed = Signal(float)
+    work_z_changed = Signal(float)
+    is_updating_changed = Signal(bool)
     
     def __init__(self, coordinates_provider: ICoordinatesProvider, serial_manager: Optional[SerialManager] = None, parent=None):
         """
@@ -74,7 +74,7 @@ class CoordinatesViewModel(QObject):
     
     # === Свойства Machine координат ===
     
-    @pyqtProperty(float, notify=machine_x_changed)
+    @Property(float, notify=machine_x_changed)
     def machine_x(self) -> float:
         """Абсолютная координата X (machine)"""
         return self._machine_x
@@ -85,7 +85,7 @@ class CoordinatesViewModel(QObject):
             self._machine_x = value
             self.machine_x_changed.emit(value)
     
-    @pyqtProperty(float, notify=machine_y_changed)
+    @Property(float, notify=machine_y_changed)
     def machine_y(self) -> float:
         """Абсолютная координата Y (machine)"""
         return self._machine_y
@@ -96,7 +96,7 @@ class CoordinatesViewModel(QObject):
             self._machine_y = value
             self.machine_y_changed.emit(value)
     
-    @pyqtProperty(float, notify=machine_z_changed)
+    @Property(float, notify=machine_z_changed)
     def machine_z(self) -> float:
         """Абсолютная координата Z (machine)"""
         return self._machine_z
@@ -109,7 +109,7 @@ class CoordinatesViewModel(QObject):
     
     # === Свойства Work координат ===
     
-    @pyqtProperty(float, notify=work_x_changed)
+    @Property(float, notify=work_x_changed)
     def work_x(self) -> float:
         """Относительная координата X (work)"""
         return self._work_x
@@ -120,7 +120,7 @@ class CoordinatesViewModel(QObject):
             self._work_x = value
             self.work_x_changed.emit(value)
     
-    @pyqtProperty(float, notify=work_y_changed)
+    @Property(float, notify=work_y_changed)
     def work_y(self) -> float:
         """Относительная координата Y (work)"""
         return self._work_y
@@ -131,7 +131,7 @@ class CoordinatesViewModel(QObject):
             self._work_y = value
             self.work_y_changed.emit(value)
     
-    @pyqtProperty(float, notify=work_z_changed)
+    @Property(float, notify=work_z_changed)
     def work_z(self) -> float:
         """Относительная координата Z (work)"""
         return self._work_z
@@ -144,7 +144,7 @@ class CoordinatesViewModel(QObject):
     
     # === Свойство IsUpdating ===
     
-    @pyqtProperty(bool, notify=is_updating_changed)
+    @Property(bool, notify=is_updating_changed)
     def is_updating(self) -> bool:
         """Индикатор опроса координат"""
         return self._is_updating

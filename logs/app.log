@@ -3596,3 +3596,62 @@ Ok
 2026-03-06 11:58:17.809 | INFO     | app.ui.main_window:closeEvent:877 | Закрытие приложения...
 2026-03-06 11:58:17.821 | INFO     | app.ui.main_window:closeEvent:900 | Окно закрыто, настройки сохранены
 2026-03-06 11:58:17.837 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-03-06 16:52:02.627 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-03-06 16:52:06.751 | INFO     | __main__:main:38 | ==================================================
+2026-03-06 16:52:06.751 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-03-06 16:52:06.751 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-03-06 16:52:06.752 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-03-06 16:52:06.752 | INFO     | __main__:main:42 | ==================================================
+2026-03-06 16:52:06.890 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-03-06 16:52:06.890 | INFO     | __main__:main:57 | Создание главного окна...
+2026-03-06 16:52:06.900 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-03-06 16:52:08.215 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-03-06 16:52:08.242 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-03-06 16:52:08.243 | INFO     | app.ui.main_window:_init_position_tracker:430 | PositionTracker: координаты по приращениям (обновление по ok)
+2026-03-06 16:52:08.254 | INFO     | app.ui.main_window:_connect_signals:496 | Подключение сигналов...
+2026-03-06 16:52:08.254 | INFO     | app.ui.main_window:_connect_signals:545 | Сигналы подключены
+2026-03-06 16:52:08.255 | INFO     | app.ui.main_window:_load_settings:851 | Загрузка настроек...
+2026-03-06 16:52:08.256 | DEBUG    | app.ui.main_window:_load_settings:857 | Геометрия восстановлена
+2026-03-06 16:52:08.258 | DEBUG    | app.ui.main_window:_load_settings:863 | Состояние доков восстановлено
+2026-03-06 16:52:08.258 | INFO     | app.ui.main_window:_load_settings:873 | Настройки загружены
+2026-03-06 16:52:08.258 | INFO     | app.ui.main_window:_on_refresh_ports:551 | Обновление портов...
+2026-03-06 16:52:08.260 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-03-06 16:52:08.262 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-03-06 16:52:08.368 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-03-06 16:52:08.369 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-03-06 16:52:29.158 | INFO     | app.ui.main_window:closeEvent:877 | Закрытие приложения...
+2026-03-06 16:52:29.163 | INFO     | app.ui.main_window:closeEvent:900 | Окно закрыто, настройки сохранены
+2026-03-06 16:52:29.175 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-03-07 21:08:34.519 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-03-07 21:08:43.272 | INFO     | __main__:main:38 | ==================================================
+2026-03-07 21:08:43.274 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-03-07 21:08:43.275 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-03-07 21:08:43.276 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-03-07 21:08:43.277 | INFO     | __main__:main:42 | ==================================================
+2026-03-07 21:08:43.700 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-03-07 21:08:43.702 | INFO     | __main__:main:57 | Создание главного окна...
+2026-03-07 21:08:43.747 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-03-07 21:08:46.411 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-03-07 21:08:46.570 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-03-07 21:08:46.573 | INFO     | app.ui.main_window:_init_position_tracker:430 | PositionTracker: координаты по приращениям (обновление по ok)
+2026-03-07 21:08:46.726 | INFO     | app.ui.main_window:_connect_signals:496 | Подключение сигналов...
+2026-03-07 21:08:46.728 | INFO     | app.ui.main_window:_connect_signals:545 | Сигналы подключены
+2026-03-07 21:08:46.730 | INFO     | app.ui.main_window:_load_settings:851 | Загрузка настроек...
+2026-03-07 21:08:46.734 | DEBUG    | app.ui.main_window:_load_settings:857 | Геометрия восстановлена
+2026-03-07 21:08:46.742 | DEBUG    | app.ui.main_window:_load_settings:863 | Состояние доков восстановлено
+2026-03-07 21:08:46.744 | INFO     | app.ui.main_window:_load_settings:873 | Настройки загружены
+2026-03-07 21:08:46.745 | INFO     | app.ui.main_window:_on_refresh_ports:551 | Обновление портов...
+2026-03-07 21:08:46.754 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-03-07 21:08:46.795 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-03-07 21:08:47.236 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-03-07 21:08:47.237 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-03-07 21:09:00.853 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:44 | Загрузка файла: D:/github/delta-robot-program/tsttesttpu.gcode
+2026-03-07 21:09:00.855 | INFO     | app.services.gcode_parser:parse:115 | Спарсено: 49 строк, 44 точек
+2026-03-07 21:09:00.859 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:61 | Загружено строк: 49, точек: 44
+2026-03-07 21:09:04.268 | ERROR    | app.controllers.run_controller:start:64 | Не подключено
+2026-03-07 21:09:04.801 | ERROR    | app.controllers.run_controller:start_from_editor:146 | Порт не выбран
+2026-03-07 21:09:07.337 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-03-07 21:09:07.341 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-03-07 21:09:23.129 | INFO     | app.ui.main_window:closeEvent:877 | Закрытие приложения...
+2026-03-07 21:09:23.136 | INFO     | app.ui.main_window:closeEvent:900 | Окно закрыто, настройки сохранены
+2026-03-07 21:09:23.170 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)

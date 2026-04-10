@@ -1,7 +1,11 @@
 import sys
 import signal
+import os
 from pathlib import Path
-from PyQt6.QtWidgets import QApplication
+
+os.environ["PYQTGRAPH_QT_LIB"] = "PySide6"
+
+from PySide6.QtWidgets import QApplication
 
 from app.ui.main_window import MainWindow
 from app.utils.logger import get_logger

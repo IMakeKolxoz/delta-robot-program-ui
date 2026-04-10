@@ -2,7 +2,7 @@
 Виджет для визуализации 2D траектории с маркером текущей позиции
 """
 from typing import List, Tuple, Optional
-from PyQt6.QtWidgets import QWidget
+from PySide6.QtWidgets import QWidget
 import pyqtgraph as pg
 
 
@@ -45,7 +45,7 @@ class TrajectoryView(QWidget):
         self.plot_widget.addItem(self.cursor_item)
         
         # Layout
-        from PyQt6.QtWidgets import QVBoxLayout
+        from PySide6.QtWidgets import QVBoxLayout
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.addWidget(self.plot_widget)

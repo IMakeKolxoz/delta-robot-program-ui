@@ -5,8 +5,8 @@ from __future__ import annotations
 
 from typing import Dict, List, Optional, Sequence, Tuple
 
-from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtWidgets import (
+from PySide6.QtCore import Qt, Signal
+from PySide6.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
@@ -40,15 +40,15 @@ class MainCompactView(QWidget):
     - Правая колонка: COM-порт, jog-панель, параметры движения, консоль.
     """
 
-    start_cycle_requested = pyqtSignal()
-    send_line_by_line_requested = pyqtSignal()
-    stop_cycle_requested = pyqtSignal()
-    load_code_requested = pyqtSignal()
-    goto_line_requested = pyqtSignal(int)
-    connect_requested = pyqtSignal(str)
-    jog_command_requested = pyqtSignal(str, float)
-    jog_params_changed = pyqtSignal(dict)
-    console_command_submitted = pyqtSignal(str)
+    start_cycle_requested = Signal()
+    send_line_by_line_requested = Signal()
+    stop_cycle_requested = Signal()
+    load_code_requested = Signal()
+    goto_line_requested = Signal(int)
+    connect_requested = Signal(str)
+    jog_command_requested = Signal(str, float)
+    jog_params_changed = Signal(dict)
+    console_command_submitted = Signal(str)
 
     def __init__(
         self,

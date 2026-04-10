@@ -1,7 +1,7 @@
 """
 Контроллер подключения к COM-порту
 """
-from PyQt6.QtCore import QObject, pyqtSignal
+from PySide6.QtCore import QObject, Signal
 from app.services.serial_manager import SerialManager, PortInfo
 from app.models.app_state import AppState, ConnectionStatus
 from app.utils.logger import get_logger
@@ -30,10 +30,10 @@ class ConnectionController(QObject):
     """
     
     # Сигналы для UI
-    ports_changed = pyqtSignal(list)  # Список PortInfo
-    connected = pyqtSignal(str)  # Имя порта
-    disconnected = pyqtSignal()
-    error_occurred = pyqtSignal(str)
+    ports_changed = Signal(list)  # Список PortInfo
+    connected = Signal(str)  # Имя порта
+    disconnected = Signal()
+    error_occurred = Signal(str)
     
     def __init__(self, app_state: AppState, parent=None):
         super().__init__(parent)

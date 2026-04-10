@@ -10,7 +10,7 @@ from __future__ import annotations
 import re
 from typing import Dict, List, Optional, Tuple
 
-from PyQt6.QtCore import QObject, pyqtSignal
+from PySide6.QtCore import QObject, Signal
 
 from app.utils.logger import get_logger
 
@@ -45,7 +45,7 @@ class PositionTracker(QObject):
     - reset_coordinates() обнуляет позицию (вызывать после homing).
     """
 
-    position_updated = pyqtSignal(float, float, float)  # x, y, z
+    position_updated = Signal(float, float, float)  # x, y, z
 
     def __init__(self, parent=None):
         super().__init__(parent)

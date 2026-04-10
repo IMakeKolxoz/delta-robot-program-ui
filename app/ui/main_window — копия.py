@@ -1,11 +1,11 @@
 """
 Главное окно приложения
 """
-from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
+from PySide6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                               QDockWidget, QToolBar, QStatusBar, QFileDialog,
                               QMessageBox, QSplitter, QSizePolicy)
-from PyQt6.QtCore import Qt, pyqtSignal, QTimer
-from PyQt6.QtGui import QAction, QIcon
+from PySide6.QtCore import Qt, QTimer
+from PySide6.QtGui import QAction, QIcon
 
 from app.models.app_state import AppState, ConnectionStatus, RunStatus
 from app.controllers.connection_controller import ConnectionController

@@ -1,9 +1,9 @@
 """
 Панель ручного управления (jog) с полями шага и скорости
 """
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QGridLayout, QPushButton, 
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QGridLayout, QPushButton, 
                               QLabel, QLineEdit, QDoubleSpinBox, QHBoxLayout)
-from PyQt6.QtCore import Qt, pyqtSignal
+from PySide6.QtCore import Qt, Signal
 
 
 class JogPanel(QWidget):
@@ -18,7 +18,7 @@ class JogPanel(QWidget):
     """
     
     # Сигналы
-    jog_command = pyqtSignal(str)  # Сгенерированная G-code команда
+    jog_command = Signal(str)  # Сгенерированная G-code команда
     
     def __init__(self, parent=None):
         super().__init__(parent)
