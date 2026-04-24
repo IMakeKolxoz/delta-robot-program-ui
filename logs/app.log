@@ -3650,3 +3650,22 @@ Ok
 2026-04-24 12:59:20.278 | INFO     | app.ui.main_window:closeEvent:877 | Закрытие приложения...
 2026-04-24 12:59:20.281 | INFO     | app.ui.main_window:closeEvent:900 | Окно закрыто, настройки сохранены
 2026-04-24 12:59:20.294 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-04-24 14:33:54.056 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-04-24 14:33:54.136 | INFO     | __main__:main:23 | ==================================================
+2026-04-24 14:33:54.136 | INFO     | __main__:main:24 | Запуск приложения Delta Robot - G-code Sender
+2026-04-24 14:33:54.136 | INFO     | __main__:main:25 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-04-24 14:33:54.137 | INFO     | __main__:main:26 | ==================================================
+2026-04-24 14:33:54.570 | INFO     | __main__:main:35 | Создание главного окна...
+2026-04-24 14:33:54.574 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-04-24 14:33:54.575 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-04-24 14:33:54.599 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-04-24 14:33:54.606 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-04-24 14:33:54.609 | INFO     | __main__:main:38 | Приложение готово к работе
+2026-04-24 14:33:54.609 | INFO     | __main__:main:39 | Нажмите Ctrl+C для выхода
+2026-04-24 14:34:01.584 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-04-24 14:34:01.591 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-04-24 14:34:06.505 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:44 | Загрузка файла: D:/github/delta-robot-program/tsttesttpu.gcode
+2026-04-24 14:34:06.533 | INFO     | app.services.gcode_parser:parse:115 | Спарсено: 49 строк, 44 точек
+2026-04-24 14:34:06.535 | INFO     | app.controllers.gcode_controller:load_gcode_from_file:61 | Загружено строк: 49, точек: 44
+2026-04-24 14:34:17.489 | INFO     | app.controllers.run_controller:stop:110 | Стоп
+2026-04-24 14:34:17.543 | INFO     | __main__:main:45 | Завершение работы приложения (код: 0)
