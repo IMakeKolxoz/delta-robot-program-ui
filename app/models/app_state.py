@@ -4,7 +4,7 @@
 from enum import Enum
 from typing import List, Optional
 from dataclasses import dataclass, field
-from PySide6.QtCore import QObject, Signal
+from PyQt6.QtCore import QObject, pyqtSignal
 
 
 class ConnectionStatus(Enum):
@@ -37,12 +37,12 @@ class AppState(QObject):
     """
     
     # Сигналы для реактивного обновления UI
-    connection_status_changed = Signal(ConnectionStatus)
-    run_status_changed = Signal(RunStatus)
-    current_line_changed = Signal(int)
-    gcode_lines_changed = Signal(list)
-    active_port_changed = Signal(str)
-    jog_step_changed = Signal(float)
+    connection_status_changed = pyqtSignal(ConnectionStatus)
+    run_status_changed = pyqtSignal(RunStatus)
+    current_line_changed = pyqtSignal(int)
+    gcode_lines_changed = pyqtSignal(list)
+    active_port_changed = pyqtSignal(str)
+    jog_step_changed = pyqtSignal(float)
     
     # === Параметры подключения ===
     connection_status: ConnectionStatus = field(default=ConnectionStatus.DISCONNECTED, init=False)

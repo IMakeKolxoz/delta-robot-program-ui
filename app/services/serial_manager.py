@@ -4,7 +4,7 @@
 import serial
 from serial.tools import list_ports
 from typing import List, Optional
-from PySide6.QtCore import QObject, Signal, QThread, Slot
+from PyQt6.QtCore import QObject, pyqtSignal, QThread, pyqtSlot
 from app.utils.logger import get_logger
 
 logger = get_logger()
@@ -25,19 +25,19 @@ class SerialWorker(QObject):
     """Рабочий объект для работы с COM-портом в отдельном потоке"""
     
     # Сигналы для обмена данными
-    data_received = Signal(str)  # Получены данные от платы
-    data_sent = Signal(str)  # Отправлены данные на плату
-    error_occurred = Signal(str)  # Ошибка
-    ok_received = Signal()  # Получено ok
+    data_received = pyqtSignal(str)  # Получены данные от платы
+    data_sent = pyqtSignal(str)  # Отправлены данные на плату
+    error_occurred = pyqtSignal(str)  # Ошибка
+    ok_received = pyqtSignal()  # Получено ok
     
     # Внутренние сигналы
-    _connect_requested = Signal(str, int)
-    _disconnect_requested = Signal()
-    _send_requested = Signal(str, bool)  # команда, wait_ok
-    _start_queue_requested = Signal()
-    _pause_requested = Signal()
-    _resume_requested = Signal()
-    _stop_requested = Signal()
+    _connect_requested = pyqtSignal(str, int)
+    _disconnect_requested = pyqtSignal()
+    _send_requested = pyqtSignal(str, bool)  # команда, wait_ok
+    _start_queue_requested = pyqtSignal()
+    _pause_requested = pyqtSignal()
+    _resume_requested = pyqtSignal()
+    _stop_requested = pyqtSignal()
     
     def __init__(self):
         super().__init__()
@@ -58,7 +58,7 @@ class SerialWorker(QObject):
         self._resume_requested.connect(self._resume)
         self._stop_requested.connect(self._stop)
     
-    @Slot(str, int)
+    @pyqtSlot(str, int)
     def _connect(self, port_name: str, baud_rate: int):
         """Подключиться к порту"""
         try:
@@ -89,7 +89,7 @@ class SerialWorker(QObject):
             self._connecting = False
             self.error_occurred.emit(str(e))
     
-    @Slot()
+    @pyqtSlot()
     def _disconnect(self):
         """Отключиться от порта"""
         try:
@@ -104,7 +104,7 @@ class SerialWorker(QObject):
             # Сбрасываем флаг подключения при ошибке
             self._connecting = False
     
-    @Slot(str, bool)
+    @pyqtSlot(str, bool)
     def _send_command(self, command: str, wait_ok: bool = True):
         """Отправить команду"""
         if not self.serial_port or not self.serial_port.is_open:
@@ -164,7 +164,7 @@ class SerialWorker(QObject):
                 self.error_occurred.emit(str(e))
                 break
     
-    @Slot()
+    @pyqtSlot()
     def _start_queue(self):
         """Начать отправку очереди"""
         if not self.queue:
@@ -176,18 +176,18 @@ class SerialWorker(QObject):
         self.current_index = 0
         self._send_next_in_queue()
     
-    @Slot()
+    @pyqtSlot()
     def _pause(self):
         """Пауза отправки очереди"""
         self.is_paused = True
     
-    @Slot()
+    @pyqtSlot()
     def _resume(self):
         """Возобновить отправку очереди"""
         self.is_paused = False
         self._send_next_in_queue()
     
-    @Slot()
+    @pyqtSlot()
     def _stop(self):
         """Остановить отправку очереди"""
         self.is_running = False
@@ -224,15 +224,15 @@ class SerialManager(QObject):
     """
     
     # Сигналы для UI
-    connected = Signal(str)  # Порт подключен
-    disconnected = Signal()
-    ports_updated = Signal(list)  # Список портов обновлен
-    line_sent = Signal(str)  # Отправлена строка
-    line_received = Signal(str)  # Получена строка
-    ok_received = Signal()  # Получено ok
-    error = Signal(str)  # Ошибка
-    progress = Signal(int, int)  # Текущая строка, всего строк
-    queue_completed = Signal()  # Очередь завершена
+    connected = pyqtSignal(str)  # Порт подключен
+    disconnected = pyqtSignal()
+    ports_updated = pyqtSignal(list)  # Список портов обновлен
+    line_sent = pyqtSignal(str)  # Отправлена строка
+    line_received = pyqtSignal(str)  # Получена строка
+    ok_received = pyqtSignal()  # Получено ok
+    error = pyqtSignal(str)  # Ошибка
+    progress = pyqtSignal(int, int)  # Текущая строка, всего строк
+    queue_completed = pyqtSignal()  # Очередь завершена
     
     def __init__(self, parent=None):
         super().__init__(parent)

@@ -2,7 +2,7 @@
 Контроллер управления G-code
 """
 from typing import List
-from PySide6.QtCore import QObject, Signal
+from PyQt6.QtCore import QObject, pyqtSignal
 from app.models.app_state import AppState
 from app.services.gcode_parser import GCodeParser, GCodeParseResult
 from app.utils.logger import get_logger
@@ -21,8 +21,8 @@ class GCodeController(QObject):
     """
     
     # Сигналы для UI
-    gcode_loaded = Signal(list)  # clean_lines для отправки
-    trajectory_updated = Signal(list)  # points_xy для визуализации
+    gcode_loaded = pyqtSignal(list)  # clean_lines для отправки
+    trajectory_updated = pyqtSignal(list)  # points_xy для визуализации
     
     def __init__(self, app_state: AppState, parent=None):
         super().__init__(parent)

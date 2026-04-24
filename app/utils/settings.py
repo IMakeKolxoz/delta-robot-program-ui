@@ -2,7 +2,7 @@
 Обёртка над QSettings для сохранения/загрузки настроек приложения
 """
 from typing import Optional
-from PySide6.QtCore import QSettings, QByteArray
+from PyQt6.QtCore import QSettings, QByteArray
 
 
 class AppSettings:

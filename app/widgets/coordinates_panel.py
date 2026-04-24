@@ -1,9 +1,9 @@
 """
 Панель отображения координат дельта-робота
 """
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QGridLayout, QPushButton, 
+from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QGridLayout, QPushButton, 
                               QLabel, QHBoxLayout)
-from PySide6.QtCore import Qt
+from PyQt6.QtCore import Qt, pyqtSignal
 from app.ui.coordinates_viewmodel import CoordinatesViewModel
 
 

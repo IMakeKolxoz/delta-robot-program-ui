@@ -1,9 +1,9 @@
 """
 Виджет консоли для отображения обмена данными и отправки команд
 """
-from PySide6.QtWidgets import (QPlainTextEdit, QVBoxLayout, QHBoxLayout, 
+from PyQt6.QtWidgets import (QPlainTextEdit, QVBoxLayout, QHBoxLayout, 
                               QWidget, QLabel, QPushButton, QLineEdit, QSizePolicy)
-from PySide6.QtCore import Qt, Signal
+from PyQt6.QtCore import Qt, pyqtSignal
 from datetime import datetime
 
 
@@ -17,7 +17,7 @@ class ConsoleView(QWidget):
     """
     
     # Сигналы
-    command_to_send = Signal(str)  # Отправить команду
+    command_to_send = pyqtSignal(str)  # Отправить команду
     
     def __init__(self, parent=None):
         super().__init__(parent)

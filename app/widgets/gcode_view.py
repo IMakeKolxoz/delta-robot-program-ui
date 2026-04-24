@@ -1,9 +1,9 @@
 """
 Виджет для отображения и редактирования G-code с номерами строк
 """
-from PySide6.QtWidgets import QPlainTextEdit, QVBoxLayout, QWidget
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont
+from PyQt6.QtWidgets import QPlainTextEdit, QVBoxLayout, QWidget
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QFont
 from typing import List
 
 
@@ -126,9 +126,9 @@ class GCodeView(QPlainTextEdit):
     
     def _create_line_selection(self, line_index: int):
         """Создать выделение для подсветки строки"""
-        from PySide6.QtWidgets import QTextEdit
-        from PySide6.QtCore import Qt
-        from PySide6.QtGui import QTextCharFormat, QColor
+        from PyQt6.QtWidgets import QTextEdit
+        from PyQt6.QtCore import Qt
+        from PyQt6.QtGui import QTextCharFormat, QColor
         
         selection = QTextEdit.ExtraSelection()
         

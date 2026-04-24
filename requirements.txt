@@ -1,7 +1,7 @@
 # Delta Robot - G-code Sender
 # Основные зависимости (Python 3.10+)
 
-PySide6>=6.7
+PyQt6>=6.7
 pyserial>=3.5
 pyqtgraph>=0.13
 loguru>=0.7

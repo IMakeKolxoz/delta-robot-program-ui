@@ -1,7 +1,7 @@
 """
 Контроллер выполнения G-code
 """
-from PySide6.QtCore import QObject, Signal
+from PyQt6.QtCore import QObject, pyqtSignal
 from app.models.app_state import AppState, RunStatus
 from app.services.serial_manager import SerialManager
 from app.services.gcode_parser import GCodeParser
@@ -23,14 +23,14 @@ class RunController(QObject):
     """
     
     # Сигналы для UI
-    started = Signal()
-    paused = Signal()
-    resumed = Signal()
-    stopped = Signal()
-    completed = Signal()
-    progress = Signal(int, int)  # Текущая строка, всего
-    line_highlighted = Signal(int)  # Номер строки для подсветки
-    cursor_updated = Signal(float, float)  # X, Y для курсора
+    started = pyqtSignal()
+    paused = pyqtSignal()
+    resumed = pyqtSignal()
+    stopped = pyqtSignal()
+    completed = pyqtSignal()
+    progress = pyqtSignal(int, int)  # Текущая строка, всего
+    line_highlighted = pyqtSignal(int)  # Номер строки для подсветки
+    cursor_updated = pyqtSignal(float, float)  # X, Y для курсора
     
     def __init__(self, app_state: AppState, serial_manager: SerialManager, parent=None):
         super().__init__(parent)

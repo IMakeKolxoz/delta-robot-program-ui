@@ -2,8 +2,8 @@
 Диалог отображения траектории в проекциях XY, YZ, XZ
 """
 from typing import List, Tuple
-from PySide6.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QLabel, QPushButton
-from PySide6.QtCore import Qt
+from PyQt6.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QLabel, QPushButton
+from PyQt6.QtCore import Qt
 import pyqtgraph as pg
 
 
