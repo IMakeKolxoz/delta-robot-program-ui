@@ -3624,3 +3624,55 @@ Ok
 2026-04-24 12:46:58.718 | INFO     | app.ui.main_window:closeEvent:877 | Закрытие приложения...
 2026-04-24 12:46:58.732 | INFO     | app.ui.main_window:closeEvent:900 | Окно закрыто, настройки сохранены
 2026-04-24 12:46:58.743 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-04-24 12:58:39.726 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-04-24 12:58:45.195 | INFO     | __main__:main:38 | ==================================================
+2026-04-24 12:58:45.196 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-04-24 12:58:45.196 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-04-24 12:58:45.197 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program
+2026-04-24 12:58:45.197 | INFO     | __main__:main:42 | ==================================================
+2026-04-24 12:58:45.352 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-04-24 12:58:45.352 | INFO     | __main__:main:57 | Создание главного окна...
+2026-04-24 12:58:45.354 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-04-24 12:58:46.096 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-04-24 12:58:46.108 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-04-24 12:58:46.109 | INFO     | app.ui.main_window:_init_position_tracker:430 | PositionTracker: координаты по приращениям (обновление по ok)
+2026-04-24 12:58:46.121 | INFO     | app.ui.main_window:_connect_signals:496 | Подключение сигналов...
+2026-04-24 12:58:46.122 | INFO     | app.ui.main_window:_connect_signals:545 | Сигналы подключены
+2026-04-24 12:58:46.122 | INFO     | app.ui.main_window:_load_settings:851 | Загрузка настроек...
+2026-04-24 12:58:46.123 | DEBUG    | app.ui.main_window:_load_settings:857 | Геометрия восстановлена
+2026-04-24 12:58:46.124 | DEBUG    | app.ui.main_window:_load_settings:863 | Состояние доков восстановлено
+2026-04-24 12:58:46.124 | INFO     | app.ui.main_window:_load_settings:873 | Настройки загружены
+2026-04-24 12:58:46.125 | INFO     | app.ui.main_window:_on_refresh_ports:551 | Обновление портов...
+2026-04-24 12:58:46.127 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-04-24 12:58:46.130 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-04-24 12:58:46.277 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-04-24 12:58:46.278 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-04-24 12:59:20.278 | INFO     | app.ui.main_window:closeEvent:877 | Закрытие приложения...
+2026-04-24 12:59:20.281 | INFO     | app.ui.main_window:closeEvent:900 | Окно закрыто, настройки сохранены
+2026-04-24 12:59:20.294 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
+2026-04-30 13:03:10.582 | INFO     | app.utils.logger:setup_logging:51 | Логирование настроено
+2026-04-30 13:03:14.035 | INFO     | __main__:main:38 | ==================================================
+2026-04-30 13:03:14.035 | INFO     | __main__:main:39 | Запуск приложения Delta Robot - G-code Sender
+2026-04-30 13:03:14.035 | INFO     | __main__:main:40 | Python: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+2026-04-30 13:03:14.035 | INFO     | __main__:main:41 | Рабочая директория: D:\github\delta-robot-program — копия (2)
+2026-04-30 13:03:14.036 | INFO     | __main__:main:42 | ==================================================
+2026-04-30 13:03:14.150 | INFO     | __main__:load_styles:19 | Стили загружены: app\ui\styles.qss
+2026-04-30 13:03:14.150 | INFO     | __main__:main:57 | Создание главного окна...
+2026-04-30 13:03:14.158 | INFO     | app.controllers.connection_controller:__init__:51 | ConnectionController инициализирован
+2026-04-30 13:03:17.058 | INFO     | app.ui.coordinates_viewmodel:__init__:73 | CoordinatesViewModel инициализирован
+2026-04-30 13:03:17.083 | INFO     | app.controllers.run_controller:__init__:50 | RunController инициализирован
+2026-04-30 13:03:17.083 | INFO     | app.ui.main_window:_init_position_tracker:430 | PositionTracker: координаты по приращениям (обновление по ok)
+2026-04-30 13:03:17.095 | INFO     | app.ui.main_window:_connect_signals:496 | Подключение сигналов...
+2026-04-30 13:03:17.095 | INFO     | app.ui.main_window:_connect_signals:545 | Сигналы подключены
+2026-04-30 13:03:17.095 | INFO     | app.ui.main_window:_load_settings:851 | Загрузка настроек...
+2026-04-30 13:03:17.097 | DEBUG    | app.ui.main_window:_load_settings:857 | Геометрия восстановлена
+2026-04-30 13:03:17.098 | DEBUG    | app.ui.main_window:_load_settings:863 | Состояние доков восстановлено
+2026-04-30 13:03:17.098 | INFO     | app.ui.main_window:_load_settings:873 | Настройки загружены
+2026-04-30 13:03:17.099 | INFO     | app.ui.main_window:_on_refresh_ports:551 | Обновление портов...
+2026-04-30 13:03:17.100 | INFO     | app.controllers.connection_controller:refresh_ports:71 | Обновление списка портов...
+2026-04-30 13:03:17.103 | INFO     | app.controllers.connection_controller:_on_ports_updated:120 | Получено портов: 0
+2026-04-30 13:03:17.186 | INFO     | __main__:main:61 | Приложение готово к работе
+2026-04-30 13:03:17.187 | INFO     | __main__:main:62 | Нажмите Ctrl+C для выхода
+2026-04-30 13:03:27.343 | INFO     | app.ui.main_window:closeEvent:877 | Закрытие приложения...
+2026-04-30 13:03:27.348 | INFO     | app.ui.main_window:closeEvent:900 | Окно закрыто, настройки сохранены
+2026-04-30 13:03:27.359 | INFO     | __main__:main:67 | Завершение работы приложения (код: 0)
