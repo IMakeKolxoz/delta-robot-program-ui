@@ -211,12 +211,18 @@ class MainCompactView(QWidget):
         layout.setContentsMargins(8, 8, 8, 8)
         layout.setSpacing(6)
 
-        # Сетка кнопок 2x2
+        # Сетка кнопок: первая строка — старт и M-коды, вторая — остальные
         button_grid = QGridLayout()
         button_grid.setSpacing(6)
 
         self.start_cycle_btn = QPushButton("Старт\nцикла")
         self.start_cycle_btn.setObjectName("StartCycleButton")
+        self.m03_btn = QPushButton("M03")
+        self.m03_btn.setObjectName("M03Button")
+        self.m03_btn.setToolTip("Включить выход / вакуум / лазер / захват")
+        self.m05_btn = QPushButton("M05")
+        self.m05_btn.setObjectName("M05Button")
+        self.m05_btn.setToolTip("Выключить выход / вакуум / лазер / открыть захват")
         self.line_by_line_btn = QPushButton("Построчная\nотправка")
         self.line_by_line_btn.setObjectName("LineByLineButton")
         self.stop_btn = QPushButton("Стоп")
@@ -224,11 +230,12 @@ class MainCompactView(QWidget):
         self.load_code_btn = QPushButton("Загрузить\nкод")
         self.load_code_btn.setObjectName("LoadCodeButton")
 
-        # Располагаем кнопки в сетке 2x2
-        button_grid.addWidget(self.start_cycle_btn, 0, 0)  # Первая строка, первый столбец
-        button_grid.addWidget(self.line_by_line_btn, 0, 1)  # Первая строка, второй столбец
-        button_grid.addWidget(self.stop_btn, 1, 0)  # Вторая строка, первый столбец
-        button_grid.addWidget(self.load_code_btn, 1, 1)  # Вторая строка, второй столбец
+        button_grid.addWidget(self.start_cycle_btn, 0, 0)
+        button_grid.addWidget(self.m03_btn, 0, 1)
+        button_grid.addWidget(self.m05_btn, 0, 2)
+        button_grid.addWidget(self.line_by_line_btn, 1, 0)
+        button_grid.addWidget(self.stop_btn, 1, 1)
+        button_grid.addWidget(self.load_code_btn, 1, 2)
 
         # Элементы "Перейти к N" в отдельной строке
         goto_row = QHBoxLayout()
@@ -353,6 +360,8 @@ class MainCompactView(QWidget):
 
     def _connect_internal_signals(self) -> None:
         self.start_cycle_btn.clicked.connect(self._on_start_cycle_clicked)
+        self.m03_btn.clicked.connect(self._on_m03_clicked)
+        self.m05_btn.clicked.connect(self._on_m05_clicked)
         self.line_by_line_btn.clicked.connect(self._on_line_by_line_clicked)
         self.stop_btn.clicked.connect(self._on_stop_clicked)
         self.load_code_btn.clicked.connect(self._on_load_code_clicked)
@@ -506,6 +515,18 @@ class MainCompactView(QWidget):
             self.run_controller.stop()
         else:
             self.stop_cycle_requested.emit()
+
+    def _on_m03_clicked(self) -> None:
+        self._send_immediate_command("M03")
+
+    def _on_m05_clicked(self) -> None:
+        self._send_immediate_command("M05")
+
+    def _send_immediate_command(self, command: str) -> None:
+        if self.serial_manager:
+            self.serial_manager.send_immediate(command, wait_ok=False)
+        elif self.run_controller:
+            self.run_controller.send_immediate(command, wait_ok=False)
 
     def _on_load_code_clicked(self) -> None:
         """Открыть диалог выбора файла и загрузить G-code в редактор"""
