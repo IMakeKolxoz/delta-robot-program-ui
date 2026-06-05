@@ -582,3 +582,78 @@ QWidget[class~="compact-tight"] {
     padding: 0px 2px;
 }
 
+/* =====================================================
+   Справка (HelpDialog)
+   ===================================================== */
+
+#HelpDialog {
+    background-color: #fafafa;
+}
+
+#HelpDialogTitle {
+    font-size: 14pt;
+    font-weight: bold;
+    color: #2c3e50;
+    padding: 2px 0;
+}
+
+#HelpDialogCloseButton {
+    background-color: transparent;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 16pt;
+    font-weight: bold;
+    color: #7f8c8d;
+    padding: 0;
+    min-height: 32px;
+}
+
+#HelpDialogCloseButton:hover {
+    background-color: #e74c3c;
+    border-color: #c0392b;
+    color: white;
+}
+
+#HelpDialogSearchField {
+    min-height: 28px;
+}
+
+#HelpDialogSearchStatus {
+    color: #7f8c8d;
+    font-size: 9pt;
+}
+
+#HelpDialogNavButton {
+    min-height: 28px;
+    padding: 4px;
+}
+
+#HelpDialogContent {
+    background-color: white;
+    border: 1px solid #d5dbdb;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 10pt;
+    color: #2c3e50;
+}
+
+#HelpButton {
+    min-height: 26px;
+    padding: 4px 12px;
+    font-size: 9pt;
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    color: #2c3e50;
+}
+
+#HelpButton:hover {
+    background-color: #d5dbdb;
+    border-color: #95a5a6;
+}
+
+#HelpButton:pressed {
+    background-color: #aed6f1;
+    border-color: #3498db;
+}
+

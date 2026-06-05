@@ -22,6 +22,7 @@ from app.widgets.coordinates_panel import CoordinatesPanel
 from app.ui.coordinates_viewmodel import CoordinatesViewModel
 from app.ui.main_compact_view import MainCompactView
 from app.ui.trajectory_dialog import TrajectoryDialog
+from app.ui.help_dialog import HelpDialog
 from app.services.coordinates_provider import SerialCoordinatesProvider
 from app.utils.settings import AppSettings
 from app.utils.logger import get_logger
@@ -352,6 +353,13 @@ class MainWindow(QMainWindow):
         self.compact_mode_action.setCheckable(True)
         self.compact_mode_action.triggered.connect(self._on_toggle_compact_mode)
         window_menu.addAction(self.compact_mode_action)
+
+        help_menu = self.menuBar().addMenu("Справка")
+        self.help_action = QAction("Помощь", self)
+        self.help_action.setShortcut("F1")
+        self.help_action.setStatusTip("Документация по G-кодам")
+        self.help_action.triggered.connect(self._on_show_help)
+        help_menu.addAction(self.help_action)
     
     def _create_toolbar(self):
         """Создать тулбар"""
@@ -407,6 +415,11 @@ class MainWindow(QMainWindow):
         self.toolbar.send_line_by_line_action.setEnabled(False)
         self.toolbar.send_line_by_line_action.triggered.connect(self._on_send_line_by_line)
         self.toolbar.addAction(self.toolbar.send_line_by_line_action)
+
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        self.toolbar.addWidget(spacer)
+        self.toolbar.addAction(self.help_action)
     
     def _init_controllers(self):
         """Инициализировать контроллеры"""
@@ -451,6 +464,7 @@ class MainWindow(QMainWindow):
             serial_manager=serial_manager,
             parent=self,
         )
+        self.compact_view.help_requested.connect(self._on_show_help)
     
     def _set_legacy_docks_visible(self, visible: bool):
         """Показать или скрыть доки старого дизайна."""
@@ -799,6 +813,11 @@ class MainWindow(QMainWindow):
         """Подсветка строки в G-code редакторе"""
         self.gcode_view.highlight_line(line_index)
     
+    def _on_show_help(self):
+        """Открыть справку по G-кодам."""
+        dialog = HelpDialog(self)
+        dialog.exec()
+
     def _on_show_trajectory(self):
         """Открыть диалог с проекциями траектории"""
         # Получаем точки траектории из AppState

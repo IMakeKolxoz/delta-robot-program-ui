@@ -49,6 +49,7 @@ class MainCompactView(QWidget):
     jog_command_requested = pyqtSignal(str, float)
     jog_params_changed = pyqtSignal(dict)
     console_command_submitted = pyqtSignal(str)
+    help_requested = pyqtSignal()
 
     def __init__(
         self,
@@ -99,6 +100,16 @@ class MainCompactView(QWidget):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
+
+        top_row = QHBoxLayout()
+        top_row.setContentsMargins(4, 4, 4, 0)
+        top_row.addStretch()
+        self.help_btn = QPushButton("Помощь")
+        self.help_btn.setObjectName("HelpButton")
+        self.help_btn.setToolTip("Документация по G-кодам (F1)")
+        self.help_btn.clicked.connect(self.help_requested.emit)
+        top_row.addWidget(self.help_btn)
+        layout.addLayout(top_row)
 
         # Верхняя часть: левая и правая колонки (консоль не здесь)
         self.columns_splitter = QSplitter(Qt.Orientation.Horizontal, self)
