@@ -21,7 +21,9 @@ from app.widgets.jog_panel import JogPanel
 from app.widgets.coordinates_panel import CoordinatesPanel
 from app.ui.coordinates_viewmodel import CoordinatesViewModel
 from app.ui.main_compact_view import MainCompactView
+from app.ui.display_config import PANEL_FULLSCREEN, PANEL_SCREEN_HEIGHT, PANEL_SCREEN_WIDTH
 from app.ui.trajectory_dialog import TrajectoryDialog
+from app.ui.help_dialog import HelpDialog
 from app.services.coordinates_provider import SerialCoordinatesProvider
 from app.utils.settings import AppSettings
 from app.utils.logger import get_logger
@@ -82,6 +84,14 @@ class MainWindow(QMainWindow):
         
         # Обновляем порты при старте
         self._on_refresh_ports()
+
+    def show_panel(self) -> None:
+        """Показать окно на весь экран панели (1024×600, без панели задач)."""
+        if PANEL_FULLSCREEN:
+            self.showFullScreen()
+        else:
+            self.resize(PANEL_SCREEN_WIDTH, PANEL_SCREEN_HEIGHT)
+            self.show()
     
     def _init_ui(self):
         """Инициализация UI"""
@@ -352,6 +362,13 @@ class MainWindow(QMainWindow):
         self.compact_mode_action.setCheckable(True)
         self.compact_mode_action.triggered.connect(self._on_toggle_compact_mode)
         window_menu.addAction(self.compact_mode_action)
+
+        help_menu = self.menuBar().addMenu("Справка")
+        self.help_action = QAction("Помощь", self)
+        self.help_action.setShortcut("F1")
+        self.help_action.setStatusTip("Документация по G-кодам")
+        self.help_action.triggered.connect(self._on_show_help)
+        help_menu.addAction(self.help_action)
     
     def _create_toolbar(self):
         """Создать тулбар"""
@@ -407,6 +424,11 @@ class MainWindow(QMainWindow):
         self.toolbar.send_line_by_line_action.setEnabled(False)
         self.toolbar.send_line_by_line_action.triggered.connect(self._on_send_line_by_line)
         self.toolbar.addAction(self.toolbar.send_line_by_line_action)
+
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        self.toolbar.addWidget(spacer)
+        self.toolbar.addAction(self.help_action)
     
     def _init_controllers(self):
         """Инициализировать контроллеры"""
@@ -521,6 +543,7 @@ class MainWindow(QMainWindow):
         manager = self.connection_controller.get_manager()
         manager.line_sent.connect(self.console_view.add_sent_command)
         manager.line_received.connect(self._on_line_received)
+        manager.coordinates_received.connect(self._on_coordinates_received)
         manager.error.connect(self.console_view.add_error)
         
         # === RunController -> Views ===
@@ -651,6 +674,14 @@ class MainWindow(QMainWindow):
     def _on_line_received(self, line: str):
         """Обработка полученной строки"""
         self.console_view.add_received_response(line)
+
+    def _on_coordinates_received(self, x: float, y: float, z: float):
+        """Обновить координаты из ответа G93."""
+        if self.position_tracker:
+            self.position_tracker.set_position(x, y, z)
+        self.console_view.add_info(
+            f"G93: координаты X={x:.3f} Y={y:.3f} Z={z:.3f}"
+        )
     
     def _on_ports_changed(self, ports: list):
         """Обновление списка портов"""
@@ -799,6 +830,11 @@ class MainWindow(QMainWindow):
         """Подсветка строки в G-code редакторе"""
         self.gcode_view.highlight_line(line_index)
     
+    def _on_show_help(self):
+        """Открыть справку по G-кодам."""
+        dialog = HelpDialog(self)
+        dialog.exec()
+
     def _on_show_trajectory(self):
         """Открыть диалог с проекциями траектории"""
         # Получаем точки траектории из AppState

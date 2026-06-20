@@ -161,21 +161,30 @@ class MainCompactView(QWidget):
         column_layout.setContentsMargins(4, 4, 4, 4)
         column_layout.setSpacing(4)
 
-        self.right_splitter = QSplitter(Qt.Orientation.Vertical, container)
-        self.right_splitter.setChildrenCollapsible(False)
-
         self.com_group = self._build_com_group()
+
+        controls_layout = QVBoxLayout()
+        controls_layout.setContentsMargins(0, 0, 0, 0)
+        controls_layout.setSpacing(6)
         self.motion_group = self._build_motion_params_group()
-        # Jog-кнопки (+X, -X, +Y, -Y, +Z, -Z) удалены: управление через клавиатуру 4x4 (keyboard_control.py)
-        # Консоль перенесена в нижнюю горизонтальную панель (50% ширины)
+        self.jog_group = self._build_jog_buttons_group()
+        controls_layout.addWidget(
+            self.motion_group,
+            0,
+            Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft,
+        )
+        controls_layout.addWidget(
+            self.jog_group,
+            0,
+            Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft,
+        )
+        controls_layout.addStretch(1)
 
-        self.right_splitter.addWidget(self.com_group)
-        self.right_splitter.addWidget(self.motion_group)
+        controls_widget = QWidget()
+        controls_widget.setLayout(controls_layout)
 
-        self.right_splitter.setStretchFactor(0, 0)
-        self.right_splitter.setStretchFactor(1, 1)
-
-        column_layout.addWidget(self.right_splitter)
+        column_layout.addWidget(self.com_group, 0)
+        column_layout.addWidget(controls_widget, 1)
         return container
 
     def _build_coordinates_group(self) -> QGroupBox:
@@ -200,12 +209,18 @@ class MainCompactView(QWidget):
         layout.setContentsMargins(8, 8, 8, 8)
         layout.setSpacing(6)
 
-        # Сетка кнопок 2x2
+        # Сетка кнопок: первая строка — старт и M-коды, вторая — остальные
         button_grid = QGridLayout()
         button_grid.setSpacing(6)
 
         self.start_cycle_btn = QPushButton("Старт\nцикла")
         self.start_cycle_btn.setObjectName("StartCycleButton")
+        self.m03_btn = QPushButton("M03")
+        self.m03_btn.setObjectName("M03Button")
+        self.m03_btn.setToolTip("Включить выход / вакуум / лазер / захват")
+        self.m05_btn = QPushButton("M05")
+        self.m05_btn.setObjectName("M05Button")
+        self.m05_btn.setToolTip("Выключить выход / вакуум / лазер / открыть захват")
         self.line_by_line_btn = QPushButton("Построчная\nотправка")
         self.line_by_line_btn.setObjectName("LineByLineButton")
         self.stop_btn = QPushButton("Стоп")
@@ -213,11 +228,12 @@ class MainCompactView(QWidget):
         self.load_code_btn = QPushButton("Загрузить\nкод")
         self.load_code_btn.setObjectName("LoadCodeButton")
 
-        # Располагаем кнопки в сетке 2x2
-        button_grid.addWidget(self.start_cycle_btn, 0, 0)  # Первая строка, первый столбец
-        button_grid.addWidget(self.line_by_line_btn, 0, 1)  # Первая строка, второй столбец
-        button_grid.addWidget(self.stop_btn, 1, 0)  # Вторая строка, первый столбец
-        button_grid.addWidget(self.load_code_btn, 1, 1)  # Вторая строка, второй столбец
+        button_grid.addWidget(self.start_cycle_btn, 0, 0)
+        button_grid.addWidget(self.m03_btn, 0, 1)
+        button_grid.addWidget(self.m05_btn, 0, 2)
+        button_grid.addWidget(self.line_by_line_btn, 1, 0)
+        button_grid.addWidget(self.stop_btn, 1, 1)
+        button_grid.addWidget(self.load_code_btn, 1, 2)
 
         # Элементы "Перейти к N" в отдельной строке
         goto_row = QHBoxLayout()
@@ -293,6 +309,43 @@ class MainCompactView(QWidget):
         group.setLayout(grid)
         return group
 
+    def _build_jog_buttons_group(self) -> QGroupBox:
+        """Сетка 3×3 для ручного перемещения по осям (как на пульте ЧПУ)."""
+        group = QGroupBox("Оси")
+        grid = QGridLayout()
+        grid.setContentsMargins(4, 4, 4, 4)
+        grid.setSpacing(4)
+
+        # Расположение на пульте:
+        #   +Z   +Y
+        # -X        +X
+        #   -Z   -Y
+        jog_buttons = (
+            (0, 0, "+Z", "Z", 1.0),
+            (0, 1, "+Y", "Y", 1.0),
+            (1, 0, "-X", "X", -1.0),
+            (1, 2, "+X", "X", 1.0),
+            (2, 0, "-Z", "Z", -1.0),
+            (2, 1, "-Y", "Y", -1.0),
+        )
+
+        self._jog_buttons: List[QPushButton] = []
+        for row, col, label, axis, direction in jog_buttons:
+            btn = QPushButton(label)
+            btn.setObjectName("JogAxisButton")
+            btn.setProperty("axis", axis)
+            btn.setProperty("direction", direction)
+            btn.clicked.connect(self._on_jog_button_clicked)
+            grid.addWidget(btn, row, col)
+            self._jog_buttons.append(btn)
+
+        for index in range(3):
+            grid.setColumnStretch(index, 1)
+            grid.setRowStretch(index, 1)
+
+        group.setLayout(grid)
+        return group
+
     def _build_console_group(self) -> QGroupBox:
         group = QGroupBox("Консоль")
         layout = QVBoxLayout()
@@ -342,6 +395,8 @@ class MainCompactView(QWidget):
 
     def _connect_internal_signals(self) -> None:
         self.start_cycle_btn.clicked.connect(self._on_start_cycle_clicked)
+        self.m03_btn.clicked.connect(self._on_m03_clicked)
+        self.m05_btn.clicked.connect(self._on_m05_clicked)
         self.line_by_line_btn.clicked.connect(self._on_line_by_line_clicked)
         self.stop_btn.clicked.connect(self._on_stop_clicked)
         self.load_code_btn.clicked.connect(self._on_load_code_clicked)
@@ -427,7 +482,8 @@ class MainCompactView(QWidget):
         if not self.serial_manager:
             return
         self.serial_manager.line_sent.connect(lambda line: self._append_console(f"→ {line}"))
-        self.serial_manager.line_received.connect(lambda line: self._append_console(f"← {line}"))
+        self.serial_manager.line_received.connect(self._on_serial_line_received)
+        self.serial_manager.coordinates_received.connect(self._on_coordinates_received)
         self.serial_manager.error.connect(lambda error: self._append_console(f"Ошибка: {error}"))
 
     def _sync_initial_state(self) -> None:
@@ -495,6 +551,28 @@ class MainCompactView(QWidget):
             self.run_controller.stop()
         else:
             self.stop_cycle_requested.emit()
+
+    def _on_m03_clicked(self) -> None:
+        self._set_m_output_active("M03")
+        self._send_immediate_command("M03")
+
+    def _on_m05_clicked(self) -> None:
+        self._set_m_output_active("M05")
+        self._send_immediate_command("M05")
+
+    def _set_m_output_active(self, code: str) -> None:
+        for btn, btn_code in ((self.m03_btn, "M03"), (self.m05_btn, "M05")):
+            active = btn_code == code
+            btn.setProperty("active", active)
+            btn.style().unpolish(btn)
+            btn.style().polish(btn)
+            btn.update()
+
+    def _send_immediate_command(self, command: str) -> None:
+        if self.serial_manager:
+            self.serial_manager.send_immediate(command, wait_ok=False)
+        elif self.run_controller:
+            self.run_controller.send_immediate(command, wait_ok=False)
 
     def _on_load_code_clicked(self) -> None:
         """Открыть диалог выбора файла и загрузить G-code в редактор"""
@@ -704,6 +782,14 @@ class MainCompactView(QWidget):
             self.console_command_submitted.emit(command)
         self.console_input.clear()
         self._append_console(f"→ {command}")
+
+    def _on_serial_line_received(self, line: str) -> None:
+        self._append_console(f"← {line}")
+
+    def _on_coordinates_received(self, x: float, y: float, z: float) -> None:
+        self._append_console(
+            f"G93: координаты X={x:.3f} Y={y:.3f} Z={z:.3f}"
+        )
 
     def _append_console(self, text: str) -> None:
         self.console_history.appendPlainText(text)
