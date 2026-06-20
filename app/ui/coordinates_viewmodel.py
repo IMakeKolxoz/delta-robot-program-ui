@@ -2,9 +2,10 @@
 ViewModel для отображения координат дельта-робота
 """
 from PyQt6.QtCore import QObject, pyqtSignal, pyqtProperty, QTimer, QThread
-from typing import Optional, Tuple
+from typing import Optional
 from app.services.coordinates_provider import ICoordinatesProvider
 from app.services.serial_manager import SerialManager
+from app.services.gcode_response_parser import parse_g93_coordinates
 from app.utils.logger import get_logger
 
 logger = get_logger()
@@ -61,6 +62,7 @@ class CoordinatesViewModel(QObject):
         # Подключаемся к сигналам SerialManager для получения ответов
         if self._serial_manager:
             self._serial_manager.line_received.connect(self._on_line_received)
+            self._serial_manager.coordinates_received.connect(self._on_coordinates_received)
             self._serial_manager.error.connect(self._on_serial_error)
         
         # Таймер для автообновления (DispatcherTimer аналог)
@@ -185,10 +187,7 @@ class CoordinatesViewModel(QObject):
         self._pending_response = True
         
         try:
-            # TODO: вставить команду запроса координат
-            # Отправляем команду через ISerialPort.WriteLineAsync() (SerialManager.send_immediate)
-            # Пока используем заглушку команды - замените на реальную команду запроса координат
-            command = "M114"  # Заглушка - обычно это команда получения координат в Grbl/Marlin
+            command = "G93"
             
             # Отправляем команду через SerialManager (аналог WriteLineAsync)
             self._serial_manager.send_immediate(command, wait_ok=False)
@@ -201,6 +200,13 @@ class CoordinatesViewModel(QObject):
             self.is_updating = False
             self._pending_response = False
     
+    def _on_coordinates_received(self, x: float, y: float, z: float) -> None:
+        """Обновить координаты из ответа G93."""
+        self._response_timeout_timer.stop()
+        self._pending_response = False
+        self._apply_machine_coordinates(x, y, z)
+        self.is_updating = False
+
     def _on_line_received(self, line: str):
         """
         Обработка полученной строки от SerialManager
@@ -215,29 +221,10 @@ class CoordinatesViewModel(QObject):
         self._response_timeout_timer.stop()
         self._pending_response = False
         
-        try:
-            # Парсим координаты из ответа
-            # TODO: реализовать парсинг ответа контроллера
-            # Пока используем заглушку - имитируем X0 Y0 Z0
-            coordinates = self._parse_coordinates(line)
-            
-            machine_x, machine_y, machine_z, work_x, work_y, work_z = coordinates
-            
-            # Обновляем свойства
-            self.machine_x = machine_x
-            self.machine_y = machine_y
-            self.machine_z = machine_z
-            self.work_x = work_x
-            self.work_y = work_y
-            self.work_z = work_z
-            
-            logger.debug(f"Координаты обновлены: Machine({machine_x:.2f}, {machine_y:.2f}, {machine_z:.2f}), "
-                        f"Work({work_x:.2f}, {work_y:.2f}, {work_z:.2f})")
-            
-        except Exception as e:
-            logger.error(f"Ошибка парсинга координат: {e}")
-        finally:
-            self.is_updating = False
+        coords = parse_g93_coordinates(line)
+        if coords:
+            self._apply_machine_coordinates(*coords)
+        self.is_updating = False
     
     def _on_serial_error(self, error: str):
         """
@@ -259,23 +246,14 @@ class CoordinatesViewModel(QObject):
             self._pending_response = False
             self.is_updating = False
     
-    def _parse_coordinates(self, line: str) -> Tuple[float, float, float, float, float, float]:
-        """
-        Парсинг координат из ответа контроллера
-        
-        Парсер-заглушка: пока просто имитирует X0 Y0 Z0.
-        В будущем здесь будет реализован реальный парсинг ответа контроллера.
-        
-        Args:
-            line: Строка ответа от контроллера (получена через ReadLineAsync/line_received)
-        
-        Returns:
-            Кортеж (MachineX, MachineY, MachineZ, WorkX, WorkY, WorkZ)
-        """
-        # TODO: реализовать реальный парсинг ответа контроллера
-        # Пока возвращаем заглушку - имитируем X0 Y0 Z0
-        logger.debug(f"Парсинг координат из строки: {line}")
-        return (0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+    def _apply_machine_coordinates(self, x: float, y: float, z: float) -> None:
+        """Применить машинные координаты из ответа G93."""
+        self.machine_x = x
+        self.machine_y = y
+        self.machine_z = z
+        logger.debug(
+            "Координаты обновлены из G93: X=%.3f Y=%.3f Z=%.3f", x, y, z
+        )
     
     def _update_from_provider_stub(self):
         """Обновление координат из заглушки провайдера (для тестирования)"""

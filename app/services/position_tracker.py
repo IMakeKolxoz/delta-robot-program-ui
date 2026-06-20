@@ -65,6 +65,15 @@ class PositionTracker(QObject):
             self.current_position["z"],
         )
 
+    def set_position(self, x: float, y: float, z: float) -> None:
+        """Установить абсолютную позицию (например, из ответа G93)."""
+        self.current_position["x"] = x
+        self.current_position["y"] = y
+        self.current_position["z"] = z
+        self.pending_moves.clear()
+        self._emit_position()
+        logger.info("Позиция обновлена из контроллера: X=%.3f Y=%.3f Z=%.3f", x, y, z)
+
     def reset_coordinates(self) -> None:
         """
         Установить координаты в ноль (вызывать после процедуры homing).

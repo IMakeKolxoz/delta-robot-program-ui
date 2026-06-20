@@ -5,6 +5,7 @@ import serial
 from serial.tools import list_ports
 from typing import List, Optional
 from PyQt6.QtCore import QObject, pyqtSignal, QThread, pyqtSlot
+from app.services.gcode_response_parser import is_g93_command, parse_g93_coordinates
 from app.utils.logger import get_logger
 
 logger = get_logger()
@@ -119,50 +120,96 @@ class SerialWorker(QObject):
             self.data_sent.emit(command)
             logger.info(f"→ {command}")
             
-            if wait_ok:
-                self._wait_for_ok()
-            else:
-                self.ok_received.emit()
-                
+            self._read_responses(timeout_ms=5000 if wait_ok else 2000, wait_for_ok=wait_ok)
+
         except Exception as e:
             logger.error(f"Ошибка отправки: {e}")
             self.error_occurred.emit(str(e))
     
-    def _wait_for_ok(self):
-        """Ожидать ответ ok"""
-        # Читаем данные в цикле
-        timeout_ms = 5000  # 5 секунд
-        elapsed = 0
-        
+    def _process_buffer(self) -> bool:
+        """Извлечь и отправить полные строки из буфера. Возвращает True, если получен ok."""
+        got_ok = False
         while True:
+            split_at = -1
+            for sep in ("\r\n", "\n", "\r"):
+                idx = self._response_buffer.find(sep)
+                if idx != -1 and (split_at == -1 or idx < split_at):
+                    split_at = idx
+                    sep_len = len(sep)
+
+            if split_at == -1:
+                break
+
+            line = self._response_buffer[:split_at].strip()
+            self._response_buffer = self._response_buffer[split_at + sep_len :]
+
+            if not line:
+                continue
+
+            logger.info(f"← {line}")
+            self.data_received.emit(line)
+            if line.lower() == "ok":
+                got_ok = True
+
+        return got_ok
+
+    def _flush_buffer_remainder(self) -> None:
+        """Отправить остаток буфера как одну строку (ответ без перевода строки)."""
+        line = self._response_buffer.strip()
+        self._response_buffer = ""
+        if not line:
+            return
+        logger.info(f"← {line}")
+        self.data_received.emit(line)
+
+    def _read_responses(self, timeout_ms: int, wait_for_ok: bool) -> None:
+        """Читать ответ контроллера построчно."""
+        elapsed = 0
+        idle_elapsed = 0
+        poll_ms = 50
+
+        while elapsed < timeout_ms:
             if not self.serial_port or not self.serial_port.is_open:
                 break
-            
+
             try:
                 if self.serial_port.in_waiting > 0:
-                    data = self.serial_port.read(self.serial_port.in_waiting).decode('utf-8', errors='ignore')
+                    data = self.serial_port.read(self.serial_port.in_waiting).decode(
+                        "utf-8", errors="ignore"
+                    )
                     self._response_buffer += data
-                    
-                    # Проверяем на наличие "ok" (без учета регистра)
-                    if "ok" in self._response_buffer.lower():
-                        logger.info("← ok")
-                        self.data_received.emit(self._response_buffer.strip())
+                    got_ok = self._process_buffer()
+                    idle_elapsed = 0
+
+                    if wait_for_ok and got_ok:
                         self._response_buffer = ""
                         self.ok_received.emit()
                         return
-                
-                # Проверка таймаута
-                elapsed += 100
-                if elapsed >= timeout_ms:
-                    self.error_occurred.emit("Таймаут ожидания ok")
-                    break
-                
-                QThread.msleep(100)  # 100мс задержка
-                
+                else:
+                    idle_elapsed += poll_ms
+                    if (
+                        not wait_for_ok
+                        and idle_elapsed >= 300
+                        and self._response_buffer.strip()
+                    ):
+                        self._flush_buffer_remainder()
+                        break
+
+                QThread.msleep(poll_ms)
+                elapsed += poll_ms
+
             except Exception as e:
                 logger.error(f"Ошибка чтения: {e}")
                 self.error_occurred.emit(str(e))
                 break
+
+        if self._response_buffer.strip():
+            self._flush_buffer_remainder()
+
+        if wait_for_ok and elapsed >= timeout_ms:
+            self.error_occurred.emit("Таймаут ожидания ok")
+
+        self.ok_received.emit()
     
     @pyqtSlot()
     def _start_queue(self):
@@ -229,6 +276,7 @@ class SerialManager(QObject):
     ports_updated = pyqtSignal(list)  # Список портов обновлен
     line_sent = pyqtSignal(str)  # Отправлена строка
     line_received = pyqtSignal(str)  # Получена строка
+    coordinates_received = pyqtSignal(float, float, float)  # Ответ G93: x, y, z
     ok_received = pyqtSignal()  # Получено ok
     error = pyqtSignal(str)  # Ошибка
     progress = pyqtSignal(int, int)  # Текущая строка, всего строк
@@ -257,6 +305,8 @@ class SerialManager(QObject):
         # Состояние
         self._connected_port: Optional[str] = None
         self._selected_port: Optional[str] = None  # Выбранный пользователем порт
+        self._last_sent_command: Optional[str] = None
+        self._awaiting_g93_response = False
     
     @property
     def is_connected(self) -> bool:
@@ -390,6 +440,15 @@ class SerialManager(QObject):
         
         self.worker._send_requested.emit(line, wait_ok)
     
+    def _track_sent_command(self, command: str) -> None:
+        """Запомнить последнюю команду для разбора ответа."""
+        self._last_sent_command = command.strip()
+        self._awaiting_g93_response = is_g93_command(command)
+
+    def get_last_sent_command(self) -> Optional[str]:
+        """Последняя отправленная команда."""
+        return self._last_sent_command
+
     def _on_data_sent(self, data: str):
         """Обработка отправленных данных"""
         # Детектируем успешное подключение по сервисному сообщению
@@ -398,11 +457,20 @@ class SerialManager(QObject):
                 self._connected_port = self._selected_port
                 logger.info(f"Порт открыт: {self._connected_port}")
                 self.connected.emit(self._connected_port)
+        else:
+            self._track_sent_command(data)
         self.line_sent.emit(data)
-    
+
     def _on_data_received(self, data: str):
         """Обработка полученных данных"""
         self.line_received.emit(data)
+        if self._awaiting_g93_response:
+            coords = parse_g93_coordinates(data)
+            if coords:
+                x, y, z = coords
+                self.coordinates_received.emit(x, y, z)
+                self._awaiting_g93_response = False
+                logger.info("G93: позиция X=%.3f Y=%.3f Z=%.3f", x, y, z)
     
     def _on_ok_received(self):
         """Обработка получения ok"""
