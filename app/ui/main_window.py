@@ -464,7 +464,6 @@ class MainWindow(QMainWindow):
             serial_manager=serial_manager,
             parent=self,
         )
-        self.compact_view.help_requested.connect(self._on_show_help)
     
     def _set_legacy_docks_visible(self, visible: bool):
         """Показать или скрыть доки старого дизайна."""
@@ -535,6 +534,7 @@ class MainWindow(QMainWindow):
         manager = self.connection_controller.get_manager()
         manager.line_sent.connect(self.console_view.add_sent_command)
         manager.line_received.connect(self._on_line_received)
+        manager.coordinates_received.connect(self._on_coordinates_received)
         manager.error.connect(self.console_view.add_error)
         
         # === RunController -> Views ===
@@ -665,6 +665,14 @@ class MainWindow(QMainWindow):
     def _on_line_received(self, line: str):
         """Обработка полученной строки"""
         self.console_view.add_received_response(line)
+
+    def _on_coordinates_received(self, x: float, y: float, z: float):
+        """Обновить координаты из ответа G93."""
+        if self.position_tracker:
+            self.position_tracker.set_position(x, y, z)
+        self.console_view.add_info(
+            f"G93: координаты X={x:.3f} Y={y:.3f} Z={z:.3f}"
+        )
     
     def _on_ports_changed(self, ports: list):
         """Обновление списка портов"""

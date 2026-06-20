@@ -49,7 +49,6 @@ class MainCompactView(QWidget):
     jog_command_requested = pyqtSignal(str, float)
     jog_params_changed = pyqtSignal(dict)
     console_command_submitted = pyqtSignal(str)
-    help_requested = pyqtSignal()
 
     def __init__(
         self,
@@ -100,16 +99,6 @@ class MainCompactView(QWidget):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-
-        top_row = QHBoxLayout()
-        top_row.setContentsMargins(4, 4, 4, 0)
-        top_row.addStretch()
-        self.help_btn = QPushButton("Помощь")
-        self.help_btn.setObjectName("HelpButton")
-        self.help_btn.setToolTip("Документация по G-кодам (F1)")
-        self.help_btn.clicked.connect(self.help_requested.emit)
-        top_row.addWidget(self.help_btn)
-        layout.addLayout(top_row)
 
         # Верхняя часть: левая и правая колонки (консоль не здесь)
         self.columns_splitter = QSplitter(Qt.Orientation.Horizontal, self)
@@ -447,7 +436,8 @@ class MainCompactView(QWidget):
         if not self.serial_manager:
             return
         self.serial_manager.line_sent.connect(lambda line: self._append_console(f"→ {line}"))
-        self.serial_manager.line_received.connect(lambda line: self._append_console(f"← {line}"))
+        self.serial_manager.line_received.connect(self._on_serial_line_received)
+        self.serial_manager.coordinates_received.connect(self._on_coordinates_received)
         self.serial_manager.error.connect(lambda error: self._append_console(f"Ошибка: {error}"))
 
     def _sync_initial_state(self) -> None:
@@ -517,10 +507,20 @@ class MainCompactView(QWidget):
             self.stop_cycle_requested.emit()
 
     def _on_m03_clicked(self) -> None:
+        self._set_m_output_active("M03")
         self._send_immediate_command("M03")
 
     def _on_m05_clicked(self) -> None:
+        self._set_m_output_active("M05")
         self._send_immediate_command("M05")
+
+    def _set_m_output_active(self, code: str) -> None:
+        for btn, btn_code in ((self.m03_btn, "M03"), (self.m05_btn, "M05")):
+            active = btn_code == code
+            btn.setProperty("active", active)
+            btn.style().unpolish(btn)
+            btn.style().polish(btn)
+            btn.update()
 
     def _send_immediate_command(self, command: str) -> None:
         if self.serial_manager:
@@ -736,6 +736,14 @@ class MainCompactView(QWidget):
             self.console_command_submitted.emit(command)
         self.console_input.clear()
         self._append_console(f"→ {command}")
+
+    def _on_serial_line_received(self, line: str) -> None:
+        self._append_console(f"← {line}")
+
+    def _on_coordinates_received(self, x: float, y: float, z: float) -> None:
+        self._append_console(
+            f"G93: координаты X={x:.3f} Y={y:.3f} Z={z:.3f}"
+        )
 
     def _append_console(self, text: str) -> None:
         self.console_history.appendPlainText(text)
