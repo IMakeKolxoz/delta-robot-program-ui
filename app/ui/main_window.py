@@ -21,6 +21,7 @@ from app.widgets.jog_panel import JogPanel
 from app.widgets.coordinates_panel import CoordinatesPanel
 from app.ui.coordinates_viewmodel import CoordinatesViewModel
 from app.ui.main_compact_view import MainCompactView
+from app.ui.display_config import PANEL_FULLSCREEN, PANEL_SCREEN_HEIGHT, PANEL_SCREEN_WIDTH
 from app.ui.trajectory_dialog import TrajectoryDialog
 from app.ui.help_dialog import HelpDialog
 from app.services.coordinates_provider import SerialCoordinatesProvider
@@ -83,6 +84,14 @@ class MainWindow(QMainWindow):
         
         # Обновляем порты при старте
         self._on_refresh_ports()
+
+    def show_panel(self) -> None:
+        """Показать окно на весь экран панели (1024×600, без панели задач)."""
+        if PANEL_FULLSCREEN:
+            self.showFullScreen()
+        else:
+            self.resize(PANEL_SCREEN_WIDTH, PANEL_SCREEN_HEIGHT)
+            self.show()
     
     def _init_ui(self):
         """Инициализация UI"""

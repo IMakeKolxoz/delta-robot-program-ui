@@ -56,7 +56,7 @@ def main():
         # Создаем главное окно
         logger.info("Создание главного окна...")
         window = MainWindow()
-        window.show()
+        window.show_panel()
         
         logger.info("Приложение готово к работе")
         logger.info("Нажмите Ctrl+C для выхода")

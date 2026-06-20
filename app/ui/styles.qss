@@ -617,6 +617,37 @@ QWidget[class~="compact-tight"] {
     border-color: #3498db;
 }
 
+#JogAxisButton {
+    min-width: 64px;
+    min-height: 64px;
+    max-width: 96px;
+    max-height: 96px;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    border: 2px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 11pt;
+    font-weight: 600;
+    padding: 2px;
+}
+
+#JogAxisButton:hover {
+    background-color: #d5dbdb;
+    border-color: #95a5a6;
+}
+
+#JogAxisButton:pressed {
+    background-color: #3498db;
+    border-color: #2980b9;
+    color: white;
+}
+
+#JogAxisButton:disabled {
+    background-color: #f8f9fa;
+    color: #bdc3c7;
+    border-color: #e5e7e9;
+}
+
 /* Компактные поля ввода параметров движения */
 #MainCompactView QGroupBox[title="Параметры движения"] QLineEdit {
     max-width: 60px;

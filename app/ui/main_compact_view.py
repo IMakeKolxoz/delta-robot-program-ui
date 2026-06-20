@@ -161,21 +161,30 @@ class MainCompactView(QWidget):
         column_layout.setContentsMargins(4, 4, 4, 4)
         column_layout.setSpacing(4)
 
-        self.right_splitter = QSplitter(Qt.Orientation.Vertical, container)
-        self.right_splitter.setChildrenCollapsible(False)
-
         self.com_group = self._build_com_group()
+
+        controls_layout = QVBoxLayout()
+        controls_layout.setContentsMargins(0, 0, 0, 0)
+        controls_layout.setSpacing(6)
         self.motion_group = self._build_motion_params_group()
-        # Jog-кнопки (+X, -X, +Y, -Y, +Z, -Z) удалены: управление через клавиатуру 4x4 (keyboard_control.py)
-        # Консоль перенесена в нижнюю горизонтальную панель (50% ширины)
+        self.jog_group = self._build_jog_buttons_group()
+        controls_layout.addWidget(
+            self.motion_group,
+            0,
+            Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft,
+        )
+        controls_layout.addWidget(
+            self.jog_group,
+            0,
+            Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft,
+        )
+        controls_layout.addStretch(1)
 
-        self.right_splitter.addWidget(self.com_group)
-        self.right_splitter.addWidget(self.motion_group)
+        controls_widget = QWidget()
+        controls_widget.setLayout(controls_layout)
 
-        self.right_splitter.setStretchFactor(0, 0)
-        self.right_splitter.setStretchFactor(1, 1)
-
-        column_layout.addWidget(self.right_splitter)
+        column_layout.addWidget(self.com_group, 0)
+        column_layout.addWidget(controls_widget, 1)
         return container
 
     def _build_coordinates_group(self) -> QGroupBox:
@@ -296,6 +305,43 @@ class MainCompactView(QWidget):
         grid.addWidget(self.step_field, 1, 1)
         grid.addWidget(QLabel("Скорость"), 1, 2)
         grid.addWidget(self.jog_speed_field, 1, 3)
+
+        group.setLayout(grid)
+        return group
+
+    def _build_jog_buttons_group(self) -> QGroupBox:
+        """Сетка 3×3 для ручного перемещения по осям (как на пульте ЧПУ)."""
+        group = QGroupBox("Оси")
+        grid = QGridLayout()
+        grid.setContentsMargins(4, 4, 4, 4)
+        grid.setSpacing(4)
+
+        # Расположение на пульте:
+        #   +Z   +Y
+        # -X        +X
+        #   -Z   -Y
+        jog_buttons = (
+            (0, 0, "+Z", "Z", 1.0),
+            (0, 1, "+Y", "Y", 1.0),
+            (1, 0, "-X", "X", -1.0),
+            (1, 2, "+X", "X", 1.0),
+            (2, 0, "-Z", "Z", -1.0),
+            (2, 1, "-Y", "Y", -1.0),
+        )
+
+        self._jog_buttons: List[QPushButton] = []
+        for row, col, label, axis, direction in jog_buttons:
+            btn = QPushButton(label)
+            btn.setObjectName("JogAxisButton")
+            btn.setProperty("axis", axis)
+            btn.setProperty("direction", direction)
+            btn.clicked.connect(self._on_jog_button_clicked)
+            grid.addWidget(btn, row, col)
+            self._jog_buttons.append(btn)
+
+        for index in range(3):
+            grid.setColumnStretch(index, 1)
+            grid.setRowStretch(index, 1)
 
         group.setLayout(grid)
         return group
